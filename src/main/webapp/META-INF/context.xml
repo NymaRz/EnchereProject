@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context>
+	<Resource	
+		name="jdbc/pool_cnx"
+		driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver"
+		type="javax.sql.DataSource"
+		url="jdbc:sqlserver://localhost;databasename=GAME_MANAGER_DB;encrypt=false" 
+		username="sa"
+		password="Pa$$w0rd"
+		maxTotal="10"
+		maxIdle="6"
+		maxWaitMillis="3000"
+	/>
+</Context>
