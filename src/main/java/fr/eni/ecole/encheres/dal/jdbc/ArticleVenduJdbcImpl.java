@@ -1,4 +1,4 @@
-package fr.eni.ecole.dal.jbdc;
+package fr.eni.ecole.encheres.dal.jdbc;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -69,7 +69,7 @@ public class ArticleVenduJdbcImpl implements ArticleVenduDao {
 				articleVendu.setMiseAPrix(rs.getInt("mise_a_prix"));
 				articleVendu.setPrixVente(rs.getInt("prix_vente"));
 				articleVendu.setUtilisateur(rs.getInt("no_utilisateur"));// il faut pointer vers l'utilisateur
-				articleVendu.setCategorieArticle(rs.getClob("categorie_article"));// et la catégorie
+				articleVendu.setCategorieArticle(CategorieDaoJdbcImpl.findOne(rs.getInt("no_categorie")));// et la catégorie
 				// je pense qu'il faudra faire références à l'implémentation jdbc d'utilisateur et catégorie.
 				return articleVendu;
 			}
@@ -94,8 +94,8 @@ public class ArticleVenduJdbcImpl implements ArticleVenduDao {
 				articleVendu.setDateFinEncheres(rs.getDate("date_fin_encheres").toLocalDate());
 				articleVendu.setMiseAPrix(rs.getInt("mise_a_prix"));
 				articleVendu.setPrixVente(rs.getInt("prix_vente"));
-				articleVendu.setUtilisateur(rs.getString("utilisateur"));
-				articleVendu.setCategorieArticle(rs.getString("categorie_article"));
+				articleVendu.setUtilisateur(rs.getInt("no_utilisateur"));
+				articleVendu.setCategorieArticle(rs.getInt("no_categorie"));
 				articlesVendus.add(articleVendu);
 			}
 			return articlesVendus;

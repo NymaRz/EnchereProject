@@ -1,12 +1,12 @@
 package fr.eni.ecole.encheres.dal;
 
-import fr.eni.ecole.dal.jbdc.ArticleVenduJdbcImpl;
+import fr.eni.ecole.encheres.dal.jdbc.ArticleVenduJdbcImpl;
 
 public class DaoFactory {
 
 	private DaoFactory() {}
 	
-	public static ArticleVenduJdbcImpl getArticleVendu() {
+	public static ArticleVenduDao getArticleVenduDao() {
 		//return new GameMockDaoImpl();
 		return new ArticleVenduJdbcImpl();
 	} 
