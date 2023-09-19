@@ -1,4 +1,4 @@
-package fr.eni.ecole.exception;
+package fr.eni.ecole.encheres.bll.exception;
 
 public class BLLException extends Exception {
 

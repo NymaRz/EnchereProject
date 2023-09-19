@@ -4,7 +4,7 @@ import java.util.List;
 
 import fr.eni.ecole.encheres.bo.ArticleVendu;
 
-public interface ArticleVenduDao {
+public interface ArticleVenduDao{
 	// CRUD
 	void save(ArticleVendu articlevendu);
 

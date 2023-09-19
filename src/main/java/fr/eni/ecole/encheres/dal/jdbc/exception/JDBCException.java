@@ -1,4 +1,4 @@
-package fr.eni.ecole.jdbc.exception;
+package fr.eni.ecole.encheres.dal.jdbc.exception;
 
 public class JDBCException extends Exception {
 

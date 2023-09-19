@@ -1,10 +1,10 @@
-package fr.eni.ecole.bll;
+package fr.eni.ecole.encheres.bll;
 
 import java.util.List;
 
 import fr.eni.ecole.encheres.bo.ArticleVendu;
+import fr.eni.ecole.encheres.dal.ArticleVenduDao;
 import fr.eni.ecole.encheres.dal.DaoFactory;
-import fr.eni.ecole.encheres.dal.articleVenduDao;
 
 public class ArticleVenduManager {
     // Début Singleton
@@ -22,7 +22,7 @@ public class ArticleVenduManager {
     }
     // Fin Singleton
 
-    private ArticleVenduDAO articleVenduDao = DaoFactory.getArticleVenduDAO();
+    private ArticleVenduDao articleVenduDao = DaoFactory.getArticleVenduDao();
 
     // Début de la logique métier
 

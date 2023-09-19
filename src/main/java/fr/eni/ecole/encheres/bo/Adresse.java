@@ -1,16 +1,26 @@
 package fr.eni.ecole.encheres.bo;
 
 public class Adresse {
+	private int idAdresse;
 	private String rue;
+	private String codePostal;
 	private String ville;
-	private int codePostal;
 
 
 
 	public Adresse() {
 	}
 
-	public Adresse(String rue, String ville, int codePostal) {
+	public Adresse(String rue, String codePostal, String ville) {
+		this.rue = rue;
+		this.ville = ville;
+		this.codePostal = codePostal;
+	}
+	
+	
+
+	public Adresse(int idAdresse, String rue, String codePostal, String ville) {
+		this.idAdresse = idAdresse;
 		this.rue = rue;
 		this.ville = ville;
 		this.codePostal = codePostal;
@@ -32,17 +42,25 @@ public class Adresse {
 		this.ville = ville;
 	}
 
-	public int getCodePostal() {
+	public String getCodePostal() {
 		return codePostal;
 	}
 
-	public void setCodePostal(int codePostal) {
+	public void setCodePostal(String codePostal) {
 		this.codePostal = codePostal;
 	}
 	
 	@Override
 	public String toString() {
 		return "Adresse [rue=" + rue + ", ville=" + ville + ", codePostal=" + codePostal + "]";
+	}
+
+	public int getIdAdresse() {
+		return idAdresse;
+	}
+
+	public void setIdAdresse(int idAdresse) {
+		this.idAdresse = idAdresse;
 	}
 
 }
