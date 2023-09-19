@@ -26,42 +26,32 @@ public class ArticleVenduManager {
 
 	// Début de la logique métier
 
-	public ArticleVendu recupUnJeu(int id) {
+	public ArticleVendu recupUnArticleVendu(int id) {
 		return articleVenduDao.findOne(id);
 	}
 
-<<<<<<< HEAD
-	public List<ArticleVendu> recupTousLesJeux() {
+
+	public List<ArticleVendu> recupTousLesArticlesVendus() {
 		return articleVenduDao.findAll();
 	}
-=======
-<<<<<<< HEAD
-	public List<ArticleVendu> recupTousLesJeux() {
-		return articleVenduDao.findAll();
-	}
-=======
->>>>>>> 760dd2c18af59be04e4afcf7ac9e462273dc1606
-    public void modifierUnJeu(ArticleVendu articleVendu) {
+
+    public void modifierUnArticleVendu(ArticleVendu articleVendu) {
         // Ajoutez ici la logique de validation des données si nécessaire.
         articleVenduDao.modify(articleVendu);
     }
->>>>>>> a16528686e5f272c3cca71edfde83808b0427bca
 
-	public void ajouterUnJeu(ArticleVendu articleVendu) {
+
+	public void ajouterUnArticleVendu(ArticleVendu articleVendu) {
 		// Ajoutez ici la logique de validation des données si nécessaire.
 		articleVenduDao.save(articleVendu);
 	}
 
-	public void modifierUnJeu(ArticleVendu articleVendu) {
-		// Ajoutez ici la logique de validation des données si nécessaire.
-		articleVenduDao.modify(articleVendu);
-	}
 
-	public void supprimerUnJeu(int id) {
+	public void supprimerUnArticleVendu(int id) {
 		articleVenduDao.remove(id);
 	}
 
-	public List<ArticleVendu> rechercheUnJeu(String query) {
+	public List<ArticleVendu> rechercheUnArticleVendu(String query) {
 		return articleVenduDao.findByName(query);
 	}
 
