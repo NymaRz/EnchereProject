@@ -7,50 +7,50 @@ import fr.eni.ecole.encheres.dal.ArticleVenduDao;
 import fr.eni.ecole.encheres.dal.DaoFactory;
 
 public class ArticleVenduManager {
-    // Début Singleton
-    private static ArticleVenduManager instance;
-    
-    private ArticleVenduManager() {
-        // Constructeur privé pour empêcher l'instanciation directe depuis l'extérieur.
-    }
-    
-    public static ArticleVenduManager getInstance() {
-        if (instance == null) {
-            instance = new ArticleVenduManager();
-        }
-        return instance;
-    }
-    // Fin Singleton
+	// Début Singleton
+	private static ArticleVenduManager instance;
 
-    private ArticleVenduDao articleVenduDao = DaoFactory.getArticleVenduDao();
+	private ArticleVenduManager() {
+		// Constructeur privé pour empêcher l'instanciation directe depuis l'extérieur.
+	}
 
-    // Début de la logique métier
+	public static ArticleVenduManager getInstance() {
+		if (instance == null) {
+			instance = new ArticleVenduManager();
+		}
+		return instance;
+	}
+	// Fin Singleton
 
-    public ArticleVendu recupUnJeu(int id) {
-        return articleVenduDao.findOne(id);
-    }
+	private ArticleVenduDao articleVenduDao = DaoFactory.getArticleVenduDao();
 
-    public List<ArticleVendu> recupTousLesJeux() {
-        return articleVenduDao.findAll();
-    }
+	// Début de la logique métier
 
-    public void ajouterUnJeu(ArticleVendu articleVendu) {
-        // Ajoutez ici la logique de validation des données si nécessaire.
-        articleVenduDao.save(articleVendu);
-    }
+	public ArticleVendu recupUnJeu(int id) {
+		return articleVenduDao.findOne(id);
+	}
 
-    public void modifierUnJeu(ArticleVendu articleVendu) {
-        // Ajoutez ici la logique de validation des données si nécessaire.
-        articleVenduDao.update(articleVendu);
-    }
+	public List<ArticleVendu> recupTousLesJeux() {
+		return articleVenduDao.findAll();
+	}
 
-    public void supprimerUnJeu(int id) {
-        articleVenduDao.remove(id);
-    }
+	public void ajouterUnJeu(ArticleVendu articleVendu) {
+		// Ajoutez ici la logique de validation des données si nécessaire.
+		articleVenduDao.save(articleVendu);
+	}
 
-    public List<ArticleVendu> rechercheUnJeu(String query) {
-        return articleVenduDao.findByName(query);
-    }
+	public void modifierUnJeu(ArticleVendu articleVendu) {
+		// Ajoutez ici la logique de validation des données si nécessaire.
+		articleVenduDao.modify(articleVendu);
+	}
 
-    // Fin de la logique métier
+	public void supprimerUnJeu(int id) {
+		articleVenduDao.remove(id);
+	}
+
+	public List<ArticleVendu> rechercheUnJeu(String query) {
+		return articleVenduDao.findByName(query);
+	}
+
+	// Fin de la logique métier
 }

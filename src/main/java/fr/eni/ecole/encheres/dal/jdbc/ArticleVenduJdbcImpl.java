@@ -68,9 +68,10 @@ public class ArticleVenduJdbcImpl implements ArticleVenduDao {
 				articleVendu.setDateFinEncheres(rs.getDate("date_fin_encheres").toLocalDate());
 				articleVendu.setMiseAPrix(rs.getInt("mise_a_prix"));
 				articleVendu.setPrixVente(rs.getInt("prix_vente"));
-				articleVendu.setUtilisateur(rs.getInt("no_utilisateur"));// il faut pointer vers l'utilisateur
-				articleVendu.setCategorieArticle(CategorieDaoJdbcImpl.findOne(rs.getInt("no_categorie")));// et la catégorie
-				// je pense qu'il faudra faire références à l'implémentation jdbc d'utilisateur et catégorie.
+//				articleVendu.setUtilisateur(rs.getInt("no_utilisateur"));// il faut pointer vers l'utilisateur
+				articleVendu.setCategorieArticle(CategorieDaoJdbcImpl.findOne(rs.getInt("no_Categorie")));// et la catégorie
+				// je pense qu'il faudra faire références à l'implémentation jdbc d'utilisateur
+				// et catégorie.
 				return articleVendu;
 			}
 		} catch (SQLException e) {
@@ -94,8 +95,8 @@ public class ArticleVenduJdbcImpl implements ArticleVenduDao {
 				articleVendu.setDateFinEncheres(rs.getDate("date_fin_encheres").toLocalDate());
 				articleVendu.setMiseAPrix(rs.getInt("mise_a_prix"));
 				articleVendu.setPrixVente(rs.getInt("prix_vente"));
-				articleVendu.setUtilisateur(rs.getInt("no_utilisateur"));
-				articleVendu.setCategorieArticle(rs.getInt("no_categorie"));
+//				articleVendu.setUtilisateur(rs.getInt("no_utilisateur"));
+//				articleVendu.setCategorieArticle(rs.getInt("no_categorie"));
 				articlesVendus.add(articleVendu);
 			}
 			return articlesVendus;
@@ -108,6 +109,7 @@ public class ArticleVenduJdbcImpl implements ArticleVenduDao {
 	public void modify(ArticleVendu articleVendu) {
 		try (Connection connection = ConnectionProvider.getConnection();
 				PreparedStatement pstmt = connection.prepareStatement(UPDATE)) {
+			pstmt.executeUpdate();
 
 			// Valoriser les paramètres de la requête
 			pstmt.setString(1, articleVendu.getNomArticle());
@@ -116,9 +118,9 @@ public class ArticleVenduJdbcImpl implements ArticleVenduDao {
 			pstmt.setDate(4, Date.valueOf(articleVendu.getDateFinEncheres()));
 			pstmt.setInt(5, articleVendu.getMiseAPrix());
 			pstmt.setInt(6, articleVendu.getPrixVente());
-			pstmt.setString(7, articleVendu.getUtilisateur());
-			pstmt.setString(8, articleVendu.getCategorieArticle());
-			pstmt.setInt(9, articleVendu.getId());
+//			pstmt.setString(7, articleVendu.getUtilisateur());
+//			pstmt.setString(8, articleVendu.getCategorieArticle());
+//			pstmt.setInt(9, articleVendu.getId());
 
 			// Exécuter la requête
 			pstmt.executeUpdate();
@@ -128,10 +130,10 @@ public class ArticleVenduJdbcImpl implements ArticleVenduDao {
 		}
 	}
 
-	public void remove(int id) {
+	public void remove(int noArticle) {
 		try (Connection connection = ConnectionProvider.getConnection();
 				PreparedStatement pstmt = connection.prepareStatement(DELETE_ONE);) {
-			pstmt.setInt(1, id);
+			pstmt.setInt(1, noArticle);
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -154,8 +156,8 @@ public class ArticleVenduJdbcImpl implements ArticleVenduDao {
 				articleVendu.setDateFinEncheres(rs.getDate("date_fin_encheres").toLocalDate());
 				articleVendu.setMiseAPrix(rs.getInt("mise_a_prix"));
 				articleVendu.setPrixVente(rs.getInt("prix_vente"));
-				articleVendu.setUtilisateur(rs.getString("utilisateur"));
-				articleVendu.setCategorieArticle(rs.getString("categorie_article"));
+//				articleVendu.setUtilisateur(rs.getString("utilisateur"));
+//				articleVendu.setCategorieArticle(rs.getString("categorie_article"));
 				articleVendus.add(articleVendu);
 			}
 			return articleVendus;
