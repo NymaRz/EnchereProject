@@ -3,13 +3,22 @@ package fr.eni.ecole.encheres.bo;
 import java.time.LocalDate;
 
 public class Enchere {
-	private LocalDate dateEnchere;
 	private int montant_enchere;
 	private Utilisateur acquereur;
 	private ArticleVendu articleEncheri;
+	private LocalDate dateEnchere;
+	private int id_enchere;
 
-//	public Enchere() {
-//	}
+	public Enchere() {
+	}
+
+	public Enchere(Utilisateur acquereur, ArticleVendu articleEncheri, int montant_enchere) {
+
+		this.setMontant_enchere(montant_enchere);
+		this.getAcquereur().addEnchereToUser(this);
+		this.getArticleEncheri().addEnchereToArticle(this);
+	}
+
 	public Enchere(LocalDate dateEnchere, int montant_enchere, Utilisateur acquereur, ArticleVendu articleEncheri) {
 
 		this.setDateEnchere(dateEnchere);
@@ -18,6 +27,10 @@ public class Enchere {
 		this.setArticleEncheri(articleEncheri);
 		this.getAcquereur().addEnchereToUser(this);
 		this.getArticleEncheri().addEnchereToArticle(this);
+	}
+
+	public Enchere(int idEnchere) {
+		this.setId_enchere(idEnchere);
 	}
 
 	public LocalDate getDateEnchere() {
@@ -50,6 +63,14 @@ public class Enchere {
 
 	public void setArticleEncheri(ArticleVendu articleEncheri) {
 		this.articleEncheri = articleEncheri;
+	}
+
+	public int getId_enchere() {
+		return id_enchere;
+	}
+
+	public void setId_enchere(int id_enchere) {
+		this.id_enchere = id_enchere;
 	}
 
 }
