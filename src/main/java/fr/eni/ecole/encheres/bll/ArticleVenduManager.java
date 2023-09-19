@@ -30,13 +30,22 @@ public class ArticleVenduManager {
 		return articleVenduDao.findOne(id);
 	}
 
+<<<<<<< HEAD
 	public List<ArticleVendu> recupTousLesJeux() {
 		return articleVenduDao.findAll();
 	}
+=======
+<<<<<<< HEAD
+	public List<ArticleVendu> recupTousLesJeux() {
+		return articleVenduDao.findAll();
+	}
+=======
+>>>>>>> 760dd2c18af59be04e4afcf7ac9e462273dc1606
     public void modifierUnJeu(ArticleVendu articleVendu) {
         // Ajoutez ici la logique de validation des données si nécessaire.
-        articleVenduDao.update(articleVendu);
+        articleVenduDao.modify(articleVendu);
     }
+>>>>>>> a16528686e5f272c3cca71edfde83808b0427bca
 
 	public void ajouterUnJeu(ArticleVendu articleVendu) {
 		// Ajoutez ici la logique de validation des données si nécessaire.
