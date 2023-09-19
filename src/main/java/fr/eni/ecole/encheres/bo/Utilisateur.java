@@ -13,15 +13,15 @@ public class Utilisateur {
 	private String telephone;
 	private Adresse adresse;
 	private String mdp;
-	private float credit;
+	private int credit;
 	private boolean admin = false;
 	private boolean vip = false;
 	private List<ArticleVendu> articlesAVendre = new ArrayList<ArticleVendu>();
 	private List<Enchere> encheres = new ArrayList<Enchere>();
+
 	public Utilisateur() {
 
 	}
-
 
 	public Utilisateur(int noUtilisateur, String pseudo, String nom, String prenom, String email, String telephone,
 			Adresse adresse, String mdp) {
@@ -37,8 +37,33 @@ public class Utilisateur {
 		this.credit = 0;
 	}
 
+	public Utilisateur(String pseudo, String nom, String prenom, String email, String telephone, Adresse adresse,
+			String mdp) {
+		super();
+		this.pseudo = pseudo;
+		this.nom = nom;
+		this.prenom = prenom;
+		this.email = email;
+		this.telephone = telephone;
+		this.adresse = adresse;
+		this.mdp = mdp;
+	}
+
+	public Utilisateur(String pseudo, String nom, String prenom, String email, String telephone, Adresse adresse,
+			String mdp, int credit) {
+		super();
+		this.pseudo = pseudo;
+		this.nom = nom;
+		this.prenom = prenom;
+		this.email = email;
+		this.telephone = telephone;
+		this.adresse = adresse;
+		this.mdp = mdp;
+		this.credit = credit;
+	}
+
 	public Utilisateur(int noUtilisateur, String pseudo, String nom, String prenom, String email, String telephone,
-			Adresse adresse, String mdp, float credit) {
+			Adresse adresse, String mdp, int credit) {
 		super();
 		this.noUtilisateur = noUtilisateur;
 		this.pseudo = pseudo;
@@ -115,11 +140,11 @@ public class Utilisateur {
 		this.mdp = mdp;
 	}
 
-	public float getCredit() {
+	public int getCredit() {
 		return credit;
 	}
 
-	public void setCredit(float credit) {
+	public void setCredit(int credit) {
 		this.credit = credit;
 	}
 
@@ -138,6 +163,7 @@ public class Utilisateur {
 	public void setVip(boolean vip) {
 		this.vip = vip;
 	}
+
 	public List<ArticleVendu> getArticlesAVendre() {
 		return articlesAVendre;
 	}
@@ -145,24 +171,22 @@ public class Utilisateur {
 	public void setArticlesAVendre(List<ArticleVendu> articlesAVendre) {
 		this.articlesAVendre = articlesAVendre;
 	}
+
 	public List<Enchere> getEncheres() {
 		return encheres;
 	}
-
 
 	public void setEncheres(List<Enchere> encheres) {
 		this.encheres = encheres;
 	}
 
-	
 	public void addArticleToUser(ArticleVendu articleVendu) {
 		this.getArticlesAVendre().add(articleVendu);
 	}
+
 	public void addEnchereToUser(Enchere enchere) {
 		this.getEncheres().add(enchere);
 	}
-
-
 
 	@Override
 	public String toString() {
@@ -171,9 +195,5 @@ public class Utilisateur {
 				+ ", credit=" + credit + ", admin=" + admin + ", vip=" + vip + ", articlesAVendre=" + articlesAVendre
 				+ ", encheres=" + encheres + "]";
 	}
-
-
-
-
 
 }

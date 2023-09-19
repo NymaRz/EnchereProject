@@ -1,6 +1,6 @@
 package fr.eni.ecole.encheres.dal;
 
-import fr.eni.ecole.encheres.dal.jdbc.ArticleVenduJdbcImpl;
+import fr.eni.ecole.encheres.dal.jdbc.*;
 
 public class DaoFactory {
 
@@ -10,6 +10,22 @@ public class DaoFactory {
 		//return new GameMockDaoImpl();
 		return new ArticleVenduJdbcImpl();
 	} 
+	
+	public static AdresseDao getAdresseDao() {
+		return new AdresseDaoJdbcImpl();
+	}
+	
+	public static UtilisateurDao getUtilisateurDao() {
+		return new UtilisateurDaoJdbcImpl();
+	}
+	
+	public static RetraitDao getRetraitDao() {
+		return new RetraitDaoJdbcImpl();
+	}
+	
+	public static CategorieDAO getCategorieDao() {
+		return new CategorieDaoJdbcImpl();
+	}
 	
 //	public static UserDao getUserDao() {
 //		return new UserDaoJdbcImpl();
