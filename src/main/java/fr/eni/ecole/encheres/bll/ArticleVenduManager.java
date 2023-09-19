@@ -30,9 +30,16 @@ public class ArticleVenduManager {
 		return articleVenduDao.findOne(id);
 	}
 
+<<<<<<< HEAD
 	public List<ArticleVendu> recupTousLesJeux() {
 		return articleVenduDao.findAll();
 	}
+=======
+    public void modifierUnJeu(ArticleVendu articleVendu) {
+        // Ajoutez ici la logique de validation des données si nécessaire.
+        articleVenduDao.modify(articleVendu);
+    }
+>>>>>>> a16528686e5f272c3cca71edfde83808b0427bca
 
 	public void ajouterUnJeu(ArticleVendu articleVendu) {
 		// Ajoutez ici la logique de validation des données si nécessaire.
