@@ -8,16 +8,16 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import fr.eni.ecole.encheres.bo.Adresse;
 import fr.eni.ecole.encheres.bo.Retrait;
+import fr.eni.ecole.encheres.dal.DaoFactory;
 import fr.eni.ecole.encheres.dal.RetraitDao;
 
 public class RetraitDaoJdbcImpl implements RetraitDao{
 
-	private static final String SAVE_RETRAIT = "INSERT INTO RETRAITS (id_retrait, id_adresse) VALUES	(?,?)";
+	private static final String SAVE_RETRAIT = "INSERT INTO RETRAITS (id_adresse) VALUES	(?)";
 	private static final String FIND_RETRAIT_BY_ID = "SELECT * FROM RETRAITS WHERE id_retrait=?";
 	private static final String SELECT_ALL_RETRAITS = "SELECT * FROM RETRAITS";
-	private static final String UPDATE_RETRAIT = "UPDATE RETRAITS SET id_retrait=?, id_adresse=? WHERE id_retrait=?";
+	private static final String UPDATE_RETRAIT = "UPDATE RETRAITS SET id_adresse=? WHERE id_retrait=?";
 	private static final String DELETE_RETRAIT = "DELETE FROM RETRAITS WHERE id_retrait=?";
 	private static final String FIND_BY_RETRAIT = "SELECT * FROM RETRAITS WHERE id_retrait=?";
 
@@ -26,7 +26,6 @@ public class RetraitDaoJdbcImpl implements RetraitDao{
 		try (Connection connection = ConnectionProvider.getConnection();
 				PreparedStatement pstmt = connection.prepareStatement(SAVE_RETRAIT)) {
 			pstmt.setInt(1, retrait.getAdresse().getIdAdresse());
-			pstmt.setInt(2, retrait.getIdRetrait());
 			pstmt.executeUpdate();
 
 		} catch (SQLException e) {
@@ -74,8 +73,8 @@ public class RetraitDaoJdbcImpl implements RetraitDao{
 	public void modify(Retrait retrait) {
 		try (Connection connection = ConnectionProvider.getConnection();
 				PreparedStatement pstmt = connection.prepareStatement(UPDATE_RETRAIT)) {
-			pstmt.setInt(2, retrait.getAdresse().getIdAdresse());
-			pstmt.setInt(1, retrait.getIdRetrait());
+			pstmt.setInt(1, retrait.getAdresse().getIdAdresse());
+			pstmt.setInt(2, retrait.getIdRetrait());
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -103,7 +102,7 @@ public class RetraitDaoJdbcImpl implements RetraitDao{
 			List<Retrait> retraits = new ArrayList<Retrait>();
 			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) {
-				Retrait retrait = new Retrait(rs.getInt("id_retrait"), DaoFactory.getAdresseDao().findOne(rs.getString("id_adresse")));
+				Retrait retrait = new Retrait(rs.getInt("id_retrait"), DaoFactory.getAdresseDao().findOne(rs.getInt("id_adresse")));
 				// Récupérer les données du ResultSet et les assigner à l'objet adresse
 
 				retraits.add(retrait);

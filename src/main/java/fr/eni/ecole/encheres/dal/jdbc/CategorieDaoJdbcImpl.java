@@ -12,10 +12,10 @@ import fr.eni.ecole.encheres.bo.Categorie;
 import fr.eni.ecole.encheres.dal.CategorieDAO;
 
 public class CategorieDaoJdbcImpl implements CategorieDAO {
-	private static final String SAVE_CATEGORIES = "INSERT INTO CATEGORIES (no_categorie,libelle) VALUES	(?,?)";
+	private static final String SAVE_CATEGORIES = "INSERT INTO CATEGORIES (libelle) VALUES	(?)";
 	private static final String FIND_CATEGORIES_BY_ID = "SELECT * FROM CATEGORIES WHERE no_categorie=?";
 	private static final String SELECT_ALL_CATEGORIES = "SELECT * FROM CATEGORIES";
-	private static final String UPDATE_CATEGORIES = "UPDATE CATEGORIES SET no_categorie?, libelle=?,WHERE no_categorie=?";
+	private static final String UPDATE_CATEGORIES = "UPDATE CATEGORIES SET libelle=?,WHERE no_categorie=?";
 	private static final String DELETE_CATEGORIES = "DELETE FROM CATEGORIES WHERE no_categorie=?";
 	private static final String FIND_BY_CATEGORIES = "SELECT * FROM CATEGORIES WHERE libelle LIKE ?";
 
@@ -23,8 +23,7 @@ public class CategorieDaoJdbcImpl implements CategorieDAO {
 	public void save(Categorie categorie) {
 		try (Connection connection = ConnectionProvider.getConnection();
 				PreparedStatement pstmt = connection.prepareStatement(SAVE_CATEGORIES)) {
-			pstmt.setInt(1, categorie.getNoCategorie());
-			pstmt.setString(2, categorie.getLibelle());
+			pstmt.setString(1, categorie.getLibelle());
 			pstmt.executeUpdate();
 
 		} catch (SQLException e) {
@@ -40,7 +39,7 @@ public class CategorieDaoJdbcImpl implements CategorieDAO {
 			pstmt.setInt(1, no_categorie);
 			ResultSet rs = pstmt.executeQuery();
 			if (rs.next()) {
-				Categorie categorie = new Categorie(rs.getInt("no_categorie"), rs.getString("libelle"));
+				return new Categorie(rs.getInt("no_categorie"), rs.getString("libelle"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -71,8 +70,8 @@ public class CategorieDaoJdbcImpl implements CategorieDAO {
 	public void modify(Categorie categorie) {
 		try (Connection connection = ConnectionProvider.getConnection();
 				PreparedStatement pstmt = connection.prepareStatement(UPDATE_CATEGORIES)) {
-			pstmt.setInt(1, categorie.getNoCategorie());
-			pstmt.setString(2, categorie.getLibelle());
+			pstmt.setString(1, categorie.getLibelle());
+			pstmt.setInt(2, categorie.getNoCategorie());
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();

@@ -1,6 +1,10 @@
 package fr.eni.ecole.encheres.dal;
 
-import fr.eni.ecole.encheres.dal.jdbc.*;
+import fr.eni.ecole.encheres.dal.jdbc.AdresseDaoJdbcImpl;
+import fr.eni.ecole.encheres.dal.jdbc.ArticleVenduJdbcImpl;
+import fr.eni.ecole.encheres.dal.jdbc.CategorieDaoJdbcImpl;
+import fr.eni.ecole.encheres.dal.jdbc.RetraitDaoJdbcImpl;
+import fr.eni.ecole.encheres.dal.jdbc.UtilisateurDaoJdbcImpl;
 
 public class DaoFactory {
 
