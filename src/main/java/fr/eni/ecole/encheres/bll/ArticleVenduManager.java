@@ -41,7 +41,7 @@ public class ArticleVenduManager {
 
     public void modifierUnJeu(ArticleVendu articleVendu) {
         // Ajoutez ici la logique de validation des données si nécessaire.
-        articleVenduDao.update(articleVendu);
+        articleVenduDao.modify(articleVendu);
     }
 
     public void supprimerUnJeu(int id) {

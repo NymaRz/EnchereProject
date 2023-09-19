@@ -57,7 +57,7 @@ public class AdresseDaoJdbcImpl implements AdresseDao {
 	public List<Adresse> findAll() {
 		try (Connection connection = ConnectionProvider.getConnection();
 				Statement stmt = connection.createStatement();) {
-			List<Adresse> adresses = new ArrayList<>();
+			List<Adresse> adresses = new ArrayList<Adresse>();
 			ResultSet rs = stmt.executeQuery(SELECT_ALL_ADRESSES);
 			while (rs.next()) {
 				Adresse adresse = new Adresse(rs.getInt("id_adresse"), rs.getString("rue"), rs.getString("code_postal"),
