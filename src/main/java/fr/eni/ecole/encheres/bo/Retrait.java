@@ -5,6 +5,7 @@ import java.util.List;
 
 public class Retrait {
 
+	private int idRetrait;
 	private Adresse adresse;
 	private List<ArticleVendu> articlesVendus = new ArrayList<ArticleVendu>();
 
@@ -14,6 +15,13 @@ public class Retrait {
 
 	public Retrait(Adresse adresse) {
 		super();
+		this.adresse = adresse;
+	}
+	
+
+	public Retrait(int idRetrait, Adresse adresse) {
+		super();
+		this.idRetrait = idRetrait;
 		this.adresse = adresse;
 	}
 
@@ -41,6 +49,14 @@ public class Retrait {
 	//permet d'ajouter un article à ce point de retrait automatiquement
 	public void addArticleToRetrait(ArticleVendu articleVendu) {
 		this.articlesVendus.add(articleVendu);
+	}
+
+	public int getIdRetrait() {
+		return idRetrait;
+	}
+
+	public void setIdRetrait(int idRetrait) {
+		this.idRetrait = idRetrait;
 	}
 
 }
