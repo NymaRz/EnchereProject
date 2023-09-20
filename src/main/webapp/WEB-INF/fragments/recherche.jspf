@@ -1,43 +1,64 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page import="java.util.List"%>
-<%@ page import="fr.eni.ecole.encheres.bo.Categorie"%>
-<%@ page import="fr.eni.ecole.encheres.bll.CategorieManager"%>
+	pageEncoding="UTF-8"%>
+
+<%@ taglib uri="jakarta.tags.core" prefix="c"%>
+
+<%@page import="java.util.*"%>
 
 <%
-    // Récupération de la liste des catégories depuis la base de données
-    List<Categorie> categories = 
+List<Categorie> categories = (List<Categorie>) request.getAttribute("categories");
 %>
 
-<form method="GET" action="${pageContext.request.contextPath}/accueil">
-    <input type="search" name="q" placeholder="Recherche..." aria-label="Search">
-    <button type="submit">
-        <i class="fa-solid fa-magnifying-glass"></i>
-    </button>
+<%@page import="fr.eni.ecole.encheres.bo.*"%>
 
-<<<<<<< HEAD
-    <label for="categorie">Catégories:</label>
-    <select id="categorie" name="categorie">
-        <option value="" selected>Toutes</option>
-=======
-<%-- 		<%
+<%@page import="fr.eni.ecole.encheres.bll.*"%>
+
+<form method="GET" action="${ pageContext.request.contextPath }/accueil">
+
+	<input type="search" name="q" placeholder="Recherche..."
+		aria-label="Search">
+
+	<button type="submit">
+
+		<i class="fa-solid fa-magnifying-glass"></i>
+
+	</button>
+
+
+
+	<label for="categorie">Catégories:</label> <select id="categorie"
+		name="categorie">
+
+		<option value="" selected>Toutes</option>
+
+
+
+		<%-- 		<%
+
 		for (Categorie categorie : categories) {
+
 		%>
+
 		<option value="<%=categorie.getNoCategorie()%>"><%=categorie.getLibelle()%></option>
+
 		<%
+
 		}
+
 		%> --%>
-	<c:forEach var="categorie" items="${ categories }">
+
+		<c:forEach var="categorie" items="${ categories }">
+
+
 
 			<option value="${ categorie.noCategorie}">${categorie.libelle}</option>
 
-		</c:forEach> 
-	</select>
->>>>>>> a101c1f226faee125a33758e71dad5aa4db9355d
 
-        <c:forEach var="categorie" items="${categories}">
-            <option value="${categorie.noCategorie}">${categorie.libelle}</option>
-        </c:forEach>
-    </select>
+
+		</c:forEach>
+
+	</select>
+
+
+
 </form>

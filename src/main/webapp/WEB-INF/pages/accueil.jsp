@@ -3,7 +3,9 @@
 <%@ include file="/WEB-INF/fragments/headerAccueilNONConnecte.jspf" %>
 
 <main>
-<%@include file="/WEB-INF/fragments/recherche.jspf"%>
+
+<%@ include file="/WEB-INF/fragments/recherche.jspf" %>
+
 </main>
 
 
