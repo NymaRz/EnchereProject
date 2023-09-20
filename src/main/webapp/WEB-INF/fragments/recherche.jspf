@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
+
 	pageEncoding="UTF-8"%>
 
 <%@ taglib uri="jakarta.tags.core" prefix="c"%>
@@ -6,7 +7,9 @@
 <%@page import="java.util.*"%>
 
 <%
+
 List<Categorie> categories = (List<Categorie>) request.getAttribute("categories");
+
 %>
 
 <%@page import="fr.eni.ecole.encheres.bo.*"%>
@@ -16,6 +19,7 @@ List<Categorie> categories = (List<Categorie>) request.getAttribute("categories"
 <form method="GET" action="${ pageContext.request.contextPath }/accueil">
 
 	<input type="search" name="q" placeholder="Recherche..."
+
 		aria-label="Search">
 
 	<button type="submit">
@@ -24,16 +28,27 @@ List<Categorie> categories = (List<Categorie>) request.getAttribute("categories"
 
 	</button>
 
+<<<<<<< HEAD
 
+=======
+ 
+>>>>>>> b3f4c10537f59790727f2f60cf533dc2385399aa
 
 	<label for="categorie">Catégories:</label> <select id="categorie"
+
 		name="categorie">
 
 		<option value="" selected>Toutes</option>
 
+<<<<<<< HEAD
 
 
 		<%-- 		<%
+=======
+ 
+
+<%-- 		<%
+>>>>>>> b3f4c10537f59790727f2f60cf533dc2385399aa
 
 		for (Categorie categorie : categories) {
 
@@ -47,18 +62,32 @@ List<Categorie> categories = (List<Categorie>) request.getAttribute("categories"
 
 		%> --%>
 
+<<<<<<< HEAD
 		<c:forEach var="categorie" items="${ categories }">
 
 
+=======
+	<c:forEach var="categorie" items="${ categories }">
+>>>>>>> b3f4c10537f59790727f2f60cf533dc2385399aa
+
+ 
 
 			<option value="${ categorie.noCategorie}">${categorie.libelle}</option>
 
+<<<<<<< HEAD
 
+=======
+ 
+>>>>>>> b3f4c10537f59790727f2f60cf533dc2385399aa
 
 		</c:forEach>
 
 	</select>
 
+<<<<<<< HEAD
 
+=======
+ 
+>>>>>>> b3f4c10537f59790727f2f60cf533dc2385399aa
 
 </form>
