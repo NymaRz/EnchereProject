@@ -7,7 +7,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet ("")
+@WebServlet ("/liste-encheres-mes-ventes")
 
 public class ListEnchereMesVentesServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;

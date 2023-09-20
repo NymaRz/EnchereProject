@@ -1,0 +1,21 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<form method="GET" action="${ pageContext.request.contextPath }/accueil">
+	<input type="search" name="q" placeholder="Recherche..."
+		aria-label="Search">
+	<button type="submit">
+		<i class="fa-solid fa-magnifying-glass"></i>
+	</button>
+
+	<label for="categorie">Catégories:</label> <select id="categorie"
+		name="categorie"><option value="" selected>Toutes</option>
+		<c:forEach var="categorie" items="${ categories }">
+
+			<option value="${ categorie.id}">${categorie.libelle}</option>
+
+		</c:forEach>
+	</select>
+
+</form>
+
+
