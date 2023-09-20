@@ -16,9 +16,25 @@
         <i class="fa-solid fa-magnifying-glass"></i>
     </button>
 
+<<<<<<< HEAD
     <label for="categorie">Catégories:</label>
     <select id="categorie" name="categorie">
         <option value="" selected>Toutes</option>
+=======
+<%-- 		<%
+		for (Categorie categorie : categories) {
+		%>
+		<option value="<%=categorie.getNoCategorie()%>"><%=categorie.getLibelle()%></option>
+		<%
+		}
+		%> --%>
+	<c:forEach var="categorie" items="${ categories }">
+
+			<option value="${ categorie.noCategorie}">${categorie.libelle}</option>
+
+		</c:forEach> 
+	</select>
+>>>>>>> a101c1f226faee125a33758e71dad5aa4db9355d
 
         <c:forEach var="categorie" items="${categories}">
             <option value="${categorie.noCategorie}">${categorie.libelle}</option>
