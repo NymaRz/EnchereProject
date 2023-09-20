@@ -7,7 +7,7 @@ import java.util.List;
 import fr.eni.ecole.encheres.bll.ArticleVenduManager;
 import fr.eni.ecole.encheres.bll.CategorieManager;
 import fr.eni.ecole.encheres.bo.ArticleVendu;
-import fr.eni.ecole.encheres.bo.Categorie;
+
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -22,7 +22,11 @@ public class Accueil extends HttpServlet {
 			throws ServletException, IOException {
 		List<ArticleVendu> articlesVendus = null;
 		request.setAttribute("categories", CategorieManager.getInstance().recupTouteCategories());
+<<<<<<< HEAD
 		
+=======
+
+>>>>>>> a7c37600868203e67b905c48c9a8610137992db9
 		if (request.getParameter("categorie") != null) {
 			if (request.getParameter("q") != null) {
 				articlesVendus = ArticleVenduManager.getInstance().rechercherUnArticleVenduByCategorie(CategorieManager

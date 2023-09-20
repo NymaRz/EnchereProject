@@ -51,7 +51,7 @@ List<Categorie> categories = (List<Categorie>) request.getAttribute("categories"
 
  
 
-		</c:forEach> --%>
+		</c:forEach> -->%
 
 	</select>
 
