@@ -1,6 +1,12 @@
 package fr.eni.ecole.encheres.dal;
 
-import fr.eni.ecole.encheres.dal.jdbc.*;
+import fr.eni.ecole.encheres.dal.jdbc.AdresseDaoJdbcImpl;
+import fr.eni.ecole.encheres.dal.jdbc.ArticleVenduJdbcImpl;
+import fr.eni.ecole.encheres.dal.jdbc.CategorieDaoJdbcImpl;
+import fr.eni.ecole.encheres.dal.jdbc.EnchereDaoJdbcImpl;
+import fr.eni.ecole.encheres.dal.jdbc.ForgetPasswordDaoJdbcImpl;
+import fr.eni.ecole.encheres.dal.jdbc.RetraitDaoJdbcImpl;
+import fr.eni.ecole.encheres.dal.jdbc.UtilisateurDaoJdbcImpl;
 
 public class DaoFactory {
 
@@ -32,12 +38,12 @@ public class DaoFactory {
 	}
 	
 	
-//	public static UserDao getUserDao() {
-//		return new UserDaoJdbcImpl();
-//	}
-//	
-//	public static ForgetPasswordDao getForgetPasswordDao() {
-//		return new ForgetPasswordDaoJdbcImpl();
-//	}
+	public static UtilisateurDao getUserDao() {
+		return new UtilisateurDaoJdbcImpl();
+	}
+	
+	public static ForgetPasswordDao getForgetPasswordDao() {
+		return new ForgetPasswordDaoJdbcImpl();
+	}
 	
 }

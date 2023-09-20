@@ -8,7 +8,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import fr.eni.ecole.encheres.bo.Adresse;
 import fr.eni.ecole.encheres.bo.Utilisateur;
 import fr.eni.ecole.encheres.dal.DaoFactory;
 import fr.eni.ecole.encheres.dal.UtilisateurDao;
@@ -21,6 +20,7 @@ public class UtilisateurDaoJdbcImpl implements UtilisateurDao {
 	private static final String UPDATE_UTILISATEUR = "UPDATE UTILISATEURS set pseudo=?,nom=?,prenom=?,email=?,telephone=?,id_adresse=?,mot_de_passe=?,credit=?,administrateur=?,vip=? WHERE no_utilisateur=?";
 	private static final String DELETE_UTILISATEUR = "DELETE FROM UTILISATEURS WHERE no_utilisateur=?";
 	private static final String FIND_BY_PSEUDO_UTILISATEUR = "SELECT * FROM UTILISATEURS WHERE pseudo LIKE ?";
+	private static final String SELECT_BY_EMAIL = "SELECT * FROM UTILISATEURS WHERE email = ?";
 
 	@Override
 	public void save(Utilisateur utilisateur) {
@@ -139,6 +139,23 @@ public class UtilisateurDaoJdbcImpl implements UtilisateurDao {
 				utilisateurs.add(utilisateur);
 			}
 			return utilisateurs;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@Override
+	public Utilisateur findByEmail(String email) {
+		try (Connection connection = ConnectionProvider.getConnection();
+				PreparedStatement pstmt = connection.prepareStatement(SELECT_BY_EMAIL);) {
+
+			pstmt.setString(1, email);
+			ResultSet rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				return new Utilisateur();
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
