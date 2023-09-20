@@ -17,5 +17,8 @@ public interface UtilisateurDao {
 
 	List<Utilisateur> findByPseudo(String query);
 	
+	Utilisateur findByEmail(String email);
+
+	
 	
 }

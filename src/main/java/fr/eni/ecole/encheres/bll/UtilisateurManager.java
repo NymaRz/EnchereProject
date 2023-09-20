@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Random;
 
 import fr.eni.ecole.encheres.bll.exception.BLLException;
+import fr.eni.ecole.encheres.bo.ForgetPassword;
 import fr.eni.ecole.encheres.bo.Utilisateur;
 import fr.eni.ecole.encheres.dal.DaoFactory;
 import fr.eni.ecole.encheres.dal.UtilisateurDao;
@@ -80,44 +81,44 @@ public class UtilisateurManager {
 
 	public Utilisateur login(String username, String password) {
 		Utilisateur user = (Utilisateur) utilisateurDao.findByPseudo(username);
-		// AJOUTER CONTRAINTE D'UNICITE DU PSEUDO !!!!!!!!!!!!!!!!
 		if (user != null && user.getPrenom().equals(username) && user.getMdp().equals(password)) {
 			return user;
 		}
 		return null;
 	}
 
-//	public ForgetPassword checkEmail(String email) throws BLLException {
-//		
-//		Utilisateur user = userDao.findByEmail(email);
-//		if(user == null) throw new BLLException("Erreur: l'email n'existe pas");			
-//		// Générer le code
-//		String code = rd.nextLong(1,9999999999L)+"";
-//		ForgetPassword fp = new ForgetPassword(code, user);
-//
-//		// save
-//		DaoFactory.getForgetPasswordDao()
-//				  .save(fp);
-//		// envoi mail
-//		
-//		// par sms API 
-//		System.out.println(code);
-//
-//		return fp;
-//	}
-//
-//	public void resetPassword(String email, String code, String newPassword) throws BLLException {
-//		
-//		ForgetPassword fp = DaoFactory.getForgetPasswordDao().resetPassword(email);
-//		
-//		if(!fp.getCode().equals(code)) throw new BLLException("Le code est érroné!");
-//		
-//		Utilisateur user = fp.getUser();
-//		
-//		user.setPassword(newPassword);
-//		
-//		userDao.modify(user);
-//		
-//	}
+	public ForgetPassword checkEmail(String email) throws BLLException {
+
+		Utilisateur user = userDao.findByEmail(email);
+		if (user == null)
+			throw new BLLException("Erreur: l'email n'existe pas");
+		// Générer le code
+		String code = rd.nextLong(1, 9999999999L) + "";
+		ForgetPassword fp = new ForgetPassword(code, user);
+
+		// save
+		DaoFactory.getForgetPasswordDao().save(fp);
+		// envoi mail
+
+		// par sms API
+		System.out.println(code);
+
+		return fp;
+	}
+
+	public void resetPassword(String email, String code, String newPassword) throws BLLException {
+
+		ForgetPassword fp = DaoFactory.getForgetPasswordDao().resetPassword(email);
+
+		if (!fp.getCode().equals(code))
+			throw new BLLException("Le code est érroné!");
+
+		Utilisateur utilisateur = fp.getUser();
+
+		utilisateur.setMdp(newPassword);
+
+		userDao.modify(utilisateur);
+
+	}
 
 }
