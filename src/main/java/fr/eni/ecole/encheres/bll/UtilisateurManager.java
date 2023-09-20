@@ -1,10 +1,13 @@
 package fr.eni.ecole.encheres.bll;
 
 import java.util.List;
+import java.util.Random;
 
+import fr.eni.ecole.encheres.bll.exception.BLLException;
 import fr.eni.ecole.encheres.bo.Utilisateur;
 import fr.eni.ecole.encheres.dal.DaoFactory;
 import fr.eni.ecole.encheres.dal.UtilisateurDao;
+import fr.eni.ecole.encheres.dal.jdbc.exception.JDBCException;
 
 public class UtilisateurManager {
 	// singleton
@@ -50,37 +53,40 @@ public class UtilisateurManager {
 		return utilisateurDao.findByPseudo(query);
 	}
 
-//	private UtilisateurDao userDao = DaoFactory.getUtilisateurDao();
-//	private Random rd = new Random();
-//	
-//	public void inscription(Utilisateur user) throws JDBCException, BLLException {
-//		// validation !!!!!!!!
-//		checkFields(user);
-//		userDao.save(user);		
-//	}
-//	
-//	
-//	private void checkFields(Utilisateur user) throws BLLException {
-//		if( user == null ) throw new BLLException("User est null");
-//		
-//		if( user.getUsername().isBlank() ) throw new BLLException("Le champs Username est obligatoire!");
-//		if( user.getEmail().isBlank() ) throw new BLLException("Le champs Email est obligatoire!");
-//		// verifier la syntaxe de l'email
-//		if( user.getPassword().isBlank() ) throw new BLLException("Le champs Mot de passe est obligatoire!");
-//		if( user.getPassword().length() < 8 ||  user.getPassword().length() > 35 )throw new BLLException("La taille du mot de passe doit etre entre 8 et 35");
-//		//if(!user.getPassword().equals(user.getConfirmpassword))
-//	}
-//
-//	public Utilisateur login(String username,String password) {
-//		Utilisateur user = userDao.findByUsername(username);		
-//		if(user!=null 
-//				&& user.getUsername().equals(username)
-//				&& user.getPassword().equals(password) ) {
-//			return user;
-//		}		
-//		return null;
-//	}
-//
+	private UtilisateurDao userDao = DaoFactory.getUtilisateurDao();
+	private Random rd = new Random();
+
+	public void inscription(Utilisateur user) throws JDBCException, BLLException {
+		// validation !!!!!!!!
+		checkFields(user);
+		userDao.save(user);
+	}
+
+	private void checkFields(Utilisateur user) throws BLLException {
+		if (user == null)
+			throw new BLLException("User est null");
+
+		if (user.getPrenom().isBlank())
+			throw new BLLException("Le champs Username est obligatoire!");
+		if (user.getEmail().isBlank())
+			throw new BLLException("Le champs Email est obligatoire!");
+		// verifier la syntaxe de l'email
+		if (user.getMdp().isBlank())
+			throw new BLLException("Le champs Mot de passe est obligatoire!");
+		if (user.getMdp().length() < 8 || user.getMdp().length() > 35)
+			throw new BLLException("La taille du mot de passe doit etre entre 8 et 35");
+		// if(!user.getPassword().equals(user.getConfirmpassword))
+	}
+
+	public Utilisateur login(String username, String password) {
+		Utilisateur user = (Utilisateur) utilisateurDao.findByPseudo(username);
+		// AJOUTER CONTRAINTE D'UNICITE DU PSEUDO !!!!!!!!!!!!!!!!
+		if (user != null && user.getPrenom().equals(username) && user.getMdp().equals(password)) {
+			return user;
+		}
+		return null;
+	}
+
 //	public ForgetPassword checkEmail(String email) throws BLLException {
 //		
 //		Utilisateur user = userDao.findByEmail(email);
