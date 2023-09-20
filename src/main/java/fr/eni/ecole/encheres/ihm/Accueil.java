@@ -17,7 +17,7 @@ import jakarta.servlet.http.HttpServletResponse;
 @WebServlet("/accueil")
 public class Accueil extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+//modif
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		List<ArticleVendu> articlesVendus = null;
