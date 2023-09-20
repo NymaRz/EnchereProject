@@ -55,7 +55,7 @@ public class ArticleVenduManager {
 	}
 
 	public List<ArticleVendu> findArticlesVendusByCategorie(Categorie categorie) {
-		List<ArticleVendu> articlesVendus = this.recupTousLesArticlesVendus();
+		List<ArticleVendu> articlesVendus = ArticleVenduManager.getInstance().recupTousLesArticlesVendus();
 		List<ArticleVendu> articlesVendusOfCategorie = new ArrayList<ArticleVendu>();
 		for (ArticleVendu articleVendu : articlesVendus) {
 			if (articleVendu.getCategorieArticle() == categorie)
@@ -66,7 +66,7 @@ public class ArticleVenduManager {
 	}
 
 	public List<ArticleVendu> rechercherUnArticleVenduByCategorie(Categorie categorie, String query) {
-		List<ArticleVendu> articlesVendus = this.rechercheUnArticleVendu(query);
+		List<ArticleVendu> articlesVendus = ArticleVenduManager.getInstance().rechercheUnArticleVendu(query);
 		List<ArticleVendu> articlesVendusOfCategorie = new ArrayList<ArticleVendu>();
 		for (ArticleVendu articleVendu : articlesVendus) {
 			if (articleVendu.getCategorieArticle() == categorie)
