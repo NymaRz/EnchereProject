@@ -17,24 +17,38 @@ import jakarta.servlet.http.HttpServletResponse;
 @WebServlet("/accueil")
 public class Accueil extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+
 //modif
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		List<ArticleVendu> articlesVendus = null;
 		request.setAttribute("categories", CategorieManager.getInstance().recupTouteCategories());
+		String categorie = request.getParameter("categorie");
+		if (categorie != null) {
+			if (categorie.equalsIgnoreCase("toutes")) {
+				if (request.getParameter("q") != null) {
+					articlesVendus = ArticleVenduManager.getInstance()
+							.rechercheUnArticleVendu(request.getParameter("q"));
+				} else {
+					articlesVendus = ArticleVenduManager.getInstance().recupTousLesArticlesVendus();
+				}
 
-		if (request.getParameter("categorie") != null) {
-			if (request.getParameter("q") != null) {
+			} else if (request.getParameter("q") != null) {
 				articlesVendus = ArticleVenduManager.getInstance().rechercherUnArticleVenduByCategorie(CategorieManager
 						.getInstance().recupUneCategorie(Integer.parseInt(request.getParameter("categorie"))), "q");
 			} else {
 				articlesVendus = ArticleVenduManager.getInstance().findArticlesVendusByCategorie(CategorieManager
 						.getInstance().recupUneCategorie(Integer.parseInt(request.getParameter("categorie"))));
 			}
-		} else if (request.getParameter("q") != null) {
-			articlesVendus = ArticleVenduManager.getInstance().rechercheUnArticleVendu(request.getParameter("q"));
-		} else {
-			articlesVendus = ArticleVenduManager.getInstance().recupTousLesArticlesVendus();
+
+		}
+
+		else {
+			if (request.getParameter("q") != null) {
+				articlesVendus = ArticleVenduManager.getInstance().rechercheUnArticleVendu(request.getParameter("q"));
+			} else {
+				articlesVendus = ArticleVenduManager.getInstance().recupTousLesArticlesVendus();
+			}
 		}
 
 		request.setAttribute("articlesVendus", articlesVendus);
