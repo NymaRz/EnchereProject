@@ -1,0 +1,15 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ include file="/WEB-INF/fragments/headerMin.jspf"%>
+
+<nav>
+	<ul>
+		<li><a href="${request.getContextPath() }/encheres">Enchères</a></li>
+		<li><a href="${request.getContextPath() }/vendre/article">Vendre
+				un Article</a></li>
+		<li><a href="${request.getContextPath() }/profil">Mon Profil</a></li>
+		<li><a href="${request.getContextPath() }/deconnexion">Déconnexion</a></li>
+	</ul>
+</nav>
+
+</header>
