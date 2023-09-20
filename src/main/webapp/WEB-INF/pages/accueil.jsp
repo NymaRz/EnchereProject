@@ -4,7 +4,14 @@
 
 <main>
 <%@include file="/WEB-INF/fragments/recherche.jspf"%>
+<%List<ArticleVendu> articlesVendus = (List<ArticleVendu>)request.getAttribute("articlesVendus"); %>
 </main>
+
+<c:forEach var="articleVendu" items="${ articlesVendus }">
+
+			<p>${articleVendu.nomArticle }</p>
+
+		</c:forEach> 
 
 
 <%@ include file="/WEB-INF/fragments/footer.jspf" %>

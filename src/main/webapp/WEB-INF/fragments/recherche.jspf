@@ -16,7 +16,7 @@ List<Categorie> categories = (List<Categorie>) request.getAttribute("categories"
 
 	<label for="categorie">Catégories:</label> <select id="categorie"
 		name="categorie">
-		<option value="" selected>Toutes</option>
+		<option value="toutes" selected>Toutes</option>
 
 <%-- 		<%
 		for (Categorie categorie : categories) {
