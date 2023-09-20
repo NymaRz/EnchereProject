@@ -76,6 +76,11 @@ public class Utilisateur {
 		this.credit = credit;
 	}
 
+	public Utilisateur(int noUtilisateur, String mdp) {
+		this.noUtilisateur = noUtilisateur;
+		this.mdp = mdp;
+	}
+
 	public int getNoUtilisateur() {
 		return noUtilisateur;
 	}
