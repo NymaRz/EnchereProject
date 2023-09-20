@@ -32,26 +32,11 @@ List<Categorie> categories = (List<Categorie>) request.getAttribute("categories"
 		<option value="" selected>Toutes</option>
 
 
-
-		<%
-		for (Categorie categorie : categories) {
-		%>
-
-		<option value="<%categorie.getNoCategorie();%>"><%=categorie.getLibelle()%></option>
-
-		<%
-		}
-		%>
-
-		<%-- 		<c:forEach var="categorie" items="${ categories }">
-
-<% %>
+	<c:forEach var="categorie" items="${ categories }">
 
 			<option value="${ categorie.noCategorie}">${categorie.libelle}</option>
 
- 
-
-		</c:forEach> -->%
+		</c:forEach> 
 
 	</select>
 
