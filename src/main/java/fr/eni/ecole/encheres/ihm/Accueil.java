@@ -21,7 +21,8 @@ public class Accueil extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		List<ArticleVendu> articlesVendus = null;
-
+		request.setAttribute("categories", CategorieManager.getInstance().recupTouteCategories());
+		
 		if (request.getParameter("categorie") != null) {
 			if (request.getParameter("q") != null) {
 				articlesVendus = ArticleVenduManager.getInstance().rechercherUnArticleVenduByCategorie(CategorieManager

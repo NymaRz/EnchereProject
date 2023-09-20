@@ -4,6 +4,7 @@
 
 <main>
 <%@include file="/WEB-INF/fragments/recherche.jspf"%>
+
 </main>
 
 
