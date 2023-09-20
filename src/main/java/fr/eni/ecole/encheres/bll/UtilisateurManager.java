@@ -3,7 +3,6 @@ package fr.eni.ecole.encheres.bll;
 import java.util.List;
 
 import fr.eni.ecole.encheres.bo.Utilisateur;
-import fr.eni.ecole.encheres.dal.ArticleVenduDao;
 import fr.eni.ecole.encheres.dal.DaoFactory;
 import fr.eni.ecole.encheres.dal.UtilisateurDao;
 

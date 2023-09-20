@@ -1,7 +1,6 @@
 package fr.eni.ecole.encheres.bll;
 import java.util.List;
 
-import fr.eni.ecole.encheres.bo.ArticleVendu;
 import fr.eni.ecole.encheres.bo.Enchere;
 import fr.eni.ecole.encheres.dal.DaoFactory;
 import fr.eni.ecole.encheres.dal.EnchereDao;
