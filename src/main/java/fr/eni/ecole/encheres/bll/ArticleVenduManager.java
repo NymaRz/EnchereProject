@@ -1,5 +1,6 @@
 package fr.eni.ecole.encheres.bll;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,26 +55,56 @@ public class ArticleVenduManager {
 		return articleVenduDao.findByName(query);
 	}
 
+//tri par catégorie
 	public List<ArticleVendu> findArticlesVendusByCategorie(Categorie categorie) {
-		List<ArticleVendu> articlesVendus = ArticleVenduManager.getInstance().recupTousLesArticlesVendus();
+		List<ArticleVendu> articlesVendus = ArticleVenduManager.getInstance().recupArticlesVendusEncheresOuvertes();
 		List<ArticleVendu> articlesVendusOfCategorie = new ArrayList<ArticleVendu>();
 		for (ArticleVendu articleVendu : articlesVendus) {
 			if (articleVendu.getCategorieArticle() == categorie)
-				;
-			articlesVendusOfCategorie.add(articleVendu);
+				articlesVendusOfCategorie.add(articleVendu);
 		}
 		return articlesVendusOfCategorie;
 	}
 
+//tri par catégorie + query
 	public List<ArticleVendu> rechercherUnArticleVenduByCategorie(Categorie categorie, String query) {
-		List<ArticleVendu> articlesVendus = ArticleVenduManager.getInstance().rechercheUnArticleVendu(query);
+		List<ArticleVendu> articlesVendus = ArticleVenduManager.getInstance().recupUnArticleVendyEncheresOuvertes(query);
 		List<ArticleVendu> articlesVendusOfCategorie = new ArrayList<ArticleVendu>();
 		for (ArticleVendu articleVendu : articlesVendus) {
 			if (articleVendu.getCategorieArticle() == categorie)
-				;
-			articlesVendusOfCategorie.add(articleVendu);
+				articlesVendusOfCategorie.add(articleVendu);
 		}
 		return articlesVendusOfCategorie;
+	}
+
+	// seulement les articles dont la date d'ouverture aux enchères est ouverte, et
+	// la date de fin d'enchère n'est pas terminée
+
+	public List<ArticleVendu> recupArticlesVendusEncheresOuvertes() {
+		List<ArticleVendu> articlesVendus = ArticleVenduManager.getInstance().recupTousLesArticlesVendus();
+		List<ArticleVendu> articlesVendusOuvertsAuxEncheres = new ArrayList<ArticleVendu>();
+		LocalDate dateNow = LocalDate.now();
+		for (ArticleVendu articleVendu : articlesVendus) {
+			if (articleVendu.getDateDebutEncheres().isBefore(dateNow)
+					|| articleVendu.getDateDebutEncheres().isEqual(dateNow)
+					|| articleVendu.getDateFinEncheres().isAfter(dateNow))
+				articlesVendusOuvertsAuxEncheres.add(articleVendu);
+		}
+		return articlesVendusOuvertsAuxEncheres;
+	}
+
+	// idem mais avec query
+	public List<ArticleVendu> recupUnArticleVendyEncheresOuvertes(String query) {
+		List<ArticleVendu> articlesVendus = ArticleVenduManager.getInstance().rechercheUnArticleVendu(query);
+		List<ArticleVendu> articlesVendusOuvertsAuxEncheres = new ArrayList<ArticleVendu>();
+		LocalDate dateNow = LocalDate.now();
+		for (ArticleVendu articleVendu : articlesVendus) {
+			if (articleVendu.getDateDebutEncheres().isBefore(dateNow)
+					|| articleVendu.getDateDebutEncheres().isEqual(dateNow)
+					|| articleVendu.getDateFinEncheres().isAfter(dateNow))
+				articlesVendusOuvertsAuxEncheres.add(articleVendu);
+		}
+		return articlesVendusOuvertsAuxEncheres;
 	}
 
 	// Fin de la logique métier
