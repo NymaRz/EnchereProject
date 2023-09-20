@@ -1,10 +1,6 @@
 package fr.eni.ecole.encheres.dal;
 
-import fr.eni.ecole.encheres.dal.jdbc.AdresseDaoJdbcImpl;
-import fr.eni.ecole.encheres.dal.jdbc.ArticleVenduJdbcImpl;
-import fr.eni.ecole.encheres.dal.jdbc.CategorieDaoJdbcImpl;
-import fr.eni.ecole.encheres.dal.jdbc.RetraitDaoJdbcImpl;
-import fr.eni.ecole.encheres.dal.jdbc.UtilisateurDaoJdbcImpl;
+import fr.eni.ecole.encheres.dal.jdbc.*;
 
 public class DaoFactory {
 
@@ -30,6 +26,11 @@ public class DaoFactory {
 	public static CategorieDAO getCategorieDao() {
 		return new CategorieDaoJdbcImpl();
 	}
+	
+	public static EnchereDao getEnchereDao() {
+		return new EnchereDaoJdbcImpl();
+	}
+	
 	
 //	public static UserDao getUserDao() {
 //		return new UserDaoJdbcImpl();
