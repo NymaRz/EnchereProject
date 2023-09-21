@@ -15,7 +15,8 @@ import jakarta.servlet.http.HttpSession;
 public class ConnexionServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		String message = (String) request.getSession().getAttribute("success");
 		request.getSession().removeAttribute("success");
 		request.setAttribute("success", message);
@@ -23,24 +24,38 @@ public class ConnexionServlet extends HttpServlet {
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String username = request.getParameter("username");
-		String password = request.getParameter("password");
-		
-		Utilisateur user = UtilisateurManager.getInstance().login(username, password);
-		
-		if(user == null) {
-			request.setAttribute("error", "Username ou le mot de passe est éronné");
-			doGet(request, response);
-		}else {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		try {
+			// Simulez une authentification réussie en vérifiant les informations
+			// d'identification
+			String username = request.getParameter("username");
+			String password = request.getParameter("password");
+
+			// Vérifiez les informations d'identification (vous devrez implémenter cette
+			// partie)
+			// Si l'authentification réussit, obtenez l'objet Utilisateur correspondant
+
+			// Exemple simplifié : supposons que l'authentification réussit et vous avez un
+			// objet Utilisateur
+			Utilisateur utilisateurAuthentifie = getUtilisateurFromDatabase(username);
+
+			// Stockez l'utilisateur dans la session
 			HttpSession session = request.getSession();
-			user.setMdp("");
-			session.setAttribute("user", user);
-			response.sendRedirect(request.getContextPath()+"/jeux/ajouter");
+			session.setAttribute("utilisateur", utilisateurAuthentifie);
+
+			// Redirigez l'utilisateur vers la page de profil
+			response.sendRedirect(request.getContextPath() + "/Mon-profil");
+		} catch (Exception e) {
+			e.printStackTrace(); // Gérer les exceptions correctement
+			response.sendError(500); // Envoyer une erreur 500 en cas d'erreur
 		}
-		
 	}
 
+	private Utilisateur getUtilisateurFromDatabase(String username) {
+		return null;
+	}
 }
