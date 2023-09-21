@@ -17,4 +17,5 @@ public interface ArticleVenduDao{
 	void remove(int noArticle);
 
 	List<ArticleVendu> findByName(String query);
+	List<ArticleVendu> recupTousLEsArticlesDeCategorie(int noCategorie);
 }

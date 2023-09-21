@@ -50,6 +50,7 @@ public class ArticleVendu {
 			Categorie categorieArticle, Retrait lieuRetrait, Utilisateur utilisateur, int enchereMin) {
 		this(noArticle, nomArticle, description, dateFinEncheres, miseAPrix, categorieArticle, lieuRetrait,
 				utilisateur);
+		this.getCategorieArticle().addArticleToCategorie(this);
 		this.setEnchereMin(enchereMin);
 
 	}
@@ -82,6 +83,7 @@ public class ArticleVendu {
 		this(noArticle, nomArticle, description, dateDebutEncheres, dateFinEncheres, miseAPrix, categorieArticle,
 				lieuRetrait, utilisateur);
 		this.setEnchereMin(enchereMin);
+		this.getCategorieArticle().addArticleToCategorie(this);
 	}
 
 	public int getnoArticle() {
@@ -197,7 +199,7 @@ public class ArticleVendu {
 		return "ArticleVendu [noArticle=" + noArticle + ", nomArticle=" + nomArticle + ", description=" + description
 				+ ", dateDebutEncheres=" + dateDebutEncheres + ", dateFinEncheres=" + dateFinEncheres + ", miseAPrix="
 				+ miseAPrix + ", prixVente=" + prixVente + ", etatVente=" + etatVente + ", categorieArticle="
-				+ categorieArticle + ", lieuRetrait=" + lieuRetrait + ", enchereMin=" + enchereMin + ", utilisateur="
+				+ categorieArticle.getLibelle() + ", lieuRetrait=" + lieuRetrait + ", enchereMin=" + enchereMin + ", utilisateur="
 				+ utilisateur + ", encheres=" + encheres + "]";
 	}
 

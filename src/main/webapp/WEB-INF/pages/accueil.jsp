@@ -1,15 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
+<%@ include file="/WEB-INF/fragments/headerAccueilNONConnecte.jspf" %>
 
-<%@ include file="/WEB-INF/fragments/headerAccueilNONConnecte.jspf"%>
 <main>
-<<<<<<< HEAD
-	<%@include file="/WEB-INF/fragments/recherche.jspf"%>
-</main>
-<%@ include file="/WEB-INF/fragments/footer.jspf"%>
-=======
 <%@include file="/WEB-INF/fragments/recherche.jspf"%>
 
+<<<<<<< HEAD
+<%List<ArticleVendu> articlesVendus = (List<ArticleVendu>)request.getAttribute("articlesVendus"); %>
+
+=======
+>>>>>>> 2572952b3d71c004c29fec8b53f37e5a5edf2f50
 </main>
 
 <c:forEach var="articleVendu" items="${ articlesVendus }">
@@ -20,4 +20,3 @@
 
 
 <%@ include file="/WEB-INF/fragments/footer.jspf" %>
->>>>>>> b55c472b9e4a87a210ea4f856746b20bf49b08c1
