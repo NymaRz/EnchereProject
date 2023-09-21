@@ -26,6 +26,7 @@ public class UtilisateurDaoJdbcImpl implements UtilisateurDao {
 	public void save(Utilisateur utilisateur) {
 		try (Connection connection = ConnectionProvider.getConnection();
 				PreparedStatement pstmt = connection.prepareStatement(SAVE_USER)) {
+			System.out.println("222222222222222");
 			pstmt.setString(1, utilisateur.getPseudo());
 			pstmt.setString(2, utilisateur.getNom());
 			pstmt.setString(3, utilisateur.getPrenom());
@@ -39,6 +40,7 @@ public class UtilisateurDaoJdbcImpl implements UtilisateurDao {
 
 			pstmt.executeUpdate();
 
+			System.out.println("333333333333333");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

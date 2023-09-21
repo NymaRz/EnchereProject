@@ -19,7 +19,6 @@ public class CreerCompteServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		System.out.println("ttttttttttttttttttttt");
 		request.getRequestDispatcher("/WEB-INF/pages/CreerCompte.jsp").forward(request, response);
 	}
 
@@ -39,16 +38,14 @@ public class CreerCompteServlet extends HttpServlet {
 			utilisateur.setEmail(request.getParameter("email"));
 			utilisateur.setTelephone(request.getParameter("telephone"));
 			utilisateur.setAdresse(adresse);
-
 			UtilisateurManager.getInstance().inscription(utilisateur);
-
 			// Flash
 			request.getSession().setAttribute("success", "Le compte a bien été créé!");
 			response.sendRedirect(request.getContextPath() + "/connexion");
 		} catch (JDBCException | BLLException e) {
+			e.printStackTrace();
 			request.setAttribute("error", e.getMessage());
 			doGet(request, response);
-			e.printStackTrace();
 		}
 	}
 }
