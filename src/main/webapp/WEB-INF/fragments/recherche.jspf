@@ -34,7 +34,10 @@ List<Categorie> categories = (List<Categorie>) request.getAttribute("categories"
 
 		name="categorie">
 
+<<<<<<< HEAD
 		<option value="0" selected>Toutes</option>
+=======
+>>>>>>> 2572952b3d71c004c29fec8b53f37e5a5edf2f50
 
 
 
