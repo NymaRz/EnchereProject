@@ -31,7 +31,7 @@ List<Categorie> categories = (List<Categorie>) request.getAttribute("categories"
 		</c:forEach>
 
 
-	</select> <<<<<<< HEAD
+	</select> 
 	<button type="submit">
 
 		<i class="fa-solid fa-magnifying-glass"></i>
