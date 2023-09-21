@@ -13,47 +13,57 @@
 				<div class="mb-3">
 					<label for="pseudo" class="form-label">Votre Pseudo:</label> <input
 						type="text" class="form-control" 
-						value="${utilisateur.pseudo}" id="pseudo">
+						value="${ utilisateur.pseudo }" name="pseudo" id="pseudo">
 				</div>
 				<div class="mb-3">
 					<label for="nom" class="form-label">Votre Nom:</label> <input
 						type="text" class="form-control" 
-						value="${utilisateur.nom}" id="nom">
+						value="${ utilisateur.nom }" name="nom" id="nom">
 				</div>
 				<div class="mb-3">
 					<label for="prenom" class="form-label">Votre Prénom:</label> <input
 						type="text" class="form-control" 
-						value="${utilisateur.prenom}" id="prenom">
+						value="${ utilisateur.prenom }" name="prenom" id="prenom">
 				</div>
 				<div class="mb-3">
 					<label for="email" class="form-label">Email:</label> <input
 						type="text" class="form-control" 
-						value="${utilisateur.email}" id="email">
+						value="${ utilisateur.email }"name="email" id="email">
 				</div>
 				<div class="mb-3">
 					<label for="telephone" class="form-label">Telephone:</label> <input
 						type="text" class="form-control" 
-						value="${utilisateur.telephone}" id="telephone">
+						value="${ utilisateur.telephone }" name="telephone" id="telephone">
 				</div>
 				<div class="mb-3">
-					<label for="adresse" class="form-label">Votre Rue:</label> <input
+					<label for="rue" class="form-label">Votre Rue:</label> <input
 						type="text" class="form-control" 
-						value="${utilisateur.adresse}" id="adresse">
+						value="${ utilisateur.rue }" name="rue" id="rue">
 				</div>
 				<div class="mb-3">
-					<label for="adresse" class="form-label">Votre Code Postal:</label> <input
+					<label for="codePostal" class="form-label">Votre Code Postal:</label> <input
 						type="text" class="form-control" 
-						value="${utilisateur.adresse}" id="adresse">
+						value="${ utilisateur.codePostal }" name="codePostal" id="codePostal">
 				</div>
 				<div class="mb-3">
-					<label for="adresse" class="form-label">Votre Ville:</label> <input
+					<label for="ville" class="form-label">Votre Ville:</label> <input
 						type="text" class="form-control" 
-						value="${utilisateur.adresse}" id="adresse">
+						value="${ utilisateur.ville }" name="ville" id="ville">
 				</div>
 				<div class="mb-3">
-					<label for="mdp" class="form-label">Mot de Passe:</label> <input
+					<label for="mdp" class="form-label">Mot de Passe actuel:</label> <input
 						type="password" class="form-control" 
-						value="${utilisateur.mdp}" id="mdp">
+						value="${ utilisateur.mdp }" name="mdp" id="mdp">
+				</div>
+				<div class="mb-3">
+					<label for="nouveaumdp" class="form-label">Nouveau mot de Passe:</label> <input
+						type="password" class="form-control" 
+						name="nouveaumdp" id="nouveaumdp">
+				</div>
+				<div class="mb-3">
+					<label for="confirmermdp" class="form-label">Nouveau mot de Passe:</label> <input
+						type="password" class="form-control" 
+						name="confirmermdp" id="confirmermdp">
 				</div>
 				<div class="mb-3">
 					<label for="credit" class="form-label">Crédit Actuel:</label> <input
@@ -65,17 +75,18 @@
 
 				<!-- Ajoutez d'autres champs d'utilisateur de la même manière -->
 				 				<form method="POST"
-					action="${pageContext.request.contextPath}/supprimer"
-					onsubmit="return confirm('Voulez-vous modifier votre profil ?')">
+					action="${pageContext.request.contextPath}/modifierprofil"
+					onsubmit="return confirm('Etes-vous sûr de vouloir cloturer votre compte ?')">
 					<div class="mb-3 text-center mt-5">
 						<a class="btn btn-info"
-							href="${pageContext.request.contextPath}/profil/modifier?id=${utilisateur.id}"><i
-							class="fa-solid fa-pen"></i></a> <a class="btn btn-primary"
-							href="${pageContext.request.contextPath}/profil/ajouter"><i
+							href="${pageContext.request.contextPath}/profil/enregistrer?id=${utilisateur.id}">
+						Enregistrer
+						</a> <a class="btn btn-primary"
+							href="${pageContext.request.contextPath}/profil/supprimer"><i
 							class="fa-solid fa-plus"></i></a>
 						<button type="submit" name="id" value="${utilisateur.id}"
 							class="btn btn-danger">
-							<i class="fa-solid fa-trash"></i>
+							Cloturer mon compte
 						</button>
 					</div>
 				</form>

@@ -4,16 +4,21 @@ import java.io.IOException;
 import java.time.LocalDate;
 
 import fr.eni.ecole.encheres.bll.AdresseManager;
+import fr.eni.ecole.encheres.bll.ArticleVenduManager;
 import fr.eni.ecole.encheres.bll.CategorieManager;
 import fr.eni.ecole.encheres.bll.RetraitManager;
+import fr.eni.ecole.encheres.bll.UtilisateurManager;
 import fr.eni.ecole.encheres.bo.Adresse;
+import fr.eni.ecole.encheres.bo.ArticleVendu;
 import fr.eni.ecole.encheres.bo.Categorie;
 import fr.eni.ecole.encheres.bo.Retrait;
+import fr.eni.ecole.encheres.bo.Utilisateur;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 @WebServlet("/vendre-article")
 
@@ -43,18 +48,30 @@ public class VendreArticleServlet extends HttpServlet {
 			if (dateFinEncheres.isBefore(dateDebutEncheres) || dateFinEncheres.isEqual(dateDebutEncheres)) {
 				throw new ServletException();
 			}
+			HttpSession session = request.getSession();
+
+			String email = (String) session.getAttribute("email");
+
+			Utilisateur utilisateur = UtilisateurManager.getInstance().findByEmail(email);
 
 			// prévoir de récupérer l'adresse de l'utilisateur par défaut
+			
+			// le bout de code suivant risque de ne pas marcher, à revoir
 			String rue = request.getParameter("rue");
 			String codePostal = request.getParameter("codePostal");
 			String ville = request.getParameter("ville");
 
-			Adresse adresse = new Adresse(rue,codePostal,ville);
+			Adresse adresse = new Adresse(rue, codePostal, ville);
 			AdresseManager.getInstance().ajouterUneAdresse(adresse);
 			Retrait retrait = new Retrait(adresse);
 			RetraitManager.getInstance().ajouterUnRetrait(retrait);
 			System.out.println(adresse.getIdAdresse());
+			//fin code à revoir
 			
+			ArticleVendu articleVendu = new ArticleVendu(0, nomArticle, description, dateDebutEncheres, dateFinEncheres,
+					miseAPrix, categorie, retrait, utilisateur);
+			ArticleVenduManager.getInstance().ajouterUnArticleVendu(articleVendu);
+			response.sendRedirect(request.getContextPath()+"/accueil");
 
 		} catch (ServletException e) {
 			e.printStackTrace();
