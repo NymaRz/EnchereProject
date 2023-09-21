@@ -57,44 +57,44 @@ public class UtilisateurManager {
 	private UtilisateurDao userDao = DaoFactory.getUtilisateurDao();
 	private Random rd = new Random();
 
-	public void inscription(Utilisateur user) throws JDBCException, BLLException {
+	public void inscription(Utilisateur utilisateur) throws JDBCException, BLLException {
 		// validation !!!!!!!!
-		checkFields(user);
-		userDao.save(user);
+		checkFields(utilisateur);
+		userDao.save(utilisateur);
 	}
 
-	private void checkFields(Utilisateur user) throws BLLException {
-		if (user == null)
+	private void checkFields(Utilisateur utilisateur) throws BLLException {
+		if (utilisateur == null)
 			throw new BLLException("User est null");
 
-		if (user.getPrenom().isBlank())
-			throw new BLLException("Le champs Username est obligatoire!");
-		if (user.getEmail().isBlank())
+		if (utilisateur.getPrenom().isBlank())
+			throw new BLLException("Le champs Pseudo est obligatoire!");
+		if (utilisateur.getEmail().isBlank())
 			throw new BLLException("Le champs Email est obligatoire!");
 		// verifier la syntaxe de l'email
-		if (user.getMdp().isBlank())
+		if (utilisateur.getMdp().isBlank())
 			throw new BLLException("Le champs Mot de passe est obligatoire!");
-		if (user.getMdp().length() < 8 || user.getMdp().length() > 35)
+		if (utilisateur.getMdp().length() < 8 || utilisateur.getMdp().length() > 35)
 			throw new BLLException("La taille du mot de passe doit etre entre 8 et 35");
-		// if(!user.getPassword().equals(user.getConfirmpassword))
+		// if(!utilisateur.getPassword().equals(utilisateur.getConfirmpassword))
 	}
 
-	public Utilisateur login(String username, String password) {
-		Utilisateur user = (Utilisateur) utilisateurDao.findByPseudo(username);
-		if (user != null && user.getPrenom().equals(username) && user.getMdp().equals(password)) {
-			return user;
+	public Utilisateur login(String email, String mdp) {
+		Utilisateur utilisateur = (Utilisateur) utilisateurDao.findByPseudo(email);
+		if (utilisateur != null && utilisateur.getEmail().equals(email) && utilisateur.getMdp().equals(mdp)) {
+			return utilisateur;
 		}
 		return null;
 	}
 
 	public ForgetPassword checkEmail(String email) throws BLLException {
 
-		Utilisateur user = userDao.findByEmail(email);
-		if (user == null)
+		Utilisateur utilisateur = userDao.findByEmail(email);
+		if (utilisateur == null)
 			throw new BLLException("Erreur: l'email n'existe pas");
 		// Générer le code
 		String code = rd.nextLong(1, 9999999999L) + "";
-		ForgetPassword fp = new ForgetPassword(code, user);
+		ForgetPassword fp = new ForgetPassword(code, utilisateur);
 
 		// save
 		DaoFactory.getForgetPasswordDao().save(fp);

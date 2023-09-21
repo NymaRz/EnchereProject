@@ -5,17 +5,20 @@
 <main>
 <%@include file="/WEB-INF/fragments/recherche.jspf"%>
 
-<<<<<<< HEAD
+
 <%List<ArticleVendu> articlesVendus = (List<ArticleVendu>)request.getAttribute("articlesVendus"); %>
 
-=======
->>>>>>> 2572952b3d71c004c29fec8b53f37e5a5edf2f50
+
 </main>
 
 <c:forEach var="articleVendu" items="${ articlesVendus }">
+<div>
+			<h2>${articleVendu.nomArticle }</h2>
+			<p>Prix : ${articleVendu.prixVente }</p>
+			<p>Fin de l'enchère : ${articleVendu.dateFinEncheres }</p>
+			<p>Vendeur.se : ${articleVendu.utilisateur.getPseudo() }</p>
 
-			<p>${articleVendu.nomArticle }</p>
-
+</div>
 		</c:forEach> 
 
 

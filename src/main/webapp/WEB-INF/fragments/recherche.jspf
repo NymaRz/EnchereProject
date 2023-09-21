@@ -18,22 +18,20 @@ List<Categorie> categories = (List<Categorie>) request.getAttribute("categories"
 	<input type="search" name="q" placeholder="Recherche..."
 		aria-label="Search">
 
-	<button type="submit">
 
+<<<<<<< HEAD
+=======
 		<i class="fa-solid fa-magnifying-glass"></i>
 
 	</button>
 
 
+>>>>>>> 7e750f3cdf737374bd166bbf4fef287e557ca2b5
 
 	<label for="categorie">Catégories:</label> <select id="categorie"
 		name="categorie">
 
-<<<<<<< HEAD
 		<option value="0" selected>Toutes</option>
-=======
->>>>>>> 2572952b3d71c004c29fec8b53f37e5a5edf2f50
-
 
 <<<<<<< HEAD
 
@@ -62,9 +60,18 @@ List<Categorie> categories = (List<Categorie>) request.getAttribute("categories"
 
 
 		</c:forEach>
+		
 
 	</select>
 
+<<<<<<< HEAD
+  <button type="submit">
+
+			<i class="fa-solid fa-magnifying-glass"></i>
+
+		</button>
+=======
+>>>>>>> 7e750f3cdf737374bd166bbf4fef287e557ca2b5
 
 
 </form>

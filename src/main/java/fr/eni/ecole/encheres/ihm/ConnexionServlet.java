@@ -14,48 +14,39 @@ import jakarta.servlet.http.HttpSession;
 @WebServlet("/connexion")
 public class ConnexionServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private static final String SESSION_EMAIL_ATTRIBUTE = "email";
+	private static final String SUCCESS_MESSAGE_ATTRIBUTE = "success";
+	private static final String ERROR_MESSAGE_ATTRIBUTE = "error";
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String message = (String) request.getSession().getAttribute("success");
-		request.getSession().removeAttribute("success");
-		request.setAttribute("success", message);
+		String message = (String) request.getSession().getAttribute(SUCCESS_MESSAGE_ATTRIBUTE);
+		request.getSession().removeAttribute(SUCCESS_MESSAGE_ATTRIBUTE);
+		request.setAttribute(SUCCESS_MESSAGE_ATTRIBUTE, message);
 		request.getRequestDispatcher("/WEB-INF/pages/Connexion.jsp").forward(request, response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		String email = request.getParameter("email");
+		String password = request.getParameter("mdp");
+
 		try {
-			// Simulez une authentification réussie en vérifiant les informations
-			// d'identification
-			String username = request.getParameter("username");
-			String password = request.getParameter("password");
+			Utilisateur utilisateur = UtilisateurManager.getInstance().login(email, password);
 
-			// Vérifiez les informations d'identification (vous devrez implémenter cette
-			// partie)
-			// Si l'authentification réussit, obtenez l'objet Utilisateur correspondant
-
-			// Exemple simplifié : supposons que l'authentification réussit et vous avez un
-			// objet Utilisateur
-			Utilisateur utilisateurAuthentifie = getUtilisateurFromDatabase(username);
-
-			// Stockez l'utilisateur dans la session
-			HttpSession session = request.getSession();
-			session.setAttribute("utilisateur", utilisateurAuthentifie);
-
-			// Redirigez l'utilisateur vers la page de profil
-			response.sendRedirect(request.getContextPath() + "/Mon-profil");
+			if (utilisateur != null) {
+				request.setAttribute(ERROR_MESSAGE_ATTRIBUTE, "L'email ou le mot de passe est incorrect");
+				doGet(request, response);
+			} else {
+				HttpSession session = request.getSession();
+				utilisateur.setMdp(""); // Ne pas stocker le mot de passe en session
+				session.setAttribute(SESSION_EMAIL_ATTRIBUTE, email);
+				response.sendRedirect(request.getContextPath() + "/accueil");
+			}
 		} catch (Exception e) {
-			e.printStackTrace(); // Gérer les exceptions correctement
-			response.sendError(500); // Envoyer une erreur 500 en cas d'erreur
+			e.printStackTrace();
+			request.setAttribute(ERROR_MESSAGE_ATTRIBUTE, "Une erreur s'est produite lors de la connexion.");
+			doGet(request, response);
 		}
-	}
-
-	private Utilisateur getUtilisateurFromDatabase(String username) {
-		return null;
 	}
 }

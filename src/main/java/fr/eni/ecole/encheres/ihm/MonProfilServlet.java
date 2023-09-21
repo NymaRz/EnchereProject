@@ -17,25 +17,27 @@ public class MonProfilServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		try {
-		// Récupérer l'utilisateur connecté (vous devez gérer l'authentification ailleurs)
-		// Supposons que vous avez un attribut "utilisateur" dans la session
-		Utilisateur utilisateur = (Utilisateur) request.getSession().getAttribute("utilisateur");
+			// Récupérer l'utilisateur connecté (vous devez gérer l'authentification
+			// ailleurs)
+			// Supposons que vous avez un attribut "utilisateur" dans la session
+			Utilisateur utilisateur = (Utilisateur) request.getSession().getAttribute("utilisateur");
 
-		// Vérifiez si l'utilisateur est connecté
-		if (utilisateur == null) {
-			// Transmettre l'utilisateur connecté vers la JSP
-			request.setAttribute("utilisateur", utilisateur);
-			// Forward vers la JSP
-			request.getRequestDispatcher("/WEB-INF/pages/monprofil.jsp").forward(request, response);
-		} else {
-			// Redirigez l'utilisateur vers une page de connexion s'il n'est pas connecté
-			response.sendRedirect(request.getContextPath() + "/Connexion.jsp");
+			// Vérifiez si l'utilisateur est connecté
+			if (utilisateur == null) {
+				// Transmettre l'utilisateur connecté vers la JSP
+				request.setAttribute("utilisateur", utilisateur);
+				// Forward vers la JSP
+				request.getRequestDispatcher("/WEB-INF/pages/monprofil.jsp").forward(request, response);
+			} else {
+				// Redirigez l'utilisateur vers une page de connexion s'il n'est pas connecté
+				response.sendRedirect(request.getContextPath() + "/Connexion.jsp");
+			}
+		} catch (Exception e) {
+			e.printStackTrace(); // Gérer les exceptions correctement
+			response.sendError(500); // Envoyer une erreur 500 en cas d'erreur
 		}
-	} catch (Exception e) {
-		e.printStackTrace(); // Gérer les exceptions correctement
-		response.sendError(500); // Envoyer une erreur 500 en cas d'erreur
 	}
-}
+
 	// Modifier un profil
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -44,7 +46,7 @@ public class MonProfilServlet extends HttpServlet {
 			// Récupérer l'utilisateur connecté (vous devez gérer l'authentification
 			// ailleurs)
 			// Supposons que vous avez un attribut "utilisateurConnecte" dans la session
-			Utilisateur utilisateur = (Utilisateur) request.getSession().getAttribute("utilisateurConnecte");
+			Utilisateur utilisateur = (Utilisateur) request.getSession().getAttribute("utilisateur");
 
 			// Vérifiez si l'utilisateur est connecté
 			if (utilisateur == null) {
@@ -58,7 +60,7 @@ public class MonProfilServlet extends HttpServlet {
 				UtilisateurManager.getInstance().modifierUnUtilisateur(utilisateur);
 
 				// Redirigez l'utilisateur vers la page de profil
-				response.sendRedirect(request.getContextPath() + "/monprofil");
+				response.sendRedirect(request.getContextPath() + "/modifiermonprofil");
 			} else {
 				// Redirigez l'utilisateur vers une page de connexion s'il n'est pas connecté
 				response.sendRedirect(request.getContextPath() + "/Connexion");
