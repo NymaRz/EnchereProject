@@ -2,6 +2,7 @@ package fr.eni.ecole.encheres.ihm;
 
 import java.io.IOException;
 
+import fr.eni.ecole.encheres.bll.AdresseManager;
 import fr.eni.ecole.encheres.bll.UtilisateurManager;
 import fr.eni.ecole.encheres.bll.exception.BLLException;
 import fr.eni.ecole.encheres.bo.Adresse;
@@ -19,7 +20,6 @@ public class CreerCompteServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		System.out.println("ttttttttttttttttttttt");
 		request.getRequestDispatcher("/WEB-INF/pages/CreerCompte.jsp").forward(request, response);
 	}
 
@@ -30,6 +30,8 @@ public class CreerCompteServlet extends HttpServlet {
 			adresse.setRue(request.getParameter("rue"));
 			adresse.setCodePostal(request.getParameter("code_postal"));
 			adresse.setVille(request.getParameter("ville"));
+			AdresseManager.getInstance().ajouterUneAdresse(adresse);
+			Adresse adresseInBDD = AdresseManager.getInstance().recupAdresseParRueCPVille(adresse.getRue(), adresse.getCodePostal(), adresse.getVille());
 
 			Utilisateur utilisateur = new Utilisateur();
 			utilisateur.setPseudo(request.getParameter("pseudo"));
@@ -38,17 +40,15 @@ public class CreerCompteServlet extends HttpServlet {
 			utilisateur.setPrenom(request.getParameter("prenom"));
 			utilisateur.setEmail(request.getParameter("email"));
 			utilisateur.setTelephone(request.getParameter("telephone"));
-			utilisateur.setAdresse(adresse);
-
+			utilisateur.setAdresse(adresseInBDD);
 			UtilisateurManager.getInstance().inscription(utilisateur);
-
 			// Flash
 			request.getSession().setAttribute("success", "Le compte a bien été créé!");
 			response.sendRedirect(request.getContextPath() + "/connexion");
 		} catch (JDBCException | BLLException e) {
+			e.printStackTrace();
 			request.setAttribute("error", e.getMessage());
 			doGet(request, response);
-			e.printStackTrace();
 		}
 	}
 }

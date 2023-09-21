@@ -5,7 +5,7 @@
 <nav>
 	<ul>
 		<li><a href="${request.getContextPath() }/inscription">S'inscrire</a></li>
-		<li><a href="${request.getContextPath() }/connexion">Se
+		<li><a href="${request.getContextPath()} + /connexion">Se
 				Connecter</a></li>
 
 	</ul>

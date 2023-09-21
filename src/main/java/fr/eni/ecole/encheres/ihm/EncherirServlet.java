@@ -36,7 +36,16 @@ public class EncherirServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-//
+		try {
+			// récupérer le param dans url
+			int id = Integer.parseInt(request.getParameter("noArticle"));
+			// supprimer un jeu
+			ArticleVenduManager.getInstance().EncherirSurUnArticleVendu(id);
+			// redirect
+			response.sendRedirect(request.getContextPath() + "/");
+		} catch (Exception e) {
+			response.sendError(404);
 		}
+	}
 
 }

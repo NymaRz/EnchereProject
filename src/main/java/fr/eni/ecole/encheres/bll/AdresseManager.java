@@ -57,6 +57,10 @@ public class AdresseManager {
 	public List<Adresse> rechercheUneAdresseParVille(String query) {
 		return adresseDao.findByVille(query);
 	}
+	
+	public Adresse recupAdresseParRueCPVille(String rue,String codePostal,String ville) {
+		return adresseDao.findByRueCPVille(rue, codePostal, ville);
+	}
 
 	// Fin de la logique métier
 	
