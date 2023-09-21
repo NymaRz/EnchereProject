@@ -26,16 +26,13 @@ public class UtilisateurDaoJdbcImpl implements UtilisateurDao {
 	public void save(Utilisateur utilisateur) {
 		try (Connection connection = ConnectionProvider.getConnection();
 				PreparedStatement pstmt = connection.prepareStatement(SAVE_USER)) {
-			System.out.println("222222222222222");
+			System.out.println("création de compte");
 			pstmt.setString(1, utilisateur.getPseudo());
 			pstmt.setString(2, utilisateur.getNom());
 			pstmt.setString(3, utilisateur.getPrenom());
 			pstmt.setString(4, utilisateur.getEmail());
 			pstmt.setString(5, utilisateur.getTelephone());
-			if (utilisateur.getAdresse() == null) {
-				pstmt.setInt(6, 1);
-			} else
-				pstmt.setInt(6, utilisateur.getAdresse().getIdAdresse());
+			pstmt.setInt(6, utilisateur.getAdresse().getIdAdresse());
 			pstmt.setString(7, utilisateur.getMdp());
 			pstmt.setInt(8, utilisateur.getCredit());
 			pstmt.setBoolean(9, utilisateur.isAdmin());
@@ -43,7 +40,7 @@ public class UtilisateurDaoJdbcImpl implements UtilisateurDao {
 
 			pstmt.executeUpdate();
 
-			System.out.println("333333333333333");
+			System.out.println("compte enregistré dans la BDD");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
