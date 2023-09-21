@@ -26,22 +26,41 @@ public class CreerCompteServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		try {
+			String email = request.getParameter("email");
+			String pseudo = request.getParameter("pseudo");
+
+			// Vérifier si l'adresse e-mail existe déjà dans la base de données
+			if (UtilisateurManager.getInstance().emailExisteDeja(email)) {
+				request.setAttribute("error", "Cette adresse e-mail est déjà utilisée par un autre utilisateur.");
+				doGet(request, response); // Redirige vers la page d'inscription avec un message d'erreur.
+				return; // Arrête l'exécution de la méthode doPost.
+			}
+
+			// Vérifier si le pseudo existe déjà dans la base de données
+			if (UtilisateurManager.getInstance().pseudoExisteDeja(pseudo)) {
+				request.setAttribute("error", "Ce pseudo est déjà utilisé par un autre utilisateur.");
+				doGet(request, response); // Redirige vers la page d'inscription avec un message d'erreur.
+				return; // Arrête l'exécution de la méthode doPost.
+			}
+
 			Adresse adresse = new Adresse();
 			adresse.setRue(request.getParameter("rue"));
 			adresse.setCodePostal(request.getParameter("code_postal"));
 			adresse.setVille(request.getParameter("ville"));
 			AdresseManager.getInstance().ajouterUneAdresse(adresse);
-			Adresse adresseInBDD = AdresseManager.getInstance().recupAdresseParRueCPVille(adresse.getRue(), adresse.getCodePostal(), adresse.getVille());
+			Adresse adresseInBDD = AdresseManager.getInstance().recupAdresseParRueCPVille(adresse.getRue(),
+					adresse.getCodePostal(), adresse.getVille());
 
 			Utilisateur utilisateur = new Utilisateur();
-			utilisateur.setPseudo(request.getParameter("pseudo"));
+			utilisateur.setPseudo(pseudo); // Utiliser le pseudo vérifié
 			utilisateur.setMdp(request.getParameter("mdp"));
 			utilisateur.setNom(request.getParameter("nom"));
 			utilisateur.setPrenom(request.getParameter("prenom"));
-			utilisateur.setEmail(request.getParameter("email"));
+			utilisateur.setEmail(email); // Utiliser l'e-mail vérifié
 			utilisateur.setTelephone(request.getParameter("telephone"));
 			utilisateur.setAdresse(adresseInBDD);
 			UtilisateurManager.getInstance().inscription(utilisateur);
+
 			// Flash
 			request.getSession().setAttribute("success", "Le compte a bien été créé!");
 			response.sendRedirect(request.getContextPath() + "/connexion");
@@ -51,4 +70,33 @@ public class CreerCompteServlet extends HttpServlet {
 			doGet(request, response);
 		}
 	}
+
+//	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+//			throws ServletException, IOException {
+//		try {
+//			Adresse adresse = new Adresse();
+//			adresse.setRue(request.getParameter("rue"));
+//			adresse.setCodePostal(request.getParameter("code_postal"));
+//			adresse.setVille(request.getParameter("ville"));
+//			AdresseManager.getInstance().ajouterUneAdresse(adresse);
+//			Adresse adresseInBDD = AdresseManager.getInstance().recupAdresseParRueCPVille(adresse.getRue(), adresse.getCodePostal(), adresse.getVille());
+//
+//			Utilisateur utilisateur = new Utilisateur();
+//			utilisateur.setPseudo(request.getParameter("pseudo"));
+//			utilisateur.setMdp(request.getParameter("mdp"));
+//			utilisateur.setNom(request.getParameter("nom"));
+//			utilisateur.setPrenom(request.getParameter("prenom"));
+//			utilisateur.setEmail(request.getParameter("email"));
+//			utilisateur.setTelephone(request.getParameter("telephone"));
+//			utilisateur.setAdresse(adresseInBDD);
+//			UtilisateurManager.getInstance().inscription(utilisateur);
+//			// Flash
+//			request.getSession().setAttribute("success", "Le compte a bien été créé!");
+//			response.sendRedirect(request.getContextPath() + "/connexion");
+//		} catch (JDBCException | BLLException e) {
+//			e.printStackTrace();
+//			request.setAttribute("error", e.getMessage());
+//			doGet(request, response);
+//		}
+//	}
 }
