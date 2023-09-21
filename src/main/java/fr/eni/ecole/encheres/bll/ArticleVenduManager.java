@@ -2,6 +2,7 @@ package fr.eni.ecole.encheres.bll;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import fr.eni.ecole.encheres.bo.ArticleVendu;
@@ -56,25 +57,23 @@ public class ArticleVenduManager {
 	}
 
 //tri par catégorie
-	public List<ArticleVendu> findArticlesVendusByCategorie(Categorie categorie) {
-		List<ArticleVendu> articlesVendus = ArticleVenduManager.getInstance().recupArticlesVendusEncheresOuvertes();
-		List<ArticleVendu> articlesVendusOfCategorie = new ArrayList<ArticleVendu>();
-		for (ArticleVendu articleVendu : articlesVendus) {
-			if (articleVendu.getCategorieArticle() == categorie)
-				articlesVendusOfCategorie.add(articleVendu);
-		}
-		return articlesVendusOfCategorie;
+	public List<ArticleVendu> findArticlesVendusByCategorie(int noCategorie) {
+		return articleVenduDao.recupTousLEsArticlesDeCategorie(noCategorie);
 	}
 
 //tri par catégorie + query
 	public List<ArticleVendu> rechercherUnArticleVenduByCategorie(Categorie categorie, String query) {
-		List<ArticleVendu> articlesVendus = ArticleVenduManager.getInstance().recupUnArticleVendyEncheresOuvertes(query);
-		List<ArticleVendu> articlesVendusOfCategorie = new ArrayList<ArticleVendu>();
-		for (ArticleVendu articleVendu : articlesVendus) {
-			if (articleVendu.getCategorieArticle() == categorie)
-				articlesVendusOfCategorie.add(articleVendu);
+		List<ArticleVendu> articlesVendusOfCategorie = CategorieManager.getInstance().recupUneCategorie(categorie.getNoCategorie()).getArticlesOfCategorie();
+		List<ArticleVendu> articlesVendusOfQuery = ArticleVenduManager.getInstance().rechercheUnArticleVendu(query);
+		List<ArticleVendu> articlesOfCategorieAndQuery = new ArrayList<ArticleVendu>();
+		for (ArticleVendu articleVenduOfCategorie : articlesVendusOfCategorie) {
+			for (ArticleVendu articleVenduOfQuery : articlesVendusOfQuery) {
+				if (articleVenduOfCategorie.equals(articleVenduOfQuery)) {
+					articlesOfCategorieAndQuery.add(articleVenduOfCategorie);
+				}
+			}
 		}
-		return articlesVendusOfCategorie;
+		return articlesOfCategorieAndQuery;
 	}
 
 	// seulement les articles dont la date d'ouverture aux enchères est ouverte, et

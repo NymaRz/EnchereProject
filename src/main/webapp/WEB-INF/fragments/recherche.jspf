@@ -29,8 +29,13 @@ List<Categorie> categories = (List<Categorie>) request.getAttribute("categories"
 	<label for="categorie">Catégories:</label> <select id="categorie"
 		name="categorie">
 
+<<<<<<< HEAD
+		<option value="0" selected>Toutes</option>
+=======
+>>>>>>> 2572952b3d71c004c29fec8b53f37e5a5edf2f50
 
 
+<<<<<<< HEAD
 
 		<%-- 		<%
 
@@ -45,6 +50,8 @@ List<Categorie> categories = (List<Categorie>) request.getAttribute("categories"
 		}
 
 		%> --%>
+=======
+>>>>>>> e72e5108c46a4fa1defa778b2f11d5d9f15e6cc9
 
 		<c:forEach var="categorie" items="${ categories }">
 

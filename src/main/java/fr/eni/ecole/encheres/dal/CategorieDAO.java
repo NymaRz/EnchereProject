@@ -1,6 +1,7 @@
 package fr.eni.ecole.encheres.dal;
 
 import java.util.List;
+
 import fr.eni.ecole.encheres.bo.Categorie;
 
 public interface CategorieDAO {
@@ -15,5 +16,7 @@ public interface CategorieDAO {
 	void remove(int no_Categorie);
 
 	List<Categorie> FindByCategorie(String query);
+	
+	
 
 }

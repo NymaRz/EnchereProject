@@ -47,4 +47,18 @@ public class Categorie {
 	public void addArticleToCategorie(ArticleVendu articleVendu) {
 		this.articlesOfCategorie.add(articleVendu);
 	}
+
+	public Categorie(int noCategorie, String libelle, List<ArticleVendu> articlesOfCategorie) {
+		super();
+		this.noCategorie = noCategorie;
+		this.libelle = libelle;
+		this.articlesOfCategorie = articlesOfCategorie;
+	}
+
+	@Override
+	public String toString() {
+		return "Categorie [noCategorie=" + noCategorie + ", libelle=" + libelle + ", articlesOfCategorie="
+				+ articlesOfCategorie + "]";
+	}
+	
 }

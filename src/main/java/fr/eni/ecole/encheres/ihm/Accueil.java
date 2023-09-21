@@ -23,33 +23,15 @@ public class Accueil extends HttpServlet {
 			throws ServletException, IOException {
 		List<ArticleVendu> articlesVendus = null;
 		request.setAttribute("categories", CategorieManager.getInstance().recupTouteCategories());
-		String categorie = request.getParameter("categorie");
-		if (categorie != null) {
-			if (categorie.equalsIgnoreCase("toutes")) {
-				if (request.getParameter("q") != null) {
-					articlesVendus = ArticleVenduManager.getInstance()
-							.rechercheUnArticleVendu(request.getParameter("q"));
-				} else {
-					articlesVendus = ArticleVenduManager.getInstance().recupTousLesArticlesVendus();
-				}
 
-			} else if (request.getParameter("q") != null) {
-				articlesVendus = ArticleVenduManager.getInstance().rechercherUnArticleVenduByCategorie(CategorieManager
-						.getInstance().recupUneCategorie(Integer.parseInt(request.getParameter("categorie"))), "q");
-			} else {
-				articlesVendus = ArticleVenduManager.getInstance().findArticlesVendusByCategorie(CategorieManager
-						.getInstance().recupUneCategorie(Integer.parseInt(request.getParameter("categorie"))));
-			}
-
+		
+		
+		if(request.getParameter("categorie")!=null &&Integer.parseInt(request.getParameter("categorie"))>0) {
+			articlesVendus = ArticleVenduManager.getInstance().findArticlesVendusByCategorie(Integer.parseInt(request.getParameter("categorie")));
+		} else {
+			articlesVendus = ArticleVenduManager.getInstance().recupArticlesVendusEncheresOuvertes();
 		}
 
-		else {
-			if (request.getParameter("q") != null) {
-				articlesVendus = ArticleVenduManager.getInstance().rechercheUnArticleVendu(request.getParameter("q"));
-			} else {
-				articlesVendus = ArticleVenduManager.getInstance().recupTousLesArticlesVendus();
-			}
-		}
 
 		request.setAttribute("articlesVendus", articlesVendus);
 		request.setAttribute("annee", LocalDate.now().getYear());

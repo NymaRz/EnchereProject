@@ -18,6 +18,7 @@ public class CategorieDaoJdbcImpl implements CategorieDAO {
 	private static final String UPDATE_CATEGORIES = "UPDATE CATEGORIES SET libelle=?,WHERE no_categorie=?";
 	private static final String DELETE_CATEGORIES = "DELETE FROM CATEGORIES WHERE no_categorie=?";
 	private static final String FIND_BY_CATEGORIES = "SELECT * FROM CATEGORIES WHERE libelle LIKE ?";
+	
 
 	@Override
 	public void save(Categorie categorie) {
@@ -110,4 +111,5 @@ public class CategorieDaoJdbcImpl implements CategorieDAO {
 		}
 		return null;
 	}
+	
 }
