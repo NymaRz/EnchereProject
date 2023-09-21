@@ -14,7 +14,7 @@
 <c:forEach var="articleVendu" items="${ articlesVendus }">
 <div>
 			<h2>${articleVendu.nomArticle }</h2>
-			<p>Prix : ${articleVendu.prixVente }</p>
+			<p>Prix : ${articleVendu.prixVente } crédits</p>
 			<p>Fin de l'enchère : ${articleVendu.dateFinEncheres }</p>
 			<p>Vendeur.se : ${articleVendu.utilisateur.getPseudo() }</p>
 

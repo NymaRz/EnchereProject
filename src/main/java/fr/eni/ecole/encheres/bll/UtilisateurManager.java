@@ -121,4 +121,8 @@ public class UtilisateurManager {
 
 	}
 
+	public Utilisateur findByEmail(String email) {
+		return userDao.findByEmail(email);
+	}
+
 }
