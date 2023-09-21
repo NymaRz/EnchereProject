@@ -22,23 +22,13 @@ List<Categorie> categories = (List<Categorie>) request.getAttribute("categories"
 
 		aria-label="Search">
 
-	<button type="submit">
 
-		<i class="fa-solid fa-magnifying-glass"></i>
-
-	</button>
-
- 
 
 	<label for="categorie">Catégories:</label> <select id="categorie"
 
 		name="categorie">
 
-<<<<<<< HEAD
 		<option value="0" selected>Toutes</option>
-=======
->>>>>>> 2572952b3d71c004c29fec8b53f37e5a5edf2f50
-
 
 
 	<c:forEach var="categorie" items="${ categories }">
@@ -50,9 +40,14 @@ List<Categorie> categories = (List<Categorie>) request.getAttribute("categories"
  
 
 		</c:forEach>
+		
 
 	</select>
 
- 
+  <button type="submit">
+
+			<i class="fa-solid fa-magnifying-glass"></i>
+
+		</button>
 
 </form>

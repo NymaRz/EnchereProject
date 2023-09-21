@@ -62,18 +62,8 @@ public class ArticleVenduManager {
 	}
 
 //tri par catégorie + query
-	public List<ArticleVendu> rechercherUnArticleVenduByCategorie(Categorie categorie, String query) {
-		List<ArticleVendu> articlesVendusOfCategorie = CategorieManager.getInstance().recupUneCategorie(categorie.getNoCategorie()).getArticlesOfCategorie();
-		List<ArticleVendu> articlesVendusOfQuery = ArticleVenduManager.getInstance().rechercheUnArticleVendu(query);
-		List<ArticleVendu> articlesOfCategorieAndQuery = new ArrayList<ArticleVendu>();
-		for (ArticleVendu articleVenduOfCategorie : articlesVendusOfCategorie) {
-			for (ArticleVendu articleVenduOfQuery : articlesVendusOfQuery) {
-				if (articleVenduOfCategorie.equals(articleVenduOfQuery)) {
-					articlesOfCategorieAndQuery.add(articleVenduOfCategorie);
-				}
-			}
-		}
-		return articlesOfCategorieAndQuery;
+	public List<ArticleVendu> rechercherUnArticleVenduByCategorie(int noCategorie, String query) {
+		return articleVenduDao.rechercheArticlesDeCategorieByName(noCategorie, query);
 	}
 
 	// seulement les articles dont la date d'ouverture aux enchères est ouverte, et
@@ -95,6 +85,33 @@ public class ArticleVenduManager {
 	// idem mais avec query
 	public List<ArticleVendu> recupUnArticleVendyEncheresOuvertes(String query) {
 		List<ArticleVendu> articlesVendus = ArticleVenduManager.getInstance().rechercheUnArticleVendu(query);
+		List<ArticleVendu> articlesVendusOuvertsAuxEncheres = new ArrayList<ArticleVendu>();
+		LocalDate dateNow = LocalDate.now();
+		for (ArticleVendu articleVendu : articlesVendus) {
+			if (articleVendu.getDateDebutEncheres().isBefore(dateNow)
+					|| articleVendu.getDateDebutEncheres().isEqual(dateNow)
+					|| articleVendu.getDateFinEncheres().isAfter(dateNow))
+				articlesVendusOuvertsAuxEncheres.add(articleVendu);
+		}
+		return articlesVendusOuvertsAuxEncheres;
+	}
+	
+	//articles d'une catégorie dont les enchères sont ouvertes
+	public List<ArticleVendu> recupArticlesCategorieEO(int noCategorie){
+		List<ArticleVendu> articlesVendus = ArticleVenduManager.getInstance().findArticlesVendusByCategorie(noCategorie);
+		List<ArticleVendu> articlesVendusOuvertsAuxEncheres = new ArrayList<ArticleVendu>();
+		LocalDate dateNow = LocalDate.now();
+		for (ArticleVendu articleVendu : articlesVendus) {
+			if (articleVendu.getDateDebutEncheres().isBefore(dateNow)
+					|| articleVendu.getDateDebutEncheres().isEqual(dateNow)
+					|| articleVendu.getDateFinEncheres().isAfter(dateNow))
+				articlesVendusOuvertsAuxEncheres.add(articleVendu);
+		}
+		return articlesVendusOuvertsAuxEncheres;
+	}
+	//idem mais avec query
+	public List<ArticleVendu> recupUnArticleVenduByCategorieEO(int noCategorie,String query) {
+		List<ArticleVendu> articlesVendus = ArticleVenduManager.getInstance().rechercherUnArticleVenduByCategorie(noCategorie, query);
 		List<ArticleVendu> articlesVendusOuvertsAuxEncheres = new ArrayList<ArticleVendu>();
 		LocalDate dateNow = LocalDate.now();
 		for (ArticleVendu articleVendu : articlesVendus) {
