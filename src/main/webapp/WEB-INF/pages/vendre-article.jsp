@@ -16,7 +16,7 @@
 	<select name="categorie" id="categorie-select">
 		<option value="">Choisir une option</option>
 		
-		<c:forEach var="game" items="${ articleVendu.categories }">
+		<c:forEach var="libelleCategorie" items="${ articleVendu.categories }">
 			<option value="${categories.libelle}">${categories.libelle}</option>
 		</c:forEach>
 		
@@ -27,16 +27,25 @@
 		action="${pageContext.request.ContextPath }/enregistrer">
 	<label for="miseAPrix" class="form-label">Mise à prix
 		:</label> 		<input value="${ articleVendu.miseAPrix }" /> 
-		<label for="Retrait" class="form-label">Retrait :</label>
-		<input value="${ article.enchere.date_enchere }" /> 
-		<label for="Retrait" class="form-label">Retrait :</label>
-		<input value="${ articleVendu.lieuRetrait }" /> 
-		<label for="Vendeur" class="form-label">Vendeur :</label> 
-		<input value="${ articleVendu.utilisateur }" /> 
-		<label for="Tel" class="form-label">Tel :</label> 
-		<input value="${ utilisateur.telephone }" /> 
+		<label for="dateDebutEnchere" class="form-label">Début enchères :</label>
+		<input value="${ articleVendu.dateDebutEncheres }" /> 
+		<label for="Retrait" class="form-label">Fin enchères :</label>
+		<input value="${ articleVendu.dateFinEncheres }" /> 
+		
+<fieldset>
+    <legend>Retrait</legend>
+		<label for="Retrait" class="form-label">Rue :</label>
+		<input value="${ adresses.rue }" /> 
+		<label for="Retrait" class="form-label">Code postal :</label>
+		<input value="${ adresses.codePostal }" /> 
+		<label for="Retrait" class="form-label">Ville :</label>
+		<input value="${ adresses.ville }" /> 
+
 		<a href="${ pageContext.request.contextPath }/articles?id=${ articleVendu.nomArticleVendu }">Enregistrer</a>
 		<a href="#" onclick="window.history.back();">Annuler</a>
+		
+		</fieldset>
+		</form>
 </main>
 
 
