@@ -9,6 +9,7 @@ import java.io.IOException;
 
 import fr.eni.ecole.encheres.bll.ArticleVenduManager;
 import fr.eni.ecole.encheres.bo.ArticleVendu;
+import fr.eni.gamemanager.bll.GameManager;
 
 @WebServlet("/encherir")
 
@@ -36,7 +37,16 @@ public class EncherirServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-//
+		try {
+			// récupérer le param dans url
+			int id = Integer.parseInt(request.getParameter("noArticle"));
+			// supprimer un jeu
+			ArticleVenduManager.getInstance().EncherirSurUnArticleVendu(id);
+			// redirect
+			response.sendRedirect(request.getContextPath() + "/");
+		} catch (Exception e) {
+			response.sendError(404);
 		}
+	}
 
 }
