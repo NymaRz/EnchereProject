@@ -8,6 +8,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import fr.eni.ecole.encheres.bll.AdresseManager;
+import fr.eni.ecole.encheres.bo.Adresse;
 import fr.eni.ecole.encheres.bo.Utilisateur;
 import fr.eni.ecole.encheres.dal.DaoFactory;
 import fr.eni.ecole.encheres.dal.UtilisateurDao;
@@ -152,7 +154,19 @@ public class UtilisateurDaoJdbcImpl implements UtilisateurDao {
 			ResultSet rs = pstmt.executeQuery();
 
 			if (rs.next()) {
-				return new Utilisateur();
+				Utilisateur utilisateur = new Utilisateur();
+				utilisateur.setNoUtilisateur(rs.getInt("no_utilisateur"));
+				utilisateur.setPseudo(rs.getString("pseudo"));
+				utilisateur.setNom(rs.getString("nom"));
+				utilisateur.setPrenom(rs.getString("prenom"));
+				utilisateur.setEmail(rs.getString("email"));
+				utilisateur.setTelephone(rs.getString("telephone"));
+				utilisateur.setAdresse(AdresseManager.getInstance().recupUneAdresse(rs.getInt("id_adresse")));
+				utilisateur.setMdp(rs.getString("mot_de_passe"));
+				utilisateur.setCredit(rs.getInt("credit"));
+				utilisateur.setAdmin(rs.getBoolean("admin"));
+				utilisateur.setVip(rs.getBoolean("vip"));
+				return utilisateur;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
