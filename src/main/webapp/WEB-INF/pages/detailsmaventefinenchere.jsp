@@ -18,14 +18,12 @@
 		readonly="readonly" value="${ articleVendu.utilisateur }" />
 
 	<form method="POST"
-		action="${pageContext.request.ContextPath }/supprimer"
-		onsubmit="return confirm('Voulez-vous vraiment supprimer ce jeu ?')">
+		action="${pageContext.request.ContextPath }/articles?id=${ articleVendu.nomArticleVendu }">
 			<label for="Proposition" class="form-label">Ma proposition :</label> 
-			<input type="number" value="" />
-			<button type="submit" name="Encherir" value="Enchérir" ></div>
-	</form>
+			<input type="number" value="${ enchere.montantEnchere }" />
+			<button type="submit" name="Encherir" value="Enchérir" ></button></form>
 
-
+</main>
 
 
 <%@ include file="/WEB-INF/fragments/footer.jspf"%>
