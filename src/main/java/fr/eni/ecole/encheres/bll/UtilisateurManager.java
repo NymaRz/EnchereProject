@@ -50,7 +50,7 @@ public class UtilisateurManager {
 		utilisateurDao.remove(idUtilisateur);
 	}
 
-	public List<Utilisateur> rechercheUnUtilisateur(String query) {
+	public Utilisateur rechercheUnUtilisateur(String query) {
 		return utilisateurDao.findByPseudo(query);
 	}
 

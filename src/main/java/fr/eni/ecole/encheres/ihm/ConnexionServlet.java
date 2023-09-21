@@ -39,7 +39,6 @@ public class ConnexionServlet extends HttpServlet {
 				doGet(request, response);
 			} else {
 				HttpSession session = request.getSession();
-				utilisateur.setMdp(""); // Ne pas stocker le mot de passe en session
 				session.setAttribute(SESSION_EMAIL_ATTRIBUTE, email);
 				response.sendRedirect(request.getContextPath() + "/accueil");
 			}

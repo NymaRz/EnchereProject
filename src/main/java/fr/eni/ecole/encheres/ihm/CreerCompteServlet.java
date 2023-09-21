@@ -19,7 +19,8 @@ public class CreerCompteServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		request.getRequestDispatcher("/WEB-INF/pages/creercompte.jsp").forward(request, response);
+		System.out.println("ttttttttttttttttttttt");
+		request.getRequestDispatcher("/WEB-INF/pages/CreerCompte.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

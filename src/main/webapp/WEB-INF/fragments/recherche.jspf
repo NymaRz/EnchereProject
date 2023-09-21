@@ -16,62 +16,27 @@ List<Categorie> categories = (List<Categorie>) request.getAttribute("categories"
 <form method="GET" action="${ pageContext.request.contextPath }/accueil">
 
 	<input type="search" name="q" placeholder="Recherche..."
-		aria-label="Search">
+		aria-label="Search"> <i class="fa-solid fa-magnifying-glass"></i>
 
-
-<<<<<<< HEAD
-=======
-		<i class="fa-solid fa-magnifying-glass"></i>
-
-	</button>
-
-
->>>>>>> 7e750f3cdf737374bd166bbf4fef287e557ca2b5
 
 	<label for="categorie">Catégories:</label> <select id="categorie"
 		name="categorie">
 
 		<option value="0" selected>Toutes</option>
 
-<<<<<<< HEAD
-
-		<%-- 		<%
-
-		for (Categorie categorie : categories) {
-
-		%>
-
-		<option value="<%=categorie.getNoCategorie()%>"><%=categorie.getLibelle()%></option>
-
-		<%
-
-		}
-
-		%> --%>
-=======
->>>>>>> e72e5108c46a4fa1defa778b2f11d5d9f15e6cc9
-
 		<c:forEach var="categorie" items="${ categories }">
-
-
 
 			<option value="${ categorie.noCategorie}">${categorie.libelle}</option>
 
-
-
 		</c:forEach>
-		
 
-	</select>
 
-<<<<<<< HEAD
-  <button type="submit">
+	</select> <<<<<<< HEAD
+	<button type="submit">
 
-			<i class="fa-solid fa-magnifying-glass"></i>
+		<i class="fa-solid fa-magnifying-glass"></i>
 
-		</button>
-=======
->>>>>>> 7e750f3cdf737374bd166bbf4fef287e557ca2b5
+	</button>
 
 
 </form>
