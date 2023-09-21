@@ -8,11 +8,11 @@ import java.sql.SQLException;
 
 public class gestionDeBaseDeDonnees {
 
-	private static final String URL = "jdbc:mysql://localhost:3306/ENCHERE_DB";
-	private static final String UTILISATEUR = "votreutilisateur";
-	private static final String MOT_DE_PASSE = "votremotdepasse";
+	private static final String URL = "java:comp/env/jdbc/pool_cnx/ENCHERE_DB";
+	private static final String UTILISATEUR = "no_utilisateur";
+	private static final String MOT_DE_PASSE = "mot_de_passe";
 
-	public Utilisateur getUtilisateurFromDatabase(String username) throws SQLException {
+	public Utilisateur getUtilisateurFromDatabase(String no_utilisateur) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
@@ -23,9 +23,9 @@ public class gestionDeBaseDeDonnees {
 			connection = DriverManager.getConnection(URL, UTILISATEUR, MOT_DE_PASSE);
 
 			// Requête SQL pour récupérer l'utilisateur par nom d'utilisateur
-			String sql = "SELECT * FROM utilisateurs WHERE username = ?";
+			String sql = "SELECT * FROM UTILISATEURS WHERE no_utilisateur = ?";
 			preparedStatement = connection.prepareStatement(sql);
-			preparedStatement.setString(1, username);
+			preparedStatement.setString(1, no_utilisateur);
 
 			// Exécutez la requête
 			resultSet = preparedStatement.executeQuery();
@@ -34,7 +34,7 @@ public class gestionDeBaseDeDonnees {
 			if (resultSet.next()) {
 				utilisateur = new Utilisateur();
 				utilisateur.setNoUtilisateur(0);
-				utilisateur.setNom(username);
+				utilisateur.setNom(no_utilisateur);
 				utilisateur.setEmail(resultSet.getString("email"));
 				// Ajoutez d'autres attributs d'utilisateur si nécessaire
 			}

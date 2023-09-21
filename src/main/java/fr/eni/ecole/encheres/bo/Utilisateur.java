@@ -80,6 +80,12 @@ public class Utilisateur {
 		return noUtilisateur;
 	}
 
+	public Utilisateur(String email, String mdp) {
+		super();
+		this.mdp = mdp;
+		this.email = email;
+	}
+
 	public void setNoUtilisateur(int noUtilisateur) {
 		this.noUtilisateur = noUtilisateur;
 	}
