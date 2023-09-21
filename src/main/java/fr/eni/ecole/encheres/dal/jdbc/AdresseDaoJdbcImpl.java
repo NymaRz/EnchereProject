@@ -20,6 +20,7 @@ public class AdresseDaoJdbcImpl implements AdresseDao {
 	private static final String DELETE_ADRESSE = "DELETE FROM ADRESSES WHERE id_adresse=?";
 	private static final String FIND_BY_RUE_ADRESSE = "SELECT * FROM ADRESSES WHERE rue LIKE ?";
 	private static final String FIND_BY_VILLE_ADRESSE = "SELECT * FROM ADRESSES WHERE ville LIKE ?";
+	private static final String FIND_BY_RUE_CP_VILLE_ADRESSE = "SELECT * FROM ADRESSES WHERE rue=? AND code_postal=? AND ville=?";
 
 	@Override
 	public void save(Adresse adresse) {
@@ -136,6 +137,26 @@ public class AdresseDaoJdbcImpl implements AdresseDao {
 				adressesByRue.add(adresse);
 			}
 			return adressesByRue;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@Override
+	public Adresse findByRueCPVille(String rue, String codePostal, String ville) {
+		try (Connection connection = ConnectionProvider.getConnection();
+				PreparedStatement pstmt = connection.prepareStatement(FIND_BY_RUE_CP_VILLE_ADRESSE)) {
+			pstmt.setString(1, rue);
+			pstmt.setString(2, codePostal);
+			pstmt.setString(3, ville);
+
+			ResultSet rs = pstmt.executeQuery();
+			if (rs.next()) {
+				return new Adresse(rs.getInt("id_adresse"), rs.getString("rue"), rs.getString("code_postal"),
+						rs.getString("ville"));
+			}
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

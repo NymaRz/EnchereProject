@@ -20,4 +20,5 @@ public interface AdresseDao {
 	
 	List<Adresse> findByVille(String query);
 
+	Adresse findByRueCPVille(String rue, String codePostal,String ville);
 }

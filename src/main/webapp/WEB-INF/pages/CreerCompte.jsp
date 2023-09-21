@@ -48,9 +48,6 @@
 						<label for="ville" class="form-label">Votre Ville:</label> <input
 							type="text" class="form-control" name="ville" id="ville" required>
 					</div>
-
-					<!-- Ajoutez d'autres champs d'utilisateur de la même manière -->
-
 					<div class="mb-3 text-center mt-5">
 						<button type="submit" name="id" 
 							class="btn btn-danger">Créer le Profil</button>
