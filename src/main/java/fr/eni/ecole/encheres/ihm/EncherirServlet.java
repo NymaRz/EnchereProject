@@ -9,7 +9,6 @@ import java.io.IOException;
 
 import fr.eni.ecole.encheres.bll.ArticleVenduManager;
 import fr.eni.ecole.encheres.bo.ArticleVendu;
-import fr.eni.gamemanager.bll.GameManager;
 
 @WebServlet("/encherir")
 
