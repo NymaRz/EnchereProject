@@ -123,22 +123,20 @@ public class UtilisateurDaoJdbcImpl implements UtilisateurDao {
 	}
 
 	@Override
-	public List<Utilisateur> findByPseudo(String query) {
+	public Utilisateur findByPseudo(String query) {
 		try (Connection connection = ConnectionProvider.getConnection();
 				PreparedStatement pstmt = connection.prepareStatement(FIND_BY_PSEUDO_UTILISATEUR)) {
 			pstmt.setString(1, query);
 			ResultSet rs = pstmt.executeQuery();
-			List<Utilisateur> utilisateurs = new ArrayList<Utilisateur>();
-			while (rs.next()) {
+			if (rs.next()) {
 				Utilisateur utilisateur = new Utilisateur(rs.getString("pseudo"), rs.getString("nom"),
 						rs.getString("prenom"), rs.getString("email"), rs.getString("telephone"),
 						DaoFactory.getAdresseDao().findOne(rs.getInt("id_adresse")), rs.getString("mot_de_passe"),
 						rs.getInt("credit"));
 				utilisateur.setAdmin(rs.getBoolean("administrateur"));
 				utilisateur.setVip(rs.getBoolean("vip"));
-				utilisateurs.add(utilisateur);
+				return utilisateur;
 			}
-			return utilisateurs;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

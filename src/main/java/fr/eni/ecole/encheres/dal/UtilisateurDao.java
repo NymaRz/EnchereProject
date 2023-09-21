@@ -15,10 +15,8 @@ public interface UtilisateurDao {
 
 	void remove(int idUtilisateur);
 
-	List<Utilisateur> findByPseudo(String query);
-	
+	Utilisateur findByPseudo(String query);
+
 	Utilisateur findByEmail(String email);
 
-	
-	
 }
