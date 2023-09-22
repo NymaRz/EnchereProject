@@ -8,6 +8,7 @@ import fr.eni.ecole.encheres.bll.ArticleVenduManager;
 import fr.eni.ecole.encheres.bll.CategorieManager;
 import fr.eni.ecole.encheres.bll.RetraitManager;
 import fr.eni.ecole.encheres.bll.UtilisateurManager;
+import fr.eni.ecole.encheres.bll.exception.BLLException;
 import fr.eni.ecole.encheres.bo.Adresse;
 import fr.eni.ecole.encheres.bo.ArticleVendu;
 import fr.eni.ecole.encheres.bo.Categorie;
@@ -30,8 +31,15 @@ public class VendreArticleServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 
 		String email = (String) session.getAttribute("email");
-		Utilisateur utilisateur = UtilisateurManager.getInstance().findByEmail(email);
-		request.setAttribute("adresse", utilisateur.getAdresse());
+		Utilisateur utilisateur;
+		try {
+			utilisateur = UtilisateurManager.getInstance().findByEmail(email);
+			request.setAttribute("adresse", utilisateur.getAdresse());
+		} catch (BLLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 
 		request.getRequestDispatcher("/WEB-INF/pages/vendre-article.jsp").forward(request, response);
 	}
@@ -86,51 +94,10 @@ public class VendreArticleServlet extends HttpServlet {
 
 		} catch (ServletException e) {
 			e.printStackTrace();
+		} catch (BLLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 
 }
-
-//<h1>${ articleVendu.nomArticle }</h1>
-//
-//
-//
-//<label for="Description" class="form-label">Description :</label>
-//
-//<input readonly="readonly" value="${ articleVendu.description }" />
-//
-// 
-//
-//<label for="MeilleurOffre" class="form-label">Meilleure offre :</label>
-//
-//<input readonly="readonly" value="${ enchere.montant_enchere }" />
-//
-// 
-//
-//<label for="Retrait" class="form-label">Retrait :</label>
-//
-//<input readonly="readonly" value="${ articleVendu.miseAPrix }" />
-//
-// 
-//
-//<label for="Retrait" class="form-label">Retrait :</label>
-//
-//<input readonly="readonly" value="${ articleVendu.lieuRetrait }" />
-//
-// 
-//
-//<label for="Vendeur" class="form-label">Vendeur :</label>
-//
-//<input readonly="readonly" value="${ articleVendu.utilisateur }" />
-//
-// 
-//
-//<label for="Tel" class="form-label">Tel :</label>
-//
-//<input readonly="readonly" value="${ utilisateur.telephone }" />
-//
-// 
-//
-//<a href="${ pageContext.request.contextPath }/">Précédent</a>
-//
-//</main>
