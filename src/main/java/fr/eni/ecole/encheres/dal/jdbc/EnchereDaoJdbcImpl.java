@@ -20,6 +20,7 @@ public class EnchereDaoJdbcImpl implements EnchereDao {
 	private static final String UPDATE_ENCHERES = "UPDATE ENCHERES SET no_utilisateur?, no_article=?,date_enchere=montant_encheres=?,id_enchere=?,WHERE id_enchere=?";
 	private static final String DELETE_ENCHERES = "DELETE FROM ENCHERES WHERE id_enchere=?";
 	private static final String FIND_BY_ENCHERES = "SELECT * FROM ENCHERES WHERE id_enchere =?";
+	private static final String FIND_HIGHEST_BID = "SELECT * FROM ENCHERES WHERE montant_enchere=(SELECT MAX(montant_enchere) FROM ENCHERES)";
 
 	@Override
 	public void save(Enchere enchere) {
@@ -47,7 +48,7 @@ public class EnchereDaoJdbcImpl implements EnchereDao {
 
 			ResultSet rs = pstmt.executeQuery();
 			if (rs.next()) {
-				Enchere enchere = new Enchere(DaoFactory.getUtilisateurDao().findOne(rs.getInt("no_utilisateur")),
+				return new Enchere(DaoFactory.getUtilisateurDao().findOne(rs.getInt("no_utilisateur")),
 						DaoFactory.getArticleVenduDao().findOne(rs.getInt("no_article")), rs.getInt("montant_enchere"));
 			}
 		} catch (SQLException e) {
@@ -121,5 +122,23 @@ public class EnchereDaoJdbcImpl implements EnchereDao {
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	@Override
+	public Enchere finHigherEnchere() {
+		try (Connection connection = ConnectionProvider.getConnection();
+				Statement stmt = connection.createStatement();) {
+
+			ResultSet rs = stmt.executeQuery(FIND_HIGHEST_BID);
+			if (rs.next()) {
+				return new Enchere(DaoFactory.getUtilisateurDao().findOne(rs.getInt("no_utilisateur")),
+						DaoFactory.getArticleVenduDao().findOne(rs.getInt("no_article")), rs.getInt("montant_enchere"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return null;
+
 	}
 }

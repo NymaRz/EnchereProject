@@ -30,15 +30,12 @@ public class VendreArticleServlet extends HttpServlet {
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
 
-		String email = (String) session.getAttribute("email");
-		Utilisateur utilisateur;
-		try {
-			utilisateur = UtilisateurManager.getInstance().findByEmail(email);
+		//récupérer l'utilisateur
+		Utilisateur utilisateur =  (Utilisateur) session.getAttribute("utilisateur");
+
+		
 			request.setAttribute("adresse", utilisateur.getAdresse());
-		} catch (BLLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+
 		
 
 		request.getRequestDispatcher("/WEB-INF/pages/vendre-article.jsp").forward(request, response);
