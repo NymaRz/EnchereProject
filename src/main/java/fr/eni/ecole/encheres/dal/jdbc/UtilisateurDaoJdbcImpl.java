@@ -177,8 +177,8 @@ public class UtilisateurDaoJdbcImpl implements UtilisateurDao {
 				utilisateur.setAdresse(AdresseManager.getInstance().recupUneAdresse(rs.getInt("id_adresse")));
 				utilisateur.setMdp(rs.getString("mot_de_passe"));
 				utilisateur.setCredit(rs.getInt("credit"));
-				utilisateur.setAdmin(rs.getBoolean("admin"));
-				utilisateur.setVip(rs.getBoolean("vip"));
+//				utilisateur.setAdmin(rs.getBoolean("admin"));
+//				utilisateur.setVip(rs.getBoolean("vip"));
 				return utilisateur;
 			}
 		} catch (SQLException e) {
