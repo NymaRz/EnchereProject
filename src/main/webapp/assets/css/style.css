@@ -11,3 +11,41 @@ footer {
 	height: 5rem;
 	background-color: rgb(128, 128, 128);
 }
+
+main{
+	min-height: 82.9vh;
+}
+
+
+.actionbouton{
+	background-color: ;
+	border-radius: 5px;
+	padding:5px 8px;
+	color :;
+	transition-duration:200ms;
+
+}
+
+.actionbouton:hover{
+	background-color: ;
+	border-radius: 5px;
+	padding:5px 8px;
+	color :;
+	transition-duration:200ms;
+}
+
+.articleVendu {
+	width : 400px;
+	height: 400px;
+	background-color: ;
+	border-radius:15px;
+	
+}
+
+.aAction {}
+
+.aAction {
+	color:;
+	transition-duration: ;
+	back
+}
