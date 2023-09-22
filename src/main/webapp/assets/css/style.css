@@ -16,6 +16,9 @@ main {
 	min-height: 82.9vh;
 }
 
+
+#logo-image{width:215px;}
+
 .classicbouton{
 		background-color: #fff;
 }
@@ -36,11 +39,14 @@ p{color: #777d84;}
 	transition-duration: 200ms;
 }
 
-.articleVendu {
-	width: 400px;
+.article-vendu {
+	width: 33%;
+	min-width:250px;
 	height: 400px;
 	background-color: #E7E8E9;
 	border-radius: 15px;
+	display:inline-block;
+	margin:5px;
 }
 
 .montant-enchere {
@@ -96,3 +102,5 @@ select::after {
   transform: translateY(-50%);
   pointer-events: none; /* Évite que la flèche soit cliquable */
 }
+
+#container-secondaire{width:800px;margin:auto;}
