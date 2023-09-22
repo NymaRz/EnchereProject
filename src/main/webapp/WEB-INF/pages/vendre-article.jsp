@@ -34,11 +34,16 @@
 				class="form-label">Code postal :</label> <input
 				value="${adresse.codePostal }" name="codePostal" id="ville" /> <label
 				for="Retrait" class="form-label">Ville :</label> <input
-				value="${adresse.ville }" name="ville" id="ville" /> <a
-				href="${ pageContext.request.contextPath }/articles?id=${ articleVendu.nomArticleVendu }">Enregistrer</a>
-			<a href="#" onclick="window.history.back();">Annuler</a>
-
+				value="${adresse.ville }" name="ville" id="ville" /> 
 		</fieldset>
+			<a href="#" onclick="window.history.back();">Retour</a>
+<%-- 			<a href="${ pageContext.request.contextPath }/articles?id=${ articleVendu.nomArticleVendu }">Appliquer les Modifications</a>--%>						
+			
+<!-- Faire que l'article ne soit pas modifiable si la vente est commencée.
+ -->			
+ 			<button type="submit" name="Appliquer" value="Appliquer" >Appliquer les modifications</button>
+			<button type="submit" name="Stoper" value="Stoper" >Stoper la vente</button>
+			<%-- <bouton action="${ pageContext.request.contextPath }/articles?id=${ articleVendu.nomArticleVendu }">Annuler la vente</a> --%>
 	</form>
 </main>
 
