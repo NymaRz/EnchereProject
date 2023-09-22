@@ -8,6 +8,8 @@ import fr.eni.ecole.encheres.bll.exception.BLLException;
 import fr.eni.ecole.encheres.bo.Adresse;
 import fr.eni.ecole.encheres.bo.Utilisateur;
 import fr.eni.ecole.encheres.dal.jdbc.exception.JDBCException;
+import fr.eni.ecole.encheres.ihm.exception.EmailExisteDejaException;
+import fr.eni.ecole.encheres.ihm.exception.PseudoExisteDejaException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -31,21 +33,12 @@ public class CreerCompteServlet extends HttpServlet {
 
 			// Vérifier si l'adresse e-mail existe déjà dans la base de données
 			if (UtilisateurManager.getInstance().emailExisteDeja(email)) {
-				request.getSession().setAttribute("emailError", "Cette adresse e-mail est déjà utilisée par un autre utilisateur.");
-				response.sendRedirect(request.getContextPath() + "/inscription");
+				throw new EmailExisteDejaException("Cette adresse e-mail est déjà utilisée par un autre utilisateur.");
 			}
 
 			// Vérifier si le pseudo existe déjà dans la base de données
 			if (UtilisateurManager.getInstance().pseudoExisteDeja(pseudo)) {
-				request.getSession().setAttribute("pseudoError", "Ce pseudo est déjà utilisé par un autre utilisateur.");
-				response.sendRedirect(request.getContextPath() + "/inscription");
-			}
-
-			// Si des erreurs sont détectées, renvoyer l'utilisateur vers la page
-			// d'inscription
-			if (request.getAttribute("emailError") != null || request.getAttribute("pseudoError") != null) {
-				request.getRequestDispatcher("/WEB-INF/pages/CreerCompte.jsp").forward(request, response);
-				return; // Arrête l'exécution de la méthode doPost.
+				throw new PseudoExisteDejaException("Ce pseudo est déjà utilisé par un autre utilisateur.");
 			}
 
 			Adresse adresse = new Adresse();
@@ -71,8 +64,19 @@ public class CreerCompteServlet extends HttpServlet {
 			response.sendRedirect(request.getContextPath() + "/connexion");
 		} catch (JDBCException | BLLException e) {
 			e.printStackTrace();
-			request.setAttribute("error", e.getMessage());
+			request.setAttribute("error",e.getMessage());
+			request.getRequestDispatcher("/WEB-INF/pages/CreerCompte.jsp").forward(request, response);
+		} catch (EmailExisteDejaException e) {
+			e.printStackTrace();
+			// Gérez spécifiquement l'exception EmailExisteDejaException ici, par exemple :
+			request.setAttribute("emailError", e.getMessage());
+			request.getRequestDispatcher("/WEB-INF/pages/CreerCompte.jsp").forward(request, response);
+		} catch (PseudoExisteDejaException e) {
+			e.printStackTrace();
+			// Gérez spécifiquement l'exception PseudoExisteDejaException ici, par exemple :
+			request.setAttribute("pseudoError", e.getMessage());
 			request.getRequestDispatcher("/WEB-INF/pages/CreerCompte.jsp").forward(request, response);
 		}
+
 	}
 }
