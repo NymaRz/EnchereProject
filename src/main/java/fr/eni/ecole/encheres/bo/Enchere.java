@@ -73,4 +73,10 @@ public class Enchere {
 		this.id_enchere = id_enchere;
 	}
 
+	@Override
+	public String toString() {
+		return "Enchere [montant_enchere=" + montant_enchere + ", acquereur=" + acquereur + ", articleEncheri="
+				+ articleEncheri + ", dateEnchere=" + dateEnchere + ", id_enchere=" + id_enchere + "]";
+	}
+
 }

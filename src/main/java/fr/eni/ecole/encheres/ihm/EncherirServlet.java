@@ -24,15 +24,25 @@ public class EncherirServlet extends HttpServlet {
 
 		try {
 			// récupérer le param dans url
-			int id = Integer.parseInt(request.getParameter("noArticle"));
+			System.out.println("111111111111111111111");
+			int noArticle = Integer.parseInt(request.getParameter("noArticle"));
 			// récupérer l'objet game
-			ArticleVendu article = ArticleVenduManager.getInstance().recupUnArticleVendu(id);
+			ArticleVendu article = ArticleVenduManager.getInstance().recupUnArticleVendu(noArticle);
+			System.out.println(article);
 			// transmettre l'objet vers la jsp
-			request.setAttribute("article", article);
+			request.setAttribute("articleVendu", article);
+			System.out.println("33333333333333333333333333");
 			Enchere enchereMax = EnchereManager.getInstance().recupEnchereLaPlusHaute();
-			request.setAttribute("enchere", enchereMax);
+			System.out.println(enchereMax);
+			if (enchereMax == null) {
+				request.setAttribute("enchere", "pas d'enchère");
+			} else {
+				request.setAttribute("enchere", enchereMax);
+			}
 			// forward
-			request.getRequestDispatcher("/WEB-INF/pages/encherie.jsp").forward(request, response);
+			System.out.println("2222222222222222222222222");
+			request.getRequestDispatcher("/WEB-INF/pages/Encherir.jsp").forward(request, response);
+
 		} catch (Exception e) {
 
 			response.sendError(404);

@@ -8,20 +8,22 @@
 	<h1>${ articleVendu.nomArticle }</h1>
 	<!-- inverser h1 et h2? -->
 	<p>Description : ${articleVendu.description}</p>
-	<p>Catégorie : ${articleVendu.categorie.libelle}</p>
+
 	<p>Meilleure offre : ${enchere.montant_enchere} points par
-		${enchere.acquereur}</p>
+		${enchere.acquereur.pseudo}</p>
 	<%--OU  <P>Meilleure offre : ${articleVendu.prixVente}</P> --%>
 	<p>Mise à prix : ${articleVendu.miseAPrix} points</p>
 	<p>Fin de l'enchère : ${articleVendu.dateFinEncheres}</p>
-	<p>Retrait : ${articleVendu.retrait.adresse}</p>
-	<p>Vendeur : ${articleVendu.utilisateur}</p>
+
+	<p>Vendeur : ${articleVendu.utilisateur.pseudo}</p>
 
 	<form action="" method="POST">
-		<label for="montantEnchere">Ma proposition :</label> <input
+		<label for="montantEnchere">Ma proposition (+ ${articleVendu.enchereMin}) :</label> <input
 			name="montantEnchere" id="montantEnchere" type="number"
-			value="${enchere.montant_enchere + articleVendu.enchereMin }">
-			<button type="submit">Envoyer</button>
+			value="${enchere.montant_enchere + articleVendu.enchereMin }"
+			min="${enchere.montant_enchere+articleVendu.enchereMin }"
+			step="${articleVendu.enchereMin }">
+		<button type="submit">Envoyer</button>
 	</form>
 
 

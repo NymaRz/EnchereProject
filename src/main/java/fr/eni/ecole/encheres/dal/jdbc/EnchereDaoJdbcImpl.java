@@ -9,7 +9,9 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import fr.eni.ecole.encheres.bo.ArticleVendu;
 import fr.eni.ecole.encheres.bo.Enchere;
+import fr.eni.ecole.encheres.bo.Utilisateur;
 import fr.eni.ecole.encheres.dal.DaoFactory;
 import fr.eni.ecole.encheres.dal.EnchereDao;
 
@@ -20,7 +22,10 @@ public class EnchereDaoJdbcImpl implements EnchereDao {
 	private static final String UPDATE_ENCHERES = "UPDATE ENCHERES SET no_utilisateur?, no_article=?,date_enchere=montant_encheres=?,id_enchere=?,WHERE id_enchere=?";
 	private static final String DELETE_ENCHERES = "DELETE FROM ENCHERES WHERE id_enchere=?";
 	private static final String FIND_BY_ENCHERES = "SELECT * FROM ENCHERES WHERE id_enchere =?";
-	private static final String FIND_HIGHEST_BID = "SELECT * FROM ENCHERES WHERE montant_enchere=(SELECT MAX(montant_enchere) FROM ENCHERES)";
+	private static final String FIND_HIGHEST_BID = "SELECT * \r\n" + "\r\n"
+			+ "FROM ENCHERES as e INNER JOIN UTILISATEURS as u ON e.no_utilisateur = u.no_utilisateur \r\n"
+			+ "INNER JOIN ARTICLES_VENDUS as av ON av.no_article= e.no_article\r\n"
+			+ "WHERE montant_enchere=(SELECT MAX(montant_enchere) FROM ENCHERES)";
 
 	@Override
 	public void save(Enchere enchere) {
@@ -126,13 +131,39 @@ public class EnchereDaoJdbcImpl implements EnchereDao {
 
 	@Override
 	public Enchere finHigherEnchere() {
+
 		try (Connection connection = ConnectionProvider.getConnection();
 				Statement stmt = connection.createStatement();) {
 
 			ResultSet rs = stmt.executeQuery(FIND_HIGHEST_BID);
 			if (rs.next()) {
-				return new Enchere(DaoFactory.getUtilisateurDao().findOne(rs.getInt("no_utilisateur")),
-						DaoFactory.getArticleVenduDao().findOne(rs.getInt("no_article")), rs.getInt("montant_enchere"));
+				Utilisateur u = new Utilisateur(rs.getString("pseudo"), rs.getString("nom"), rs.getString("prenom"),
+						rs.getString("email"), rs.getString("telephone"),
+						DaoFactory.getAdresseDao().findOne(rs.getInt("id_adresse")), rs.getString("mot_de_passe"),
+						rs.getInt("credit"));
+				u.setAdmin(rs.getBoolean("administrateur"));
+				u.setVip(rs.getBoolean("vip"));
+				ArticleVendu articleVendu = new ArticleVendu();
+				// Récupérer les données du ResultSet et les assigner à l'objet articleVendu
+				articleVendu.setnoArticle(rs.getInt("no_article"));
+				articleVendu.setNomArticle(rs.getString("nom_article"));
+				articleVendu.setDescription(rs.getString("description"));
+				articleVendu.setDateDebutEncheres(rs.getDate("date_debut_encheres").toLocalDate());
+				articleVendu.setDateFinEncheres(rs.getDate("date_fin_encheres").toLocalDate());
+				articleVendu.setMiseAPrix(rs.getInt("prix_initial"));
+				articleVendu.setPrixVente(rs.getInt("prix_vente"));
+				articleVendu.setEtatVente(rs.getString("etat_vente"));
+				articleVendu.setUtilisateur(DaoFactory.getUtilisateurDao().findOne(rs.getInt("no_utilisateur")));
+				articleVendu.setCategorieArticle(DaoFactory.getCategorieDao().findOne(rs.getInt("no_categorie")));
+				articleVendu.setLieuRetrait(DaoFactory.getRetraitDao().findOne(rs.getInt("id_retrait")));
+				articleVendu.setEnchereMin(rs.getInt("enchere_min"));
+				Enchere e = new Enchere();
+				e.setId_enchere(rs.getInt("id_enchere"));
+				e.setAcquereur(u);
+				e.setArticleEncheri(articleVendu);
+				e.setMontant_enchere(rs.getInt("montant_enchere"));
+				System.out.println(e);
+				return e;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
