@@ -38,7 +38,10 @@
 		</fieldset>
 			<a href="#" onclick="window.history.back();">Retour</a>
 <%-- 			<a href="${ pageContext.request.contextPath }/articles?id=${ articleVendu.nomArticleVendu }">Appliquer les Modifications</a>--%>						
-			<button type="submit" name="Appliquer" value="Appliquer" >Stoper la vente</button>
+			
+<!-- Faire que l'article ne soit pas modifiable si la vente est commencée.
+ -->			
+ 			<button type="submit" name="Appliquer" value="Appliquer" >Appliquer les modifications</button>
 			<button type="submit" name="Stoper" value="Stoper" >Stoper la vente</button>
 			<%-- <bouton action="${ pageContext.request.contextPath }/articles?id=${ articleVendu.nomArticleVendu }">Annuler la vente</a> --%>
 	</form>
