@@ -25,40 +25,39 @@ public class UtilisateurDaoJdbcImpl implements UtilisateurDao {
 	private static final String DELETE_UTILISATEUR = "DELETE FROM UTILISATEURS WHERE no_utilisateur=?";
 	private static final String FIND_BY_PSEUDO_UTILISATEUR = "SELECT * FROM UTILISATEURS WHERE pseudo LIKE ?";
 	private static final String SELECT_BY_EMAIL = "SELECT * FROM UTILISATEURS WHERE email = ?";
+	private static final int ERROR_CODE_UNIQUE_VIOLATION = 2627;
+	private static final int ERROR_MAIL_UNIQUE_VIOLATION = 2628;
 
 	@Override
 	public void save(Utilisateur utilisateur) throws EmailExisteDejaException, PseudoExisteDejaException {
-	    // Vérifier si l'adresse e-mail existe déjà dans la base de données
-	    if (UtilisateurManager.getInstance().emailExisteDeja(utilisateur.getEmail())) {
-	        throw new EmailExisteDejaException("Cette adresse e-mail est déjà utilisée par un autre utilisateur.");
-	    }
+		try (Connection connection = ConnectionProvider.getConnection();
+				PreparedStatement pstmt = connection.prepareStatement(SAVE_USER)) {
+			System.out.println("création de compte");
+			pstmt.setString(1, utilisateur.getPseudo());
+			pstmt.setString(2, utilisateur.getNom());
+			pstmt.setString(3, utilisateur.getPrenom());
+			pstmt.setString(4, utilisateur.getEmail());
+			pstmt.setString(5, utilisateur.getTelephone());
+			pstmt.setInt(6, utilisateur.getAdresse().getIdAdresse());
+			pstmt.setString(7, utilisateur.getMdp());
+			pstmt.setInt(8, utilisateur.getCredit());
+			pstmt.setBoolean(9, utilisateur.isAdmin());
+			pstmt.setBoolean(10, utilisateur.isVip());
+			pstmt.executeUpdate();
 
-	    // Vérifier si le pseudo existe déjà dans la base de données
-	    if (UtilisateurManager.getInstance().pseudoExisteDeja(utilisateur.getPseudo())) {
-	        throw new PseudoExisteDejaException("Ce pseudo est déjà utilisé par un autre utilisateur.");
-	    }
-
-	    try (Connection connection = ConnectionProvider.getConnection();
-	            PreparedStatement pstmt = connection.prepareStatement(SAVE_USER)) {
-	        System.out.println("création de compte");
-	        pstmt.setString(1, utilisateur.getPseudo());
-	        pstmt.setString(2, utilisateur.getNom());
-	        pstmt.setString(3, utilisateur.getPrenom());
-	        pstmt.setString(4, utilisateur.getEmail());
-	        pstmt.setString(5, utilisateur.getTelephone());
-	        pstmt.setInt(6, utilisateur.getAdresse().getIdAdresse());
-	        pstmt.setString(7, utilisateur.getMdp());
-	        pstmt.setInt(8, utilisateur.getCredit());
-	        pstmt.setBoolean(9, utilisateur.isAdmin());
-	        pstmt.setBoolean(10, utilisateur.isVip());
-	        pstmt.executeUpdate();
-
-	        System.out.println("compte enregistré dans la BDD");
-	    } catch (SQLException e) {
-	        e.printStackTrace();
-	    }
+			System.out.println("Compte enregistré dans la BDD");
+		} catch (SQLException e) {
+			if (e.getErrorCode() == ERROR_CODE_UNIQUE_VIOLATION) {
+				if (e.getMessage().contains("email")) {
+					throw new EmailExisteDejaException("L'adresse email choisie est déjà utilisée");
+				} else if (e.getMessage().contains("pseudo")) {
+					throw new PseudoExisteDejaException("Le pseudo choisi est déjà utilisé");
+				}
+			} else {
+				e.printStackTrace(); // Gérez les autres exceptions SQLException ici.
+			}
+		}
 	}
-
 
 	@Override
 	public Utilisateur findOne(int noUtilisateur) {

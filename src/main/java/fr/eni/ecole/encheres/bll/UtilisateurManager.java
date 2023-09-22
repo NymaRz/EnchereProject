@@ -14,6 +14,8 @@ import fr.eni.ecole.encheres.dal.DaoFactory;
 import fr.eni.ecole.encheres.dal.UtilisateurDao;
 import fr.eni.ecole.encheres.dal.jdbc.ConnectionProvider;
 import fr.eni.ecole.encheres.dal.jdbc.exception.JDBCException;
+import fr.eni.ecole.encheres.ihm.exception.EmailExisteDejaException;
+import fr.eni.ecole.encheres.ihm.exception.PseudoExisteDejaException;
 
 public class UtilisateurManager {
 	// singleton
@@ -46,7 +48,7 @@ public class UtilisateurManager {
 		utilisateurDao.modify(utilisateur);
 	}
 
-	public void ajouterUnUtilisateur(Utilisateur utilisateur) {
+	public void ajouterUnUtilisateur(Utilisateur utilisateur) throws EmailExisteDejaException, PseudoExisteDejaException {
 		// Ajoutez ici la logique de validation des données si nécessaire.
 		utilisateurDao.save(utilisateur);
 	}
@@ -62,7 +64,7 @@ public class UtilisateurManager {
 	private UtilisateurDao userDao = DaoFactory.getUtilisateurDao();
 	private Random rd = new Random();
 
-	public void inscription(Utilisateur utilisateur) throws JDBCException, BLLException {
+	public void inscription(Utilisateur utilisateur) throws JDBCException, BLLException, EmailExisteDejaException, PseudoExisteDejaException {
 		// validation !!!!!!!!
 		checkFields(utilisateur);
 		userDao.save(utilisateur);
