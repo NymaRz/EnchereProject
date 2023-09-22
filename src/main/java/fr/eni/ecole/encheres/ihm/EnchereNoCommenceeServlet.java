@@ -3,6 +3,7 @@ package fr.eni.ecole.encheres.ihm;
 import java.io.IOException;
 
 import fr.eni.ecole.encheres.bll.ArticleVenduManager;
+import fr.eni.ecole.encheres.bll.exception.BLLException;
 import fr.eni.ecole.encheres.bo.ArticleVendu;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -33,7 +34,9 @@ public class EnchereNoCommenceeServlet extends HttpServlet {
 		// quand un utilisateur clique sur un de ses articles ça renvoie l'id
 		try {
 			int noArticleVendu = Integer.parseInt(request.getParameter("noArticleVendu"));
-			ArticleVendu articleVendu = ArticleVenduManager.getInstance().recupUnArticleVendu(noArticleVendu);
+			ArticleVendu articleVendu = ArticleVenduManager.getInstance().recupArticleVenduEnchereNC(noArticleVendu);
+			if (articleVendu == null)
+				response.sendRedirect(request.getContextPath() + "/listeencheresmesventes.jsp");
 			request.setAttribute("articleVendu", articleVendu);
 			request.getRequestDispatcher("/WEB-INF/pages/encherenoncommencee.jsp").forward(request, response);
 		} catch (Exception e) {

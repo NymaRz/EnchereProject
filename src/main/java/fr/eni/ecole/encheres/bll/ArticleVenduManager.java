@@ -30,8 +30,16 @@ public class ArticleVenduManager {
 
 	// Début de la logique métier
 
-	public ArticleVendu recupUnArticleVendu(int id) {
-		return articleVenduDao.findOne(id);
+	public ArticleVendu recupUnArticleVendu(int noArticle) {
+		return articleVenduDao.findOne(noArticle);
+	}
+	
+	public ArticleVendu recupArticleVenduEnchereNC(int noArticle) {
+		ArticleVendu articleVendu = articleVenduDao.findOne(noArticle);
+		if(articleVendu.getDateDebutEncheres().isAfter(LocalDate.now()))
+			return articleVendu;
+		return null;
+		
 	}
 
 	public List<ArticleVendu> recupTousLesArticlesVendus() {
