@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.eni.ecole.encheres.bll.AdresseManager;
-import fr.eni.ecole.encheres.bll.UtilisateurManager;
+import fr.eni.ecole.encheres.bo.Adresse;
 import fr.eni.ecole.encheres.bo.Utilisateur;
 import fr.eni.ecole.encheres.dal.DaoFactory;
 import fr.eni.ecole.encheres.dal.UtilisateurDao;
@@ -19,7 +19,7 @@ import fr.eni.ecole.encheres.ihm.exception.PseudoExisteDejaException;
 public class UtilisateurDaoJdbcImpl implements UtilisateurDao {
 
 	private static final String SAVE_USER = "INSERT INTO UTILISATEURS (pseudo,nom,prenom,email,telephone,id_adresse,mot_de_passe,credit,administrateur,vip) VALUES (?,?,?,?,?,?,?,?,?,?)";
-	private static final String FIND_UTILISATEUR_BY_ID = "SELECT * FROM UTILISATEURS WHERE no_utilisateur=?";
+	private static final String FIND_UTILISATEUR_BY_ID = "SELECT * FROM UTILISATEURS as u INNER JOIN ADRESSES as a ON u.id_adresse=a.id_adresse WHERE no_utilisateur=?";
 	private static final String SELECT_ALL_UTILISATEURS = "SELECT * FROM UTILISATEURS";
 	private static final String UPDATE_UTILISATEUR = "UPDATE UTILISATEURS set pseudo=?,nom=?,prenom=?,email=?,telephone=?,id_adresse=?,mot_de_passe=?,credit=?,administrateur=?,vip=? WHERE no_utilisateur=?";
 	private static final String DELETE_UTILISATEUR = "DELETE FROM UTILISATEURS WHERE no_utilisateur=?";
@@ -66,10 +66,14 @@ public class UtilisateurDaoJdbcImpl implements UtilisateurDao {
 			pstmt.setInt(1, noUtilisateur);
 			ResultSet rs = pstmt.executeQuery();
 			if (rs.next()) {
+				Adresse adresse = new Adresse();
+				adresse.setIdAdresse(rs.getInt("id_adresse"));
+				adresse.setRue(rs.getString("rue"));
+				adresse.setCodePostal(rs.getString("code_postal"));
+				adresse.setVille(rs.getString("ville"));
 				Utilisateur utilisateur = new Utilisateur(rs.getString("pseudo"), rs.getString("nom"),
-						rs.getString("prenom"), rs.getString("email"), rs.getString("telephone"),
-						DaoFactory.getAdresseDao().findOne(rs.getInt("id_adresse")), rs.getString("mot_de_passe"),
-						rs.getInt("credit"));
+						rs.getString("prenom"), rs.getString("email"), rs.getString("telephone"), adresse,
+						rs.getString("mot_de_passe"), rs.getInt("credit"));
 				utilisateur.setAdmin(rs.getBoolean("administrateur"));
 				utilisateur.setVip(rs.getBoolean("vip"));
 				return utilisateur;

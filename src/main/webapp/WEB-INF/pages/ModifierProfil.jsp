@@ -40,19 +40,19 @@
 					</div>
 					<div class="mb-3">
 						<label for="rue" class="form-label">Votre Rue:</label> <input
-							type="text" readonly="readonly" class="form-control"
-							value="${ adresse.rue }" name="rue" id="rue">
+							type="text"  class="form-control"
+							value="${ utilisateur.adresse.rue }" name="rue" id="rue">
 					</div>
 					<div class="mb-3">
 						<label for="codePostal" class="form-label">Votre Code
 							Postal:</label> <input type="text" class="form-control"
-							value="${ adresse.codePostal }" name="codePostal"
+							value="${ utilisateur.adresse.codePostal }" name="codePostal"
 							id="codePostal">
 					</div>
 					<div class="mb-3">
 						<label for="ville" class="form-label">Votre Ville:</label> <input
 							type="text" class="form-control"
-							value="${ adresse.ville }" name="ville" id="ville">
+							value="${ utilisateur.adresse.ville }" name="ville" id="ville">
 					</div>
 					<!-- //pas besoin du crédit dans dans l'affichage du profil -->
 					<div class="mb-3">
