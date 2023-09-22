@@ -6,88 +6,73 @@
 <main class="row">
 	<div class="col">
 		<div class="row text-center mt-4">
-			<h1>Mon Profil</h1>
+			<h1>Modifier mon Profil</h1>
 		</div>
 		<div class="row mt-5">
 			<div class="col-4 offset-4">
 				<div class="mb-3">
 					<label for="pseudo" class="form-label">Votre Pseudo:</label> <input
-						type="text" class="form-control" 
-						value="${ utilisateur.pseudo }" name="pseudo" id="pseudo">
+						type="text" class="form-control" value="${ utilisateur.pseudo }"
+						name="pseudo" id="pseudo">
 				</div>
 				<div class="mb-3">
 					<label for="nom" class="form-label">Votre Nom:</label> <input
-						type="text" class="form-control" 
-						value="${ utilisateur.nom }" name="nom" id="nom">
+						type="text" class="form-control" value="${ utilisateur.nom }"
+						name="nom" id="nom">
 				</div>
 				<div class="mb-3">
 					<label for="prenom" class="form-label">Votre Prénom:</label> <input
-						type="text" class="form-control" 
-						value="${ utilisateur.prenom }" name="prenom" id="prenom">
+						type="text" class="form-control" value="${ utilisateur.prenom }"
+						name="prenom" id="prenom">
 				</div>
 				<div class="mb-3">
 					<label for="email" class="form-label">Email:</label> <input
-						type="text" class="form-control" 
-						value="${ utilisateur.email }"name="email" id="email">
+						type="text" class="form-control" value="${ utilisateur.email }"
+						name="email" id="email">
 				</div>
 				<div class="mb-3">
 					<label for="telephone" class="form-label">Telephone:</label> <input
-						type="text" class="form-control" 
+						type="text" class="form-control"
 						value="${ utilisateur.telephone }" name="telephone" id="telephone">
 				</div>
 				<div class="mb-3">
 					<label for="rue" class="form-label">Votre Rue:</label> <input
-						type="text" class="form-control" 
-						value="${ utilisateur.rue }" name="rue" id="rue">
+						type="text" readonly="readonly" class="form-control"
+						value="${ utilisateur.adresse.rue }" name="rue" id="rue">
 				</div>
 				<div class="mb-3">
-					<label for="codePostal" class="form-label">Votre Code Postal:</label> <input
-						type="text" class="form-control" 
-						value="${ utilisateur.codePostal }" name="codePostal" id="codePostal">
+					<label for="codePostal" class="form-label">Votre Code
+						Postal:</label> <input type="text" class="form-control"
+						value="${ utilisateur.adresse.codePostal }" name="codePostal"
+						id="codePostal">
 				</div>
 				<div class="mb-3">
 					<label for="ville" class="form-label">Votre Ville:</label> <input
-						type="text" class="form-control" 
-						value="${ utilisateur.ville }" name="ville" id="ville">
+						type="text" class="form-control"
+						value="${ utilisateur.adresse.ville }" name="ville" id="ville">
 				</div>
-				<div class="mb-3">
-					<label for="mdp" class="form-label">Mot de Passe actuel:</label> <input
-						type="password" class="form-control" 
-						value="${ utilisateur.mdp }" name="mdp" id="mdp">
-				</div>
-				<div class="mb-3">
-					<label for="nouveaumdp" class="form-label">Nouveau mot de Passe:</label> <input
-						type="password" class="form-control" 
-						name="nouveaumdp" id="nouveaumdp">
-				</div>
-				<div class="mb-3">
-					<label for="confirmermdp" class="form-label">Nouveau mot de Passe:</label> <input
-						type="password" class="form-control" 
-						name="confirmermdp" id="confirmermdp">
-				</div>
+				<!-- //pas besoin du crédit dans dans l'affichage du profil -->
 				<div class="mb-3">
 					<label for="credit" class="form-label">Crédit Actuel:</label> <input
-						type="text" class="form-control" 
-						value="${utilisateur.credit}" id="credit">
+						readonly="readonly" type="text" class="form-control"
+						value="${utilisateur.credit}" id="credit" name="credit">
 				</div>
+				<!-- //pas besoin d'afficher le mot de passe dans l'affichage du profil -->
+				<%-- <div class="mb-3">
+					<label for="mdp" class="form-label">Mot de Passe:</label> <input
+						readonly="readonly" type="password" class="form-control" 
+						value="${utilisateur.mdp}" id="mdp">
+				</div> --%>
 
 
 
 				<!-- Ajoutez d'autres champs d'utilisateur de la même manière -->
-				 				<form method="POST"
-					action="${pageContext.request.contextPath}/modifierprofil"
-					onsubmit="return confirm('Etes-vous sûr de vouloir cloturer votre compte ?')">
+				<form method="POST"
+					action="${pageContext.request.contextPath}/modifierprofil">
 					<div class="mb-3 text-center mt-5">
 						<a class="btn btn-info"
-							href="${pageContext.request.contextPath}/profil/enregistrer?id=${utilisateur.id}">
-						Enregistrer
-						</a> <a class="btn btn-primary"
-							href="${pageContext.request.contextPath}/profil/supprimer"><i
-							class="fa-solid fa-plus"></i></a>
-						<button type="submit" name="id" value="${utilisateur.id}"
-							class="btn btn-danger">
-							Cloturer mon compte
-						</button>
+							href="${pageContext.request.contextPath}/modifierprofil?id=${utilisateur.noUtilisateur}">
+							Modifier mon profil</a>
 					</div>
 				</form>
 			</div>
