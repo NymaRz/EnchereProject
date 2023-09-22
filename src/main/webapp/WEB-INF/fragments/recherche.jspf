@@ -13,16 +13,21 @@ List<Categorie> categories = (List<Categorie>) request.getAttribute("categories"
 
 <%@page import="fr.eni.ecole.encheres.bll.*"%>
 
+<div id="header-background">
+
+<div id="content-header"><h1>Le monde de l'art s'ouvre à vous</h1>
+<div id ="container-recherche">
+
 <form method="GET" action="${ pageContext.request.contextPath }/accueil">
 
-	<input type="search" name="q" placeholder="Recherche..."
-		aria-label="Search"> <i class="fa-solid fa-magnifying-glass"></i>
+	<input id="champ-recherche" type="search" name="q" placeholder="Que recherchez-vous ?"
+		aria-label="Search"> <!-- <i class="fa-solid fa-magnifying-glass"></i> -->
 
 
-	<label for="categorie">Catégories:</label> <select id="categorie"
+	<!-- <label for="categorie">Catégories:</label> --> <select id="categorie"
 		name="categorie">
 
-		<option value="0" selected>Toutes</option>
+		<option value="0" selected>Catégories</option>
 
 		<c:forEach var="categorie" items="${ categories }">
 
@@ -32,7 +37,7 @@ List<Categorie> categories = (List<Categorie>) request.getAttribute("categories"
 
 
 	</select> 
-	<button type="submit">
+	<button id="submit-recherche" type="submit">
 
 		<i class="fa-solid fa-magnifying-glass"></i>
 
@@ -40,6 +45,9 @@ List<Categorie> categories = (List<Categorie>) request.getAttribute("categories"
 
 
 </form>
+</div>
+</div>
+</div>
 
 
 

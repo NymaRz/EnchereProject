@@ -14,10 +14,12 @@
 </head>
 <body>
 
-		<header>
-		
-				<div>
-					<a href="#">DummyName </a>
-			</div>
-			
-<!-- !! ne pas utiliser en tant qu'header car pas fermé; utiliser headerMinClose si on veut le header le plus simpliste -->
+	<header id="nav-emplacement">
+
+		<div>
+			<a href="{ pageContext.request.contextPath }"><img
+				src="${ pageContext.request.contextPath }/assets/logo.png"
+				id="logo-image" /></a>
+		</div>
+
+		<!-- !! ne pas utiliser en tant qu'header car pas fermé; utiliser headerMinClose si on veut le header le plus simpliste -->

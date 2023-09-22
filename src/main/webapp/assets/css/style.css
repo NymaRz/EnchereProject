@@ -8,19 +8,25 @@
 header,
 footer {
 	width: 100%;
-	height: 5rem;
-	background-color: rgb(128, 128, 128);
+	height: 55px;
+	background-color: #fff;
 }
 
 main {
-	min-height: 82.9vh;
+	background-color: #E7E8E9;
 }
 
 
-#logo-image{width:215px;}
+#logo-image {
+	width: 215px;
+}
 
-.classicbouton{
-		background-color: #fff;
+.bouton-classique {
+	background-color: #fff;
+	border-radius: 5px;
+	padding: 5px 8px;
+	color: #3A444A;
+	transition-duration: 200ms;
 }
 
 .actionbouton {
@@ -29,24 +35,72 @@ main {
 	padding: 5px 8px;
 	color: #3A444A;
 	transition-duration: 200ms;
+	text-decoration: none;
+	font-weight: 500;
+
 }
 
-p{color: #777d84;}
+#link-vendeur {
+	font-size: 0.9em;
+	color: #E2A125;
+	transition-duration: 200ms;
+	font-weight: 700;
+	text-decoration: none;
+}
+
+p {
+	color: #777d84;
+	margin-bottom: 0em;
+}
+
+h1,
+h2,
+h3,
+h4 {
+	line-height: 1em;
+}
+
+label {
+	color: rgb(152, 152, 152);
+}
 
 .actionbouton:hover {
 	background-color: #3A444A;
-	color:#E2A125;
+	color: #E2A125;
 	transition-duration: 200ms;
 }
 
-.article-vendu {
-	width: 33%;
-	min-width:250px;
-	height: 400px;
-	background-color: #E7E8E9;
+#article-vendu {
+	display: inline-block;
+	width: 31%;
+	min-width: 250px;
+	margin: 5px;
+}
+
+#miniature-article {
+	background-color: #3A444A;
+	/*background-color: #E7E8E9;*/
 	border-radius: 15px;
-	display:inline-block;
-	margin:5px;
+	padding: 15px;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+	height: 200px;
+}
+
+.bouton-miniature {
+	display: flex;
+	justify-content: center;
+	/* Aligner les boutons à droite */
+	align-items: flex-end;
+	/* Aligner les boutons en bas */
+	gap: 5px;
+}
+
+h4.titre-miniature {
+	font-size: 1.6em;
+	font-weight: 400;
+	margin: 5px 0px 0px;
 }
 
 .montant-enchere {
@@ -61,46 +115,135 @@ p{color: #777d84;}
 	font-size: 1.1em;
 }
 
+.prix-article {
+	color: #fff;
+	font-size: 1.4em;
+	font-weight: 600;
+}
+
+
 .aAction:hover {
 	color: #000;
 	transition-duration: 200ms;
 }
 
-.container-recherche{
-	padding : 15px;
-	background-color: #fff;
-	border-radius:8px;
-}
-.champ-recherche {
-	box-shadow:none;
-	border:none;
-	outline : none;
+
+.aNav {
+	color: #000;
+	font-weight: bold;
+	transition-duration: 200ms;
+	font-size: 1.1em;
+	margin: 0 15px;
+	text-decoration: none;
 }
 
-select {
-  /* Propriétés de style personnalisées */
-  width: 200px; /* Largeur du select */
-  padding: 10px; /* Rembourrage interne */
-  font-family: Arial, sans-serif; /* Police */
-  font-size: 16px; /* Taille de la police */
-  color: #777d84; /* Couleur du texte */
-  background-color: #f0f0f0; /* Couleur de fond */
-  border: 1px solid #ccc; /* Bordure */
-  border-radius: 5px; /* Coins arrondis */
-  appearance: none; /* Supprime la flèche déroulante par défaut (utiliser avec précaution) */
+.aNav:hover {
+	color: #E2A125;
+	transition-duration: 200ms;
+}
+
+#container-recherche {
+	padding: 15px;
+	background-color: #fff;
+	border-radius: 8px;
+	min-width: 650px;
+	width: 40%;
+	margin: auto;
+	text-align: right;
+}
+
+#submit-recherche {
+	border: none;
+	width: 45px;
+	height: 45px;
+	background-color: #E2A125;
+	border-radius: 7px;
+}
+
+#champ-recherche {
+	box-shadow: none;
+	border: none;
+	outline: none;
+	display: inline-block;
+	width: 40%;
+}
+
+#container-recherche select {
+	/* Propriétés de style personnalisées */
+	width: 40%;
+	/* Largeur du select */
+	padding: 10px;
+	/* Rembourrage interne */
+	font-family: Arial, sans-serif;
+	/* Police */
+	font-size: 16px;
+	/* Taille de la police */
+	color: #777d84;
+	/* Couleur du texte */
+	background-color: #f0f0f0;
+	/* Couleur de fond */
+	border: 0px solid #ccc;
+	/* Bordure */
+	border-radius: 5px;
+	/* Coins arrondis */
+	appearance: none;
+	/* Supprime la flèche déroulante par défaut (utiliser avec précaution) */
 }
 
 /* Personnaliser la flèche déroulante (utiliser avec précaution, car il n'est pas pris en charge dans tous les navigateurs) */
-select::-ms-expand {
-  display: none; /* Masque la flèche déroulante dans Internet Explorer */
-}
-select::after {
-  content: '\25BC'; /* Utilisez une flèche personnalisée pour les navigateurs prenant en charge l'usage de ::after */
-  position: absolute;
-  top: 50%;
-  right: 10px;
-  transform: translateY(-50%);
-  pointer-events: none; /* Évite que la flèche soit cliquable */
+#container-recherche select::-ms-expand {
+	display: none;
+	background-color: #fff;
+	/* Masque la flèche déroulante dans Internet Explorer */
 }
 
-#container-secondaire{width:800px;margin:auto;}
+#container-recherche select::after {
+	content: '\25BC';
+	/* Utilisez une flèche personnalisée pour les navigateurs prenant en charge l'usage de ::after */
+	position: absolute;
+	top: 50%;
+	right: 10px;
+	transform: translateY(-50%);
+	pointer-events: none;
+	/* Évite que la flèche soit cliquable */
+}
+
+#container-secondaire {
+	width: 800px;
+	margin: auto;
+	padding: 50px 0;
+}
+
+#content-header {
+	padding: 120px 0 80px;
+	background-color: #3A444A;
+	text-align: center;
+}
+
+#content-header h1 {
+	color: #fff;
+	font-size: 2.4em;
+	font-weight: 700;
+}
+
+
+#content-header #categorie {
+	display: inline-block;
+	margin: 0 10px;
+
+}
+
+.barre-nav-nonco {
+	list-style: none;
+	margin-bottom: 0;
+}
+
+.barre-nav-nonco li {
+	display: inline-block;
+}
+
+#nav-emplacement {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
