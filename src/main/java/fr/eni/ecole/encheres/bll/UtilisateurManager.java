@@ -71,7 +71,7 @@ public class UtilisateurManager {
 		if (utilisateur == null)
 			throw new BLLException("User est null");
 
-		if (utilisateur.getPrenom().isBlank())
+		if (utilisateur.getPseudo().isBlank())
 			throw new BLLException("Le champs Pseudo est obligatoire!");
 		if (utilisateur.getEmail().isBlank())
 			throw new BLLException("Le champs Email est obligatoire!");
