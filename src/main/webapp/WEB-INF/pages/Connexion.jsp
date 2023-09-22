@@ -25,8 +25,8 @@
 						<label for="mdp" class="form-label">Mot de Passe</label> <input
 							type="password" class="form-control" name="mdp" id="mdp">
 					</div>
-					<button class="btn btn-primary" role="button" type="submit"
-						name="connexion">Connexion</button>
+						<button class="btn btn-primary" role="button" type="submit"
+							name="connexion">Connexion</button>
 					<button class="btn btn-primary" role="button" type="submit"
 						name="deconnexion">Deconnexion</button>
 

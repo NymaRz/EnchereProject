@@ -2,7 +2,9 @@ package fr.eni.ecole.encheres.ihm;
 
 import java.io.IOException;
 
+import fr.eni.ecole.encheres.bll.AdresseManager;
 import fr.eni.ecole.encheres.bll.UtilisateurManager;
+import fr.eni.ecole.encheres.bo.Adresse;
 import fr.eni.ecole.encheres.bo.Utilisateur;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -25,8 +27,10 @@ public class MonProfilServlet extends HttpServlet {
 			// récupérer le param dans url
 			// récupérer l'objet game
 			Utilisateur user = UtilisateurManager.getInstance().recupUnUtilisateur(userSession.getNoUtilisateur());
+//			Adresse adresse = AdresseManager.getInstance().recupUneAdresse(userSession.IdAdresse());
 			// transmettre l'objet vers la jsp
 			request.setAttribute("utilisateur", user);
+//			request.setAttribute("adresse", adresse);
 			// forward
 			request.getRequestDispatcher("/WEB-INF/pages/MonProfil.jsp").forward(request, response);
 		} catch (Exception e) {
