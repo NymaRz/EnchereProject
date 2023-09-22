@@ -12,40 +12,87 @@ footer {
 	background-color: rgb(128, 128, 128);
 }
 
-main{
+main {
 	min-height: 82.9vh;
 }
 
-
-.actionbouton{
-	background-color: ;
-	border-radius: 5px;
-	padding:5px 8px;
-	color :;
-	transition-duration:200ms;
-
+.classicbouton{
+		background-color: #fff;
 }
 
-.actionbouton:hover{
-	background-color: ;
+.actionbouton {
+	background-color: #E2A125;
 	border-radius: 5px;
-	padding:5px 8px;
-	color :;
-	transition-duration:200ms;
+	padding: 5px 8px;
+	color: #3A444A;
+	transition-duration: 200ms;
+}
+
+p{color: #777d84;}
+
+.actionbouton:hover {
+	background-color: #3A444A;
+	color:#E2A125;
+	transition-duration: 200ms;
 }
 
 .articleVendu {
-	width : 400px;
+	width: 400px;
 	height: 400px;
-	background-color: ;
-	border-radius:15px;
-	
+	background-color: #E7E8E9;
+	border-radius: 15px;
 }
 
-.aAction {}
+.montant-enchere {
+	font-weight: bold;
+	font-size: 1.3em;
+}
 
 .aAction {
-	color:;
-	transition-duration: ;
-	back
+	color: #E2A125;
+	font-weight: bold;
+	transition-duration: 200ms;
+	font-size: 1.1em;
+}
+
+.aAction:hover {
+	color: #000;
+	transition-duration: 200ms;
+}
+
+.container-recherche{
+	padding : 15px;
+	background-color: #fff;
+	border-radius:8px;
+}
+.champ-recherche {
+	box-shadow:none;
+	border:none;
+	outline : none;
+}
+
+select {
+  /* Propriétés de style personnalisées */
+  width: 200px; /* Largeur du select */
+  padding: 10px; /* Rembourrage interne */
+  font-family: Arial, sans-serif; /* Police */
+  font-size: 16px; /* Taille de la police */
+  color: #777d84; /* Couleur du texte */
+  background-color: #f0f0f0; /* Couleur de fond */
+  border: 1px solid #ccc; /* Bordure */
+  border-radius: 5px; /* Coins arrondis */
+  appearance: none; /* Supprime la flèche déroulante par défaut (utiliser avec précaution) */
+}
+
+/* Personnaliser la flèche déroulante (utiliser avec précaution, car il n'est pas pris en charge dans tous les navigateurs) */
+select::-ms-expand {
+  display: none; /* Masque la flèche déroulante dans Internet Explorer */
+}
+select::after {
+  content: '\25BC'; /* Utilisez une flèche personnalisée pour les navigateurs prenant en charge l'usage de ::after */
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  pointer-events: none; /* Évite que la flèche soit cliquable */
 }
