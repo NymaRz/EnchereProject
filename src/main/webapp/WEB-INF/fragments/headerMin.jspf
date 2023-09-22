@@ -14,6 +14,7 @@
 </head>
 <body>
 
+<<<<<<< HEAD
 	<header id="nav-emplacement">
 
 		<div>
@@ -23,3 +24,12 @@
 		</div>
 
 		<!-- !! ne pas utiliser en tant qu'header car pas fermé; utiliser headerMinClose si on veut le header le plus simpliste -->
+=======
+		<header>
+		
+				<div>
+					<a href="{ pageContext.request.contextPath }/"><img class="logo-img" src="${ pageContext.request.contextPath }/assets/logo.png" /></a>
+			</div>
+			
+<!-- !! ne pas utiliser en tant qu'header car pas fermé; utiliser headerMinClose si on veut le header le plus simpliste -->
+>>>>>>> 69d6a548523c0af0256f8315f0a4b4739679cf6d

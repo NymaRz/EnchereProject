@@ -18,6 +18,56 @@ public class Utilisateur {
 	private boolean vip = false;
 	private List<ArticleVendu> articlesAVendre = new ArrayList<ArticleVendu>();
 	private List<Enchere> encheres = new ArrayList<Enchere>();
+	private String rue;
+	private String codePostal;
+	private String ville;
+
+
+	public Utilisateur(int noUtilisateur, String pseudo, String nom, String prenom, String email, String telephone,
+			Adresse adresse, String mdp, int credit, boolean admin, boolean vip, List<ArticleVendu> articlesAVendre,
+			List<Enchere> encheres, String rue, String codePostal, String ville) {
+		super();
+		this.noUtilisateur = noUtilisateur;
+		this.pseudo = pseudo;
+		this.nom = nom;
+		this.prenom = prenom;
+		this.email = email;
+		this.telephone = telephone;
+		this.adresse = adresse;
+		this.mdp = mdp;
+		this.credit = credit;
+		this.admin = admin;
+		this.vip = vip;
+		this.articlesAVendre = articlesAVendre;
+		this.encheres = encheres;
+		this.rue = rue;
+		this.codePostal = codePostal;
+		this.ville = ville;
+	}
+
+	public String getRue() {
+		return rue;
+	}
+
+	public void setRue(String rue) {
+		this.rue = rue;
+	}
+
+	public String getCodePostal() {
+		return codePostal;
+	}
+
+	public void setCodePostal(String codePostal) {
+		this.codePostal = codePostal;
+	}
+
+	public String getVille() {
+		return ville;
+	}
+
+	public void setVille(String ville) {
+		this.ville = ville;
+	}
 
 	public Utilisateur() {
 

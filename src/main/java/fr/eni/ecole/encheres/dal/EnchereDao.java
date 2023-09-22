@@ -17,5 +17,7 @@ public interface EnchereDao {
 	void remove(int id_enchere);
 
 	List<Enchere> FindByEnchere(String query);
+	
+	Enchere finHigherEnchere();
 
 }

@@ -63,10 +63,6 @@
 						readonly="readonly" type="password" class="form-control" 
 						value="${utilisateur.mdp}" id="mdp">
 				</div> --%>
-
-
-
-				<!-- Ajoutez d'autres champs d'utilisateur de la même manière -->
 				<form method="POST"
 					action="${pageContext.request.contextPath}/modifierprofil">
 					<div class="mb-3 text-center mt-5">
