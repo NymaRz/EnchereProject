@@ -1,9 +1,5 @@
 package fr.eni.ecole.encheres.bll;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Random;
 
@@ -12,7 +8,6 @@ import fr.eni.ecole.encheres.bo.ForgetPassword;
 import fr.eni.ecole.encheres.bo.Utilisateur;
 import fr.eni.ecole.encheres.dal.DaoFactory;
 import fr.eni.ecole.encheres.dal.UtilisateurDao;
-import fr.eni.ecole.encheres.dal.jdbc.ConnectionProvider;
 import fr.eni.ecole.encheres.dal.jdbc.exception.JDBCException;
 import fr.eni.ecole.encheres.ihm.exception.EmailExisteDejaException;
 import fr.eni.ecole.encheres.ihm.exception.PseudoExisteDejaException;
@@ -48,7 +43,8 @@ public class UtilisateurManager {
 		utilisateurDao.modify(utilisateur);
 	}
 
-	public void ajouterUnUtilisateur(Utilisateur utilisateur) throws EmailExisteDejaException, PseudoExisteDejaException {
+	public void ajouterUnUtilisateur(Utilisateur utilisateur)
+			throws EmailExisteDejaException, PseudoExisteDejaException {
 		// Ajoutez ici la logique de validation des données si nécessaire.
 		utilisateurDao.save(utilisateur);
 	}
@@ -64,7 +60,8 @@ public class UtilisateurManager {
 	private UtilisateurDao userDao = DaoFactory.getUtilisateurDao();
 	private Random rd = new Random();
 
-	public void inscription(Utilisateur utilisateur) throws JDBCException, BLLException, EmailExisteDejaException, PseudoExisteDejaException {
+	public void inscription(Utilisateur utilisateur)
+			throws JDBCException, BLLException, EmailExisteDejaException, PseudoExisteDejaException {
 		// validation !!!!!!!!
 		checkFields(utilisateur);
 		userDao.save(utilisateur);
@@ -87,7 +84,7 @@ public class UtilisateurManager {
 	}
 
 	public Utilisateur login(String email, String mdp) {
-		Utilisateur utilisateur = (Utilisateur) utilisateurDao.findByPseudo(email);
+		Utilisateur utilisateur = (Utilisateur) utilisateurDao.findByEmail(email);
 		if (utilisateur != null && utilisateur.getEmail().equals(email) && utilisateur.getMdp().equals(mdp)) {
 			return utilisateur;
 		}
@@ -133,38 +130,8 @@ public class UtilisateurManager {
 //	}
 
 	public Utilisateur findByEmail(String email) throws BLLException {
-	    PreparedStatement preparedStatement = null;
-	    ResultSet resultSet = null;
-	    Utilisateur utilisateur = null;
-
-	    try(Connection connection =ConnectionProvider.getConnection();
-	    		) {
-	         // Obtenez votre connexion à la base de données ici.
-
-	        // Écrivez la requête SQL pour rechercher un utilisateur par e-mail
-	        String sql = "SELECT * FROM utilisateurs WHERE email = ?";
-	        preparedStatement = connection.prepareStatement(sql);
-	        preparedStatement.setString(1, email);
-
-	        resultSet = preparedStatement.executeQuery();
-
-	        // Si un utilisateur correspondant est trouvé, créez un objet Utilisateur et retournez-le
-	        if (resultSet.next()) {
-	            utilisateur = new Utilisateur();
-				utilisateur.setNoUtilisateur(0);
-	            utilisateur.setPseudo(resultSet.getString("pseudo"));
-	            // Continuez à extraire les autres attributs de l'utilisateur ici
-	        }
-	    } catch (SQLException e) {
-	        throw new BLLException("Erreur lors de la recherche de l'utilisateur par e-mail");
-	    } finally {
-	        // Fermez les ressources (ResultSet, PreparedStatement, Connection) ici dans un bloc finally.
-	        // Assurez-vous de gérer les exceptions appropriées lors de la fermeture.
-	    }
-
-	    return utilisateur; // Retournez l'utilisateur trouvé ou null s'il n'existe pas.
-	}
-
+		return utilisateurDao.findByEmail(email);
+	};
 
 	public boolean pseudoExisteDeja(String pseudo) {
 		return false;
