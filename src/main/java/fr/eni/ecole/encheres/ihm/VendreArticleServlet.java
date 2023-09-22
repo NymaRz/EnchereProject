@@ -27,6 +27,12 @@ public class VendreArticleServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		HttpSession session = request.getSession();
+
+		String email = (String) session.getAttribute("email");
+		Utilisateur utilisateur = UtilisateurManager.getInstance().findByEmail(email);
+		request.setAttribute("adresse", utilisateur.getAdresse());
+
 		request.getRequestDispatcher("/WEB-INF/pages/vendre-article.jsp").forward(request, response);
 	}
 
@@ -55,23 +61,28 @@ public class VendreArticleServlet extends HttpServlet {
 			Utilisateur utilisateur = UtilisateurManager.getInstance().findByEmail(email);
 
 			// prévoir de récupérer l'adresse de l'utilisateur par défaut
-			
+
 			// le bout de code suivant risque de ne pas marcher, à revoir
 			String rue = request.getParameter("rue");
 			String codePostal = request.getParameter("codePostal");
 			String ville = request.getParameter("ville");
-
-			Adresse adresse = new Adresse(rue, codePostal, ville);
-			AdresseManager.getInstance().ajouterUneAdresse(adresse);
-			Retrait retrait = new Retrait(adresse);
+			// vérifier si l'adresse est déjà dans la BDD
+			Adresse adresseVerifBDD = AdresseManager.getInstance().recupAdresseParRueCPVille(rue, codePostal, ville);
+			if (adresseVerifBDD == null) {
+				Adresse adresse = new Adresse(rue, codePostal, ville);
+				AdresseManager.getInstance().ajouterUneAdresse(adresse);
+			}
+			Adresse adresseBDD = AdresseManager.getInstance().recupAdresseParRueCPVille(rue, codePostal, ville);
+			Retrait retrait = new Retrait(adresseBDD);
 			RetraitManager.getInstance().ajouterUnRetrait(retrait);
-			System.out.println(adresse.getIdAdresse());
-			//fin code à revoir
-			
+			Retrait retraitBDD = RetraitManager.getInstance().recupRetraitParAdresse(adresseBDD);
+
+			// fin code à revoir
+
 			ArticleVendu articleVendu = new ArticleVendu(0, nomArticle, description, dateDebutEncheres, dateFinEncheres,
-					miseAPrix, categorie, retrait, utilisateur);
+					miseAPrix, categorie, retraitBDD, utilisateur);
 			ArticleVenduManager.getInstance().ajouterUnArticleVendu(articleVendu);
-			response.sendRedirect(request.getContextPath()+"/accueil");
+			response.sendRedirect(request.getContextPath() + "/accueil");
 
 		} catch (ServletException e) {
 			e.printStackTrace();
