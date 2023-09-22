@@ -3,6 +3,7 @@ package fr.eni.ecole.encheres.dal;
 
 import java.util.List;
 
+import fr.eni.ecole.encheres.bo.Adresse;
 import fr.eni.ecole.encheres.bo.Retrait;
 
 public interface RetraitDao {
@@ -18,5 +19,7 @@ public interface RetraitDao {
 	void remove(int idRetrait);
 
 	List<Retrait> findByRetrait(String query);
+	
+	Retrait findRetraitByAdresse(Adresse adresse);
 
 }

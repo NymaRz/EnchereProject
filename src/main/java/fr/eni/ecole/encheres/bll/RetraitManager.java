@@ -1,6 +1,7 @@
 package fr.eni.ecole.encheres.bll;
 import java.util.List;
 
+import fr.eni.ecole.encheres.bo.Adresse;
 import fr.eni.ecole.encheres.bo.Retrait;
 import fr.eni.ecole.encheres.dal.DaoFactory;
 import fr.eni.ecole.encheres.dal.RetraitDao;
@@ -54,6 +55,10 @@ public class RetraitManager {
 
 	public List<Retrait> rechercheUnRetrait(String query) {
 		return retraitDao.findByRetrait(query);
+	}
+	
+	public Retrait recupRetraitParAdresse(Adresse adresse) {
+		return retraitDao.findRetraitByAdresse(adresse);
 	}
 
 	// Fin de la logique métier
