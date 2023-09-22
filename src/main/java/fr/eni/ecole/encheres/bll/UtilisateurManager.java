@@ -168,4 +168,8 @@ public class UtilisateurManager {
 		return false;
 	}
 
+	public boolean emailExisteDeja(String email) {
+		return false;
+	}
+
 }

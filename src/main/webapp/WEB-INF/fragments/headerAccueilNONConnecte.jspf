@@ -4,8 +4,10 @@
 <%@ include file="/WEB-INF/fragments/headerMin.jspf"%>
 <nav>
 	<ul>
-		<li><a href="${request.getContextPath() }/inscription">S'inscrire</a></li>
-		<li><a href="${request.getContextPath()} + /connexion">Se
+		<li><a
+			href="${request.getContextPath()}/EnchereProject/inscription">S'inscrire</a></li>
+		<li><a
+			href="${request.getContextPath()}/EnchereProject/connexion">Se
 				Connecter</a></li>
 
 	</ul>
