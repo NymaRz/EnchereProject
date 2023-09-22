@@ -17,7 +17,7 @@
 		<header>
 		
 				<div>
-					<a href="#">DummyName </a>
+					<a href="{ pageContext.request.contextPath }/"><img class="logo-img" src="${ pageContext.request.contextPath }/assets/logo.png" /></a>
 			</div>
 			
 <!-- !! ne pas utiliser en tant qu'header car pas fermé; utiliser headerMinClose si on veut le header le plus simpliste -->
