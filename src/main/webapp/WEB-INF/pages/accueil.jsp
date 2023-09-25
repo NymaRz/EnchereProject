@@ -83,6 +83,7 @@
 
 				<p class="proof-p">Déjà X articles vendus et Y crédits échangés
 
+
 					sur ArtoVision</p>
 
 			</div>
