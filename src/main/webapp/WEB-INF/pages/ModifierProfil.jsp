@@ -8,6 +8,10 @@
 		<div class="row text-center mt-4">
 			<h1>Modifier mon Profil</h1>
 		</div>
+		<c:if test="${not empty success}">
+			<div class="alert alert-success">${success}</div>
+			<c:remove var="sessionScope.success" />
+		</c:if>
 		<div class="row mt-5">
 			<div class="col-4 offset-4">
 				<form action="" method="POST">
@@ -40,7 +44,7 @@
 					</div>
 					<div class="mb-3">
 						<label for="rue" class="form-label">Votre Rue:</label> <input
-							type="text"  class="form-control"
+							type="text" class="form-control"
 							value="${ utilisateur.adresse.rue }" name="rue" id="rue">
 					</div>
 					<div class="mb-3">
@@ -60,21 +64,30 @@
 							readonly="readonly" type="text" class="form-control"
 							value="${utilisateur.credit}" id="credit" name="credit">
 					</div>
-					<!-- //pas besoin d'afficher le mot de passe dans l'affichage du profil -->
-					<%-- <div class="mb-3">
-					<label for="mdp" class="form-label">Mot de Passe:</label> <input
-						readonly="readonly" type="password" class="form-control" 
-						value="${utilisateur.mdp}" id="mdp">
-				</div> --%>
+
 					<div class="mb-3 text-center mt-5">
 						<button class="btn btn-primary" type="submit">
 							<i class="fa-regular fa-floppy-disk"></i>
 						</button>
+
 						<button class="btn btn-basic" type="reset">
 							<i class="fa-solid fa-rotate-right fa-rotate-180"></i>
 						</button>
 					</div>
 				</form>
+				<div class="row mt-5">
+					<div class="col-4 offset-4">
+						<form method="POST"
+							action="${ pageContext.request.contextPath }/supprimerprofil"
+							onsubmit="return confirm('Voulez-vous vraiment supprimer votre profil ?')">
+
+							<button type="submit" name="id"
+								value="${utilisateur.noUtilisateur}" class="btn btn-danger">
+								<i class="fa-solid fa-trash"></i>
+							</button>
+						</form>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>

@@ -19,6 +19,9 @@ public class ModifierMonProfilServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		// ---------------------------------------------------
+		// Informer l'utilisateur de la modification réussie
+		// ------------------------------------------------------
 		if (request.getSession().getAttribute("utilisateur") == null) {
 			response.sendRedirect(request.getContextPath() + "/modifierprofil");
 			return;
@@ -77,23 +80,14 @@ public class ModifierMonProfilServlet extends HttpServlet {
 
 			// Modifier l'utilisateur
 			UtilisateurManager.getInstance().modifierUnUtilisateur(utilisateur);
+			HttpSession sessions = request.getSession();
+			sessions.setAttribute("success", "Modification du profil réussie");
 
 			// Redirection
 			response.sendRedirect(request.getContextPath() + "/profil/modifierprofil");
 		} catch (Exception e) {
 			e.printStackTrace();
 			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-		}
-
-		try {
-			// récupérer le paramètre "id" depuis l'URL
-			int id = Integer.parseInt(request.getParameter("id"));
-			// supprimer un utilisateur
-			UtilisateurManager.getInstance().supprimerUnUtilisateur(id);
-			// redirection vers la page d'accueil
-			response.sendRedirect(request.getContextPath() + "/accueil");
-		} catch (Exception e) {
-			e.printStackTrace();
 		}
 	}
 }
