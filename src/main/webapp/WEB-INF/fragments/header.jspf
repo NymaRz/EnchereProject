@@ -60,10 +60,10 @@
 							<li class="nav-item"><a class="nav-link"
 								href="${request.getContextPath()}/encheres">Enchères</a></li>
 							<li class="nav-item"><a class="nav-link"
-								href="${request.getContextPath()}/vendre/article">Vendre un
+								href="${request.getContextPath()}/vendre-article">Vendre un
 									Article</a></li>
 							<li class="nav-item"><a class="nav-link"
-								href="${request.getContextPath()}/Monprofil">Mon Profil</a></li>
+								href="${request.getContextPath()}/Mon-profil">Mon Profil</a></li>
 							<li class="nav-item"><a class="nav-link"
 								href="${request.getContextPath()}/deconnexion">Déconnexion</a></li>
 						</ul>
