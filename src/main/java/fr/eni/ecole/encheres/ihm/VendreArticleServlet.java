@@ -8,8 +8,6 @@ import fr.eni.ecole.encheres.bll.AdresseManager;
 import fr.eni.ecole.encheres.bll.ArticleVenduManager;
 import fr.eni.ecole.encheres.bll.CategorieManager;
 import fr.eni.ecole.encheres.bll.RetraitManager;
-import fr.eni.ecole.encheres.bll.UtilisateurManager;
-import fr.eni.ecole.encheres.bll.exception.BLLException;
 import fr.eni.ecole.encheres.bo.Adresse;
 import fr.eni.ecole.encheres.bo.ArticleVendu;
 import fr.eni.ecole.encheres.bo.Categorie;
@@ -87,9 +85,9 @@ public class VendreArticleServlet extends HttpServlet {
 			}
 			HttpSession session = request.getSession();
 
-			String email = (String) session.getAttribute("email");
-
-			Utilisateur utilisateur = UtilisateurManager.getInstance().findByEmail(email);
+			// récupérer l'utilisateur
+			Utilisateur utilisateur = (Utilisateur) session.getAttribute("utilisateur");
+			System.out.println(utilisateur);
 
 			// prévoir de récupérer l'adresse de l'utilisateur par défaut
 
@@ -112,13 +110,21 @@ public class VendreArticleServlet extends HttpServlet {
 
 			ArticleVendu articleVendu = new ArticleVendu(0, nomArticle, description, dateDebutEncheres, dateFinEncheres,
 					miseAPrix, categorie, retraitBDD, utilisateur, fileName);
+			if(dateDebutEncheres.isAfter(LocalDate.now())) {
+				articleVendu.setEtatVente("EP");
+			}else {
+				articleVendu.setEtatVente("AOE");
+			}
+			articleVendu.setPrixVente(miseAPrix);
+			
+		System.out.println("tentative d'enregistrement de l'article dans la BDD");
 			ArticleVenduManager.getInstance().ajouterUnArticleVendu(articleVendu);
+			System.out.println("article enregistré dans la BDD");
 			response.sendRedirect(request.getContextPath() + "/accueil");
 
 		} catch (ServletException e) {
 			e.printStackTrace();
-		} catch (BLLException e) {
-			// TODO Auto-generated catch block
+		}catch(Exception e) {
 			e.printStackTrace();
 		}
 	}
