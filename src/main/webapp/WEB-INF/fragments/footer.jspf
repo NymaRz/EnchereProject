@@ -3,6 +3,31 @@
 <footer class="bg-light text-dark">
 	<div class="container-footer">
 		<div class="row-footer">
+		
+		<div class="column">
+        <h3>Colonnes 1</h3>
+        <p>Contenu de la première colonne</p>
+    </div>
+    <div class="column">
+        <h3>Colonnes 2</h3>
+        <p>Contenu de la deuxième colonne</p>
+    </div>
+    <div class="column">
+        <address>
+					<p>
+						<i class="fas fa-map-marker-alt"></i> 123 Rue de la Rue, Ville
+					</p>
+					<p>
+						<i class="fas fa-phone"></i> +1 123 456 789
+					</p>
+					<p>
+						<i class="fas fa-envelope"></i> info@example.com
+					</p>
+				</address>
+    </div>
+		
+		
+		
 			<div class="col-md-4">
 				<h5>Contact</h5>
 				<address>
