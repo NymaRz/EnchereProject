@@ -34,7 +34,7 @@
 
 
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
-		<div class="container">
+		<div class="container navbarNav">
 			<a href="${ pageContext.request.contextPath }/accueil"><img
 				src="${ pageContext.request.contextPath }/assets/logo.png"
 				id="logo-image" /></a>
@@ -44,7 +44,7 @@
 				<span class="navbar-toggler-icon"></span>
 			</button>
 
-			<div class="collapse navbar-collapse" id="navbarNav">
+			<div class="collapse navbar-collapse " id="navbarNav">
 
 				<c:choose>
 					<c:when test="${utilisateur == null}">
@@ -57,15 +57,15 @@
 					</c:when>
 					<c:otherwise>
 						<ul class="navbar-nav ml-auto">
-							<li class="nav-item"><a class="nav-link"
+							<li class="nav-item"><a class="aNav"
 								href="${request.getContextPath()}/EnchereProject/encheres">Enchères</a></li>
-							<li class="nav-item"><a class="nav-link"
+							<li class="nav-item"><a class="aNav"
 								href="${request.getContextPath()}/EnchereProject/vendre-article">Vendre un
 									Article</a></li>
-							<li class="nav-item"><a class="nav-link"
+							<li class="nav-item"><a class="aNav"
 								href="${ pageContext.request.contextPath}/profil">Mon Profil</a></li>
 						
-							<li class="nav-item"><a class="nav-link"
+							<li class="nav-item"><a class="aNav"
 								href="${ pageContext.request.contextPath}/EnchereProject/deconnexion">Déconnexion</a></li>
 						</ul>
 					</c:otherwise>

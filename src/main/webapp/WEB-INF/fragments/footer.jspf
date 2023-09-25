@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<footer class="bg-light text-dark py-4">
-	<div class="container">
-		<div class="row">
+<footer class="bg-light text-dark">
+	<div class="container-footer">
+		<div class="row-footer">
 			<div class="col-md-4">
 				<h5>Contact</h5>
 				<address>

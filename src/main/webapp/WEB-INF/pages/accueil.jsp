@@ -10,6 +10,8 @@
 	List<ArticleVendu> articlesVendus = (List<ArticleVendu>) request.getAttribute("articlesVendus");
 	%>
 
+	<div id="container-secondaire">
+
 
 
 	<div id="container-secondaire">
@@ -51,7 +53,6 @@
 		</div>
 		
 		
->>>>>>> b1d9a83f8bfe7dfc7de80f08f2002f557bb5933f
 </main>
 
 
