@@ -34,7 +34,7 @@
 		<div id="container-secondaire">
 			<div class="proof-min">
 				<i class="fab fa-facebook-f"></i>
-				<p class="proof-p">Déjà X articles vendus et Y crédits échangés
+				<p class="proof-p img-proof">Déjà X articles vendus et Y crédits échangés
 					sur ArtoVision</p>
 
 			</div>
@@ -43,12 +43,12 @@
 
 				<i class="bi bi-cast"></i>
 
-				<p class="proof-p">Déjà X articles vendus et Y crédits échangés
+				<p class="proof-p img-proof">Déjà X articles vendus et Y crédits échangés
 					sur ArtoVision</p>
 			</div>
 			<div class="proof-min">
 				<i class="fab fa-facebook-f"></i>
-				<p class="proof-p">Déjà X articles vendus et Y crédits échangés
+				<p class="proof-p img-proof">Déjà X articles vendus et Y crédits échangés
 					sur ArtoVision</p>
 			</div>
 		</div>
