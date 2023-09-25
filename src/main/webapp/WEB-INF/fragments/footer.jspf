@@ -3,21 +3,27 @@
 <footer class="bg-light text-dark">
 	<div class="container-footer">
 		<div class="row-footer">
-			<div class="col-md-4">
-				<h5>Contact</h5>
-				<address>
-					<p>
-						<i class="fas fa-map-marker-alt"></i> 123 Rue de la Rue, Ville
-					</p>
-					<p>
-						<i class="fas fa-phone"></i> +1 123 456 789
-					</p>
-					<p>
-						<i class="fas fa-envelope"></i> info@example.com
-					</p>
-				</address>
+
+			<div class="column">
+				<img src="${ pageContext.request.contextPath }/assets/logo.png"
+					id="logo-image" />
+				<p>Artovision chercher à rendre accessible l'art au plus grand
+					nombre.</p>
 			</div>
-			<div class="col-md-4">
+			<div class="column">
+				<h3>Contact</h3>
+				<p class="p-footer">
+					<i class="fas fa-map-marker-alt"></i> 123 Rue de la Rue, Ville
+				</p>
+				<p class="p-footer">
+					<i class="fas fa-phone"></i> +1 123 456 789
+				</p>
+				<p class="p-footer">
+					<i class="fas fa-envelope"></i>info@example.com
+				</p>
+
+			</div>
+			<div class="column">
 				<h5>Réseaux Sociaux</h5>
 				<ul class="list-inline">
 					<li class="list-inline-item"><a href="#"><i
