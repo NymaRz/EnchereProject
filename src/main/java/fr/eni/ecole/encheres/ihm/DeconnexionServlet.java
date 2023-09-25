@@ -15,13 +15,21 @@ public class DeconnexionServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// Récupérer la session de l'utilisateur
-		HttpSession session = request.getSession();
+		// Récupérer la session en cours
+		HttpSession utilisateur = request.getSession(false); // Ne crée pas de nouvelle session si elle n'existe pas
 
-		// Invalider la session (déconnexion de l'utilisateur)
-		session.invalidate();
+		if (utilisateur != null) {
+			// Invalider la session (déconnexion)
+			utilisateur.invalidate();
+		}
 
-		// Rediriger vers la page d'accueil de l'application
+		// Rediriger vers la page d'accueil ou une page de confirmation de déconnexion
 		response.sendRedirect(request.getContextPath() + "/accueil");
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		// Cette servlet gère uniquement les déconnexions via la méthode GET
+		doGet(request, response);
 	}
 }

@@ -22,7 +22,6 @@ public class ConnexionServlet extends HttpServlet {
 		request.setAttribute("success", message);
 		request.getRequestDispatcher("/WEB-INF/pages/Connexion.jsp").forward(request, response);
 	}
-
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String email = request.getParameter("email");
@@ -43,47 +42,5 @@ public class ConnexionServlet extends HttpServlet {
 			response.sendRedirect(request.getContextPath() + "/accueil");// ACCUEIL CONNECTER A CHANGER
 			System.out.println(session.getAttribute("utilisateur"));
 		}
-
 	}
-
 }
-
-//@WebServlet("/connexion")
-//public class ConnexionServlet extends HttpServlet {
-//	private static final long serialVersionUID = 1L;
-//	private static final String SESSION_EMAIL_ATTRIBUTE = "email";
-//	private static final String SUCCESS_MESSAGE_ATTRIBUTE = "success";
-//	private static final String ERROR_MESSAGE_ATTRIBUTE = "error";
-//
-//	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-//			throws ServletException, IOException {
-//		String message = (String) request.getSession().getAttribute(SUCCESS_MESSAGE_ATTRIBUTE);
-//		request.getSession().removeAttribute(SUCCESS_MESSAGE_ATTRIBUTE);
-//		request.setAttribute(SUCCESS_MESSAGE_ATTRIBUTE, message);
-//		request.getRequestDispatcher("/WEB-INF/pages/Connexion.jsp").forward(request, response);
-//	}
-//
-//	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-//			throws ServletException, IOException {
-//		String email = request.getParameter("email");
-//		String password = request.getParameter("mdp");
-//		try {
-//			Utilisateur utilisateur = UtilisateurManager.getInstance().login(email, password);
-//
-//			if (utilisateur != null) {
-//				request.setAttribute(ERROR_MESSAGE_ATTRIBUTE, "L'email ou le mot de passe est incorrect");
-//				doGet(request, response);
-//			} else {
-//				HttpSession session = request.getSession();
-//				session.setAttribute(SESSION_EMAIL_ATTRIBUTE, email);
-//				response.sendRedirect(request.getContextPath() + "/accueil");
-//				System.out.println(session.getAttribute(email));
-//			}
-//
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			request.setAttribute(ERROR_MESSAGE_ATTRIBUTE, "Une erreur s'est produite lors de la connexion.");
-//			doGet(request, response);
-//		}
-//	}
-//}

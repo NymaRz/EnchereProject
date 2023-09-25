@@ -46,35 +46,29 @@
 
 			<div class="collapse navbar-collapse" id="navbarNav">
 
-				<c:if test="${ user == null }">
-
-					<ul class="barre-nav-nonco">
-
-						<li class="nav-item"><a class="aNav"
-							href="${request.getContextPath()}/EnchereProject/inscription">Inscription</a>
-						</li>
-						<li class="aNav"><a class="nav-link"
-							href="${request.getContextPath()}/EnchereProject/connexion">Connexion</a>
-						</li>
-
-
-					</ul>
-				</c:if>
-
-				<c:if test="${ user != null }">
-
-					<ul class="navbar-nav ml-auto">
-						<li class="nav-item"><a class="nav-link"
-							href="${request.getContextPath() }/encheres">Enchères</a></li>
-						<li class="nav-item"><a class="nav-link"
-							href="${request.getContextPath() }/vendre/article">Vendre un
-								Article</a></li>
-						<li class="nav-item"><a class="nav-link"
-							href="${request.getContextPath() }/Monprofil">Mon Profil</a></li>
-						<li class="nav-item"><a class="nav-link"
-							href="${request.getContextPath() }/deconnexion">Déconnexion</a></li>
-					</ul>
-				</c:if>
+				<c:choose>
+					<c:when test="${utilisateur == null}">
+						<ul class="barre-nav-nonco">
+							<li class="nav-item"><a class="aNav"
+								href="${request.getContextPath()}/EnchereProject/inscription">Inscription</a></li>
+							<li class="aNav"><a class="nav-link"
+								href="${request.getContextPath()}/EnchereProject/connexion">Connexion</a></li>
+						</ul>
+					</c:when>
+					<c:otherwise>
+						<ul class="navbar-nav ml-auto">
+							<li class="nav-item"><a class="nav-link"
+								href="${request.getContextPath()}/encheres">Enchères</a></li>
+							<li class="nav-item"><a class="nav-link"
+								href="${request.getContextPath()}/vendre/article">Vendre un
+									Article</a></li>
+							<li class="nav-item"><a class="nav-link"
+								href="${request.getContextPath()}/Monprofil">Mon Profil</a></li>
+							<li class="nav-item"><a class="nav-link"
+								href="${request.getContextPath()}/deconnexion">Déconnexion</a></li>
+						</ul>
+					</c:otherwise>
+				</c:choose>
 
 			</div>
 		</div>

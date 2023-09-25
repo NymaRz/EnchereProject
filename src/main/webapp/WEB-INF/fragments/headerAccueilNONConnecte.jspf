@@ -2,7 +2,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/fragments/headerMin.jspf"%>
-<%@ include file="/WEB-INF/fragments/headerListeEncheres.jspf"%>
 <nav id="navigation-header">
 	<c:if test="${ user == null }">
 
