@@ -69,11 +69,25 @@
 						<button class="btn btn-primary" type="submit">
 							<i class="fa-regular fa-floppy-disk"></i>
 						</button>
+
 						<button class="btn btn-basic" type="reset">
 							<i class="fa-solid fa-rotate-right fa-rotate-180"></i>
 						</button>
 					</div>
 				</form>
+				<div class="row mt-5">
+					<div class="col-4 offset-4">
+						<form method="POST"
+							action="${ pageContext.request.contextPath }/supprimerprofil"
+							onsubmit="return confirm('Voulez-vous vraiment supprimer votre profil ?')">
+
+							<button type="submit" name="id"
+								value="${utilisateur.noUtilisateur}" class="btn btn-danger">
+								<i class="fa-solid fa-trash"></i>
+							</button>
+						</form>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
