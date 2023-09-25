@@ -58,14 +58,15 @@
 					<c:otherwise>
 						<ul class="navbar-nav ml-auto">
 							<li class="nav-item"><a class="nav-link"
-								href="${request.getContextPath()}/encheres">Enchères</a></li>
+								href="${request.getContextPath()}/EnchereProject/encheres">Enchères</a></li>
 							<li class="nav-item"><a class="nav-link"
-								href="${request.getContextPath()}/vendre-article">Vendre un
+								href="${request.getContextPath()}/EnchereProject/vendre-article">Vendre un
 									Article</a></li>
 							<li class="nav-item"><a class="nav-link"
 								href="${ pageContext.request.contextPath}/profil">Mon Profil</a></li>
+						
 							<li class="nav-item"><a class="nav-link"
-								href="${ pageContext.request.contextPath}/deconnexion">Déconnexion</a></li>
+								href="${ pageContext.request.contextPath}/EnchereProject/deconnexion">Déconnexion</a></li>
 						</ul>
 					</c:otherwise>
 				</c:choose>

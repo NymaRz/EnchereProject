@@ -55,8 +55,7 @@ List<Categorie> categories = (List<Categorie>) request.getAttribute("categories"
 
 		<!-- Faire que l'article ne soit pas modifiable si la vente est commencée.
  -->
-		<button type="submit" name="Appliquer" value="Appliquer">Appliquer
-			les modifications</button>
+		<button type="submit" name="Appliquer" value="Appliquer">Enregistrer</button>
 		<button type="reset" name="reset" value="reset">Effacer</button>
 		<%-- <bouton action="${ pageContext.request.contextPath }/articles?id=${ articleVendu.nomArticleVendu }">Annuler la vente</a> --%>
 	</form>
