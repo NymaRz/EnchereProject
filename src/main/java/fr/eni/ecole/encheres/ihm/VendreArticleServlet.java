@@ -75,7 +75,7 @@ public class VendreArticleServlet extends HttpServlet {
 			}
 
 			LocalDate dateDebutEncheres;
-			if (request.getParameter("dateDebutEncheres") == null) {
+			if (request.getParameter("dateDebutEncheres").isBlank()) {
 				dateDebutEncheres = LocalDate.now();
 			} else {
 				dateDebutEncheres = LocalDate.parse(request.getParameter("dateDebutEncheres"));

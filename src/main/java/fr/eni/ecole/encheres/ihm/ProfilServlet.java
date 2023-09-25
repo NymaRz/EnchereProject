@@ -20,7 +20,11 @@ public class ProfilServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		try {
+<<<<<<< HEAD
+			
+=======
 			// Obtenez l'ID de l'utilisateur à partir des paramètres de requête
+>>>>>>> ca1e50c6777ac9fe358a2fbdb23f75ee49089424
 			String idStr = request.getParameter("id");
 			int idUser = 0;
 			if (idStr == null) {
