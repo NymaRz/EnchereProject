@@ -27,8 +27,6 @@
 					</div>
 						<button class="btn btn-primary" role="button" type="submit"
 							name="connexion">Connexion</button>
-					<button class="btn btn-primary" role="button" type="submit"
-						name="deconnexion">Deconnexion</button>
 
 				</form>
 			</div>
