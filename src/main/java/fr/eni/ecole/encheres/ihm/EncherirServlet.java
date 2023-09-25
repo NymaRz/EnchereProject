@@ -25,7 +25,7 @@ public class EncherirServlet extends HttpServlet {
 		try {
 			// récupérer le param dans url
 			System.out.println("111111111111111111111");
-			int noArticle = Integer.parseInt(request.getParameter("noArticle"));
+			int noArticle = Integer.parseInt(request.getParameter("id"));
 			// récupérer l'objet game
 			ArticleVendu article = ArticleVenduManager.getInstance().recupUnArticleVendu(noArticle);
 			System.out.println(article);
@@ -35,13 +35,15 @@ public class EncherirServlet extends HttpServlet {
 			Enchere enchereMax = EnchereManager.getInstance().recupEnchereLaPlusHaute();
 			System.out.println(enchereMax);
 			if (enchereMax == null) {
-				request.setAttribute("enchere", "pas d'enchère");
+				System.out.println("55555555555555");
+				request.setAttribute("enchere", null);
 			} else {
+				System.out.println("4444444444444444444444444	");
 				request.setAttribute("enchere", enchereMax);
 			}
 			// forward
 			System.out.println("2222222222222222222222222");
-			request.getRequestDispatcher("/WEB-INF/pages/Encherir.jsp").forward(request, response);
+			request.getRequestDispatcher("/WEB-INF/pages/encherir.jsp").forward(request, response);
 
 		} catch (Exception e) {
 
@@ -60,11 +62,13 @@ public class EncherirServlet extends HttpServlet {
 			HttpSession session = request.getSession();
 			Utilisateur utilisateur = (Utilisateur) session.getAttribute("utilisateur");
 			int montantEnchere = Integer.parseInt(request.getParameter("montantEnchere"));
-			// comparer avec l'enchère précédente OU bloquer la possibilité d'enchérir moins
+			// comparer avec l'enchère précédente OU bloquer la possibilité d'enchérir moins					
 			// dans le form directement
 			Enchere newEnchere = new Enchere();
 			newEnchere.setArticleEncheri(article);
+
 			newEnchere.setMontant_enchere(montantEnchere);
+
 			newEnchere.setAcquereur(utilisateur);
 			// définir ce nouveau montant comme le nouveau prix de vente de l'article. Ou ça
 			// va le faire tout seul car c'est devenu l'enchère max ?
