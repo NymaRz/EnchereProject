@@ -22,6 +22,7 @@ public class ConnexionServlet extends HttpServlet {
 		request.setAttribute("success", message);
 		request.getRequestDispatcher("/WEB-INF/pages/Connexion.jsp").forward(request, response);
 	}
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String email = request.getParameter("email");
@@ -36,7 +37,12 @@ public class ConnexionServlet extends HttpServlet {
 		} else {
 
 			HttpSession session = request.getSession();
+
 			user.setMdp("");
+			// ---------------- SESSION 5 minute ????
+			
+			session.setAttribute("startTime", System.currentTimeMillis());
+			session.setMaxInactiveInterval(300); // 300 secondes (5 minutes)
 
 			session.setAttribute("utilisateur", user);
 			response.sendRedirect(request.getContextPath() + "/accueil");// ACCUEIL CONNECTER A CHANGER
