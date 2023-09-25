@@ -26,12 +26,13 @@
 			<div id="article-vendu">
 
 				<div id="miniature-article"
-					style="background: linear-gradient(to left bottom, rgba(0, 0, 0, 0), #3A444A), url('${pageContext.request.contextPath }/Images/${articleVendu.jaquette}') center/cover no-repeat;">
+					style="background: url('${pageContext.request.contextPath }/Images/imgarticle.png') center/cover no-repeat;,linear-gradient(to left bottom, rgba(0, 0, 0, 0), #3A444A), url('${pageContext.request.contextPath }/Images/${articleVendu.jaquette}') center/cover no-repeat;">
 
 					<span style="widht: 100px" class="bouton-miniature prix-article">${articleVendu.prixVente }
 
-						€</span> <a href="${pageContext.request.contextPath }/encherir?id=${articleVendu.noArticle}" style="widht: 100px"
-						class="bouton-miniature actionbouton">${articleVendu.dateFinEncheres }</a>
+						₿</span> <a href="${pageContext.request.contextPath }/encherir?id=${articleVendu.noArticle}"
+						style="widht: 100px" class="bouton-miniature actionbouton">${articleVendu.dateFinEncheres }</a>
+
 
 				</div>
 
@@ -72,8 +73,8 @@
 
 				<i class="bi bi-cast"></i>
 
-				<p class="proof-p img-proof">Déjà X articles vendus et Y crédits échangés
-					sur ArtoVision</p>
+				<p class="proof-p img-proof">Déjà X articles vendus et Y crédits
+					échangés sur ArtoVision</p>
 
 			</div>
 
@@ -81,7 +82,8 @@
 
 				<i class="fab fa-facebook-f"></i>
 
-				<p class="proof-p">Déjà X articles vendus et Y crédits échangés sur ArtoVision</p>
+				<p class="proof-p">Déjà X articles vendus et Y crédits échangés
+					sur ArtoVision</p>
 
 			</div>
 
