@@ -9,7 +9,7 @@
 	<%
 	List<ArticleVendu> articlesVendus = (List<ArticleVendu>) request.getAttribute("articlesVendus");
 	%>
-	<div id="container-primaire"></div>
+	<div id="container-secondaire">
 
 	<c:forEach var="articleVendu" items="${ articlesVendus }">
 		<div id="article-vendu">
