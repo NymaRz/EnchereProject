@@ -2,22 +2,23 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/fragments/headerMin.jspf"%>
+<%@ include file="/WEB-INF/fragments/headerListeEncheres.jspf"%>
 <nav id="navigation-header">
-			<c:if test="${ user == null }">			        
+	<c:if test="${ user == null }">
 
-	<ul class="barre-nav-nonco">
-			
-				        <li class="nav-item">
-				          <a class="aNav" href="${request.getContextPath()}/EnchereProject/inscription">Inscription</a>
-				        </li>	
-	 		        	<li class="aNav">
-				          <a class="nav-link" href="${request.getContextPath()}/EnchereProject/connexion">Connexion</a>
-				        </li>	
-		
+		<ul class="barre-nav-nonco">
 
-	</ul>
-				        </c:if>
-	
+			<li class="nav-item"><a class="aNav"
+				href="${request.getContextPath()}/EnchereProject/inscription">Inscription</a>
+			</li>
+			<li class="aNav"><a class="nav-link"
+				href="${request.getContextPath()}/EnchereProject/connexion">Connexion</a>
+			</li>
+
+
+		</ul>
+	</c:if>
+
 </nav>
 
 </header>
