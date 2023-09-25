@@ -63,12 +63,10 @@
 								href="${request.getContextPath()}/vendre-article">Vendre un
 									Article</a></li>
 							<li class="nav-item"><a class="nav-link"
-<<<<<<< HEAD
 								href="${ pageContext.request.contextPath}/Mon-profil">Mon
 									Profil</a></li>
-=======
+							<li class="nav-item"><a class="nav-link"
 								href="${request.getContextPath()}/Mon-profil">Mon Profil</a></li>
->>>>>>> 0059d67799554d6bacca669cb0633f3db421c1cf
 							<li class="nav-item"><a class="nav-link"
 								href="${ pageContext.request.contextPath}/deconnexion">Déconnexion</a></li>
 						</ul>
