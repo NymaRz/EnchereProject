@@ -20,11 +20,7 @@ public class ProfilServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		try {
-<<<<<<< HEAD
-			
-=======
-			// Obtenez l'ID de l'utilisateur à partir des paramètres de requête
->>>>>>> ca1e50c6777ac9fe358a2fbdb23f75ee49089424
+
 			String idStr = request.getParameter("id");
 			int idUser = 0;
 			if (idStr == null) {
@@ -41,6 +37,7 @@ public class ProfilServlet extends HttpServlet {
 					response.sendError(401, "Unauthorized"); // Statut 401 pour non autorisé
 					return;
 				}
+
 			} else {
 				idUser = Integer.parseInt(idStr);
 			}
@@ -57,7 +54,7 @@ public class ProfilServlet extends HttpServlet {
 				request.getRequestDispatcher("/WEB-INF/pages/profil.jsp").forward(request, response);
 			} else {
 				// Gérez le cas où l'utilisateur n'a pas été trouvé (à vous de décider comment)
-				response.sendError(404, "Utilisateur non trouvé"); // Statut 404 pour non trouvé
+				response.sendError(404, "Utilisateur non trouvé"); // Statut 404 
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

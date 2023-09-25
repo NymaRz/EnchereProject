@@ -74,6 +74,7 @@ public class UtilisateurDaoJdbcImpl implements UtilisateurDao {
 				Utilisateur utilisateur = new Utilisateur(rs.getString("pseudo"), rs.getString("nom"),
 						rs.getString("prenom"), rs.getString("email"), rs.getString("telephone"), adresse,
 						rs.getString("mot_de_passe"), rs.getInt("credit"));
+				utilisateur.setNoUtilisateur(noUtilisateur);
 				utilisateur.setAdmin(rs.getBoolean("administrateur"));
 				utilisateur.setVip(rs.getBoolean("vip"));
 				return utilisateur;
