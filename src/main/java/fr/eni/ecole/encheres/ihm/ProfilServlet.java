@@ -23,7 +23,7 @@ public class ProfilServlet extends HttpServlet {
 
 		try {
 			
-			String idStr = request.getParameter("no_utilisateur");
+			String idStr = request.getParameter("id");
 			int idUser = 0;
 			if(idStr==null) {				
 				HttpSession session = request.getSession();
