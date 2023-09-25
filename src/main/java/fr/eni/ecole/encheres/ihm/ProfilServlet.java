@@ -2,9 +2,7 @@ package fr.eni.ecole.encheres.ihm;
 
 import java.io.IOException;
 
-import fr.eni.ecole.encheres.bll.AdresseManager;
 import fr.eni.ecole.encheres.bll.UtilisateurManager;
-import fr.eni.ecole.encheres.bo.Adresse;
 import fr.eni.ecole.encheres.bo.Utilisateur;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -22,29 +20,44 @@ public class ProfilServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		try {
-			
-			String idStr = request.getParameter("no_utilisateur");
+			// Obtenez l'ID de l'utilisateur à partir des paramètres de requête
+			String idStr = request.getParameter("id");
 			int idUser = 0;
-			if(idStr==null) {				
+			if (idStr == null) {
+				// Si l'ID n'est pas fourni dans l'URL, utilisez l'ID de l'utilisateur de la
+				// session
 				HttpSession session = request.getSession();
 				Utilisateur userSession = (Utilisateur) session.getAttribute("utilisateur");
-				idUser = userSession.getNoUtilisateur();
-			}else {
+
+				if (userSession != null) {
+					idUser = userSession.getNoUtilisateur();
+				} else {
+					// Gérez le cas où il n'y a pas d'utilisateur en session (à vous de décider
+					// comment)
+					response.sendError(401, "Unauthorized"); // Statut 401 pour non autorisé
+					return;
+				}
+			} else {
 				idUser = Integer.parseInt(idStr);
 			}
-			// récupérer le param dans url
-			// récupérer l'objet game
+
+			// Récupérez l'objet utilisateur
 			Utilisateur user = UtilisateurManager.getInstance().recupUnUtilisateur(idUser);
-//			Adresse adresse = AdresseManager.getInstance().recupUneAdresse(userSession.IdAdresse());
-			// transmettre l'objet vers la jsp
-			request.setAttribute("utilisateur", user);
-//			request.setAttribute("adresse", adresse);
-			// forward
-			request.getRequestDispatcher("/WEB-INF/pages/profil.jsp").forward(request, response);
+
+			if (user != null) {
+				// Transmettez l'objet utilisateur à la JSP
+				request.setAttribute("utilisateur", user);
+
+				// Utilisez le dispatcher pour transférer la requête à la page JSP
+				// correspondante
+				request.getRequestDispatcher("/WEB-INF/pages/profil.jsp").forward(request, response);
+			} else {
+				// Gérez le cas où l'utilisateur n'a pas été trouvé (à vous de décider comment)
+				response.sendError(404, "Utilisateur non trouvé"); // Statut 404 pour non trouvé
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			response.sendError(404);
+			response.sendError(500, "Erreur interne du serveur"); // Statut 500 pour erreur interne du serveur
 		}
-
 	}
 }

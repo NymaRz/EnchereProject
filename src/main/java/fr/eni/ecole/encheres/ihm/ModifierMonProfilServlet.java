@@ -20,7 +20,7 @@ public class ModifierMonProfilServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		if (request.getSession().getAttribute("utilisateur") == null) {
-			response.sendRedirect(request.getContextPath() + "/connexion");
+			response.sendRedirect(request.getContextPath() + "/modifierprofil");
 			return;
 		}
 		try {
@@ -28,7 +28,7 @@ public class ModifierMonProfilServlet extends HttpServlet {
 			Utilisateur userSession = (Utilisateur) session.getAttribute("utilisateur");
 			Utilisateur user = UtilisateurManager.getInstance().recupUnUtilisateur(userSession.getNoUtilisateur());
 			request.setAttribute("utilisateur", user);
-			request.getRequestDispatcher("/WEB-INF/pages/ModifierProfil.jsp").forward(request, response);
+			request.getRequestDispatcher("/WEB-INF/pages/modifierprofil.jsp").forward(request, response);
 		} catch (Exception e) {
 			e.printStackTrace();
 			response.sendError(HttpServletResponse.SC_NOT_FOUND);
@@ -93,7 +93,7 @@ public class ModifierMonProfilServlet extends HttpServlet {
 			// redirection vers la page d'accueil
 			response.sendRedirect(request.getContextPath() + "/accueil");
 		} catch (Exception e) {
-			response.sendError(HttpServletResponse.SC_NOT_FOUND);
+			e.printStackTrace();
 		}
 	}
 }
