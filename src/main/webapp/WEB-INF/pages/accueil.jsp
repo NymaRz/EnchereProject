@@ -30,7 +30,7 @@
 
 					<span style="widht: 100px" class="bouton-miniature prix-article">${articleVendu.prixVente }
 
-						€</span> <a href="" style="widht: 100px"
+						€</span> <a href="${pageContext.request.contextPath }/encherir?id=${articleVendu.noArticle}" style="widht: 100px"
 						class="bouton-miniature actionbouton">${articleVendu.dateFinEncheres }</a>
 
 				</div>
@@ -40,7 +40,7 @@
 				<p>
 
 					Vendu par <a id="link-vendeur"
-						href="${articleVendu.utilisateur.getNoUtilisateur() }/profil.jsp?id=">${articleVendu.utilisateur.pseudo}</a>
+						href="${articleVendu.utilisateur.getNoUtilisateur() }/profil?id=">${articleVendu.utilisateur.pseudo}</a>
 
 				</p>
 
@@ -81,10 +81,7 @@
 
 				<i class="fab fa-facebook-f"></i>
 
-				<p class="proof-p">Déjà X articles vendus et Y crédits échangés
-
-
-					sur ArtoVision</p>
+				<p class="proof-p">Déjà X articles vendus et Y crédits échangés sur ArtoVision</p>
 
 			</div>
 
