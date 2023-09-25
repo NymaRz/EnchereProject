@@ -13,17 +13,16 @@ List<Categorie> categories = (List<Categorie>) request.getAttribute("categories"
 <main>
 
 
-	<h1>Mettre une oeuvre en vente :</h1>
+	<br/><br/><h1>Vendre un article :</h1>
 	<form method="POST"
 		action=""
-		enctype="multipart/form-data"
-		>
-		<label for="nomArticle" class="form-label">Article :</label> <input
-			name="nomArticle" id="nomArticle" /> <label for="description"
-			class="form-label">Description :</label> <input name="description"
-			id="description" /> <label for="pet-select">Catégorie :</label> <select
-			name="categorie" id="categorie-select">
-			<option value="">Choisir une option</option>
+		enctype="multipart/form-data">
+		<div id="formulaire-vente">
+		<!-- <label for="nomArticle" class="form-label">Article :</label>  -->
+		<input
+			name="nomArticle" id="nomArticle champ-recherche" placeholder="Nom de votre article" style="width:59%"/> 
+			 <select name="categorie" id="categorie" style="width:30%">
+			<option value="">Catégories disponibles</option>
 
 			<c:forEach var="categorie" items="${ categories }">
 
@@ -31,26 +30,38 @@ List<Categorie> categories = (List<Categorie>) request.getAttribute("categories"
 
 			</c:forEach>
 
-		</select> <label for="jaquette" class="form-label">Photo de l'article :</label> <input
-			class="form-control" type="file" id="jaquette" name="jaquette">
+		</select> 
+<!-- 			<label for="description" class="form-label">Description :</label> 
+ -->			<textarea name="description" rows="5" id="description" style="width:100%" placeholder="Ajoutez une description à votre article (taille, poids, techniques etc.)"/></textarea> 
+<!-- 			<label for="pet-select">Catégorie :</label> 
+ -->			<br/>
+
+		<!-- <br/><label for="jaquette" class="form-label">Photo de l'article :</label> -->
+		
+	
+		
+		<input class="form-control" type="file" id="jaquette" name="jaquette" style="display:none;">
+
+	<label for="jaquette" class="custom-file-upload">Ajoutez une photo à votre article</label><br/><br/>
 
 
+			<label for="dateDebutEnchere" class="form-label">Début enchères :</label> 
+			<input name="dateDebutEncheres" id="dateDebutEncheres" type="date" /> <label
+			for="Retrait" class="form-label">Fin enchères :</label> 
+			<input name="dateFinEncheres" id="dateFinEncheres" type="date" />
+			
+			<br/><label for="miseAPrix" class="form-label">Saisissez un montant</label> 
+		<input name="miseAPrix" id="miseAPrix" /> 
 
-		<label for="miseAPrix" class="form-label">Mise à prix :</label> <input
-			name="miseAPrix" id="miseAPrix" /> <label for="dateDebutEnchere"
-			class="form-label">Début enchères :</label> <input
-			name="dateDebutEncheres" id="dateDebutEncheres" type="date" /> <label
-			for="Retrait" class="form-label">Fin enchères :</label> <input
-			name="dateFinEncheres" id="dateFinEncheres" type="date" />
-
-		<fieldset>
-			<legend>Retrait</legend>
-			<label for="Retrait" class="form-label">Rue :</label> <input
-				value="${adresse.rue }" name="rue" id="rue" /> <label for="Retrait"
-				class="form-label">Code postal :</label> <input
-				value="${adresse.codePostal }" name="codePostal" id="ville" /> <label
-				for="Retrait" class="form-label">Ville :</label> <input
-				value="${adresse.ville }" name="ville" id="ville" />
+		<fieldset id="Modalites">
+			<legend>Modalités de retrait</legend>
+			<div class="min-adresse"><label for="Retrait" class="form-label">Rue :</label><br/> 
+			<input value="${adresse.rue }" name="rue" id="rue" placeholder="Rue"/> 
+			</div><div class="min-adresse"><label for="Retrait" class="form-label">Code postal :</label><br/> 
+			<input value="${adresse.codePostal }" name="codePostal" id="codePostal" placeholder="Code postal"/> 
+			</div><div class="min-adresse"><label for="Retrait" class="form-label">Ville :</label> <br/>
+			<input value="${adresse.ville }" name="ville" id="ville" placeholder="Ville"/>
+			</div>
 		</fieldset>
 		<a href="#" onclick="window.history.back();">Retour</a>
 		<%-- 			<a href="${ pageContext.request.contextPath }/articles?id=${ articleVendu.nomArticleVendu }">Appliquer les Modifications</a>--%>
@@ -60,6 +71,7 @@ List<Categorie> categories = (List<Categorie>) request.getAttribute("categories"
 		<button type="submit" name="Appliquer" value="Appliquer">Enregistrer</button>
 		<button type="reset" name="reset" value="reset">Effacer</button>
 		<%-- <bouton action="${ pageContext.request.contextPath }/articles?id=${ articleVendu.nomArticleVendu }">Annuler la vente</a> --%>
+	</div>
 	</form>
 </main>
 

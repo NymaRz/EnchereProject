@@ -58,6 +58,7 @@ h3,
 h4 {
 	line-height: 1em;
 }
+h1{text-align: center;}
 
 label {
 	color: rgb(152, 152, 152);
@@ -281,3 +282,40 @@ h4.titre-miniature {
 	justify-content: space-between;
 	align-items: center;
 }
+
+#formulaire-vente{padding:25px;
+width:800px;
+margin:auto;}
+
+#formulaire-vente input, #formulaire-vente select, #formulaire-vente textarea{
+/*	display:flex;*/
+	margin : 5px;
+	padding:10px;
+	border:none;
+	border-radius: 8px;
+}
+
+#Modalites{
+	background-color:rgb(186, 209, 222);
+	border-radius:15px;
+	padding:10px;
+	margin:20px 0;
+}
+
+input#nomArticle:focus{
+	border:none;
+}
+
+	#formulaire-vente > label.custom-file-upload{
+    line-height: 45px;
+    background-color: #E2A125;
+    border-radius: 8px;
+    padding: 0px 55px 0 15px;
+    color: #000;
+}
+
+.min-adresse{
+	display:inline-block;
+	width:30%;
+}
+	
