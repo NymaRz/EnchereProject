@@ -63,9 +63,10 @@
 								href="${request.getContextPath()}/vendre/article">Vendre un
 									Article</a></li>
 							<li class="nav-item"><a class="nav-link"
-								href="${request.getContextPath()}/Monprofil">Mon Profil</a></li>
+								href="${ pageContext.request.contextPath}/Mon-profil">Mon
+									Profil</a></li>
 							<li class="nav-item"><a class="nav-link"
-								href="${request.getContextPath()}/deconnexion">Déconnexion</a></li>
+								href="${ pageContext.request.contextPath}/deconnexion">Déconnexion</a></li>
 						</ul>
 					</c:otherwise>
 				</c:choose>
