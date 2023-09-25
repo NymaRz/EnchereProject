@@ -40,7 +40,7 @@
 				<p>
 
 					Vendu par <a id="link-vendeur"
-						href="${articleVendu.utilisateur.getNoUtilisateur() }/profil.jsp?id="></a>
+						href="${articleVendu.utilisateur.getNoUtilisateur() }/profil.jsp?id=">${articleVendu.utilisateur.pseudo}</a>
 
 				</p>
 
