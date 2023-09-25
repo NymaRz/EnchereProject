@@ -18,13 +18,14 @@ public class ArticleVendu {
 	private int enchereMin;
 	private Utilisateur utilisateur;
 	private List<Enchere> encheres = new ArrayList<Enchere>();
+	private String jaquette;
 
 	public ArticleVendu() {
 	}
 
 	// début de la mise en enchère au jour même, sans incrémentation personnalisée
 	public ArticleVendu(int noArticle, String nomArticle, String description, LocalDate dateFinEncheres, int miseAPrix,
-			Categorie categorieArticle, Retrait lieuRetrait, Utilisateur utilisateur) {
+			Categorie categorieArticle, Retrait lieuRetrait, Utilisateur utilisateur, String jaquette) {
 		this.noArticle = noArticle;
 		this.nomArticle = nomArticle;
 		this.description = description;
@@ -33,6 +34,7 @@ public class ArticleVendu {
 		this.setCategorieArticle(categorieArticle);
 		this.setLieuRetrait(lieuRetrait);
 		this.dateDebutEncheres = LocalDate.now();
+		this.setJaquette(jaquette);
 		this.utilisateur = utilisateur;
 		this.enchereMin = 100;
 		this.getCategorieArticle().addArticleToCategorie(this); // ajoute cet article à la liste des articles de cette
@@ -47,9 +49,9 @@ public class ArticleVendu {
 	// début de la mise en enchère au jour même, avec incrémentation d'enchère
 	// personnalisée
 	public ArticleVendu(int noArticle, String nomArticle, String description, LocalDate dateFinEncheres, int miseAPrix,
-			Categorie categorieArticle, Retrait lieuRetrait, Utilisateur utilisateur, int enchereMin) {
+			Categorie categorieArticle, Retrait lieuRetrait, Utilisateur utilisateur, int enchereMin, String jaquette) {
 		this(noArticle, nomArticle, description, dateFinEncheres, miseAPrix, categorieArticle, lieuRetrait,
-				utilisateur);
+				utilisateur, jaquette);
 		this.getCategorieArticle().addArticleToCategorie(this);
 		this.setEnchereMin(enchereMin);
 
@@ -59,7 +61,7 @@ public class ArticleVendu {
 	// personnalisée
 	public ArticleVendu(int noArticle, String nomArticle, String description, LocalDate dateDebutEncheres,
 			LocalDate dateFinEncheres, int miseAPrix, Categorie categorieArticle, Retrait lieuRetrait,
-			Utilisateur utilisateur) {
+			Utilisateur utilisateur, String jaquette) {
 		this.noArticle = noArticle;
 		this.nomArticle = nomArticle;
 		this.description = description;
@@ -69,6 +71,7 @@ public class ArticleVendu {
 		this.setCategorieArticle(categorieArticle);
 		this.setLieuRetrait(lieuRetrait);
 		this.utilisateur = utilisateur;
+		this.setJaquette(jaquette);
 		this.enchereMin = 100;
 		this.getCategorieArticle().addArticleToCategorie(this);
 		this.getLieuRetrait().addArticleToRetrait(this);
@@ -79,9 +82,9 @@ public class ArticleVendu {
 	// personnalisée
 	public ArticleVendu(int noArticle, String nomArticle, String description, LocalDate dateDebutEncheres,
 			LocalDate dateFinEncheres, int miseAPrix, Categorie categorieArticle, Retrait lieuRetrait,
-			Utilisateur utilisateur, int enchereMin) {
+			Utilisateur utilisateur, int enchereMin, String jaquette) {
 		this(noArticle, nomArticle, description, dateDebutEncheres, dateFinEncheres, miseAPrix, categorieArticle,
-				lieuRetrait, utilisateur);
+				lieuRetrait, utilisateur, jaquette);
 		this.setEnchereMin(enchereMin);
 		this.getCategorieArticle().addArticleToCategorie(this);
 	}
@@ -182,6 +185,14 @@ public class ArticleVendu {
 		this.utilisateur = utilisateur;
 	}
 
+	public String getJaquette() {
+		return jaquette;
+	}
+
+	public void setJaquette(String jaquette) {
+		this.jaquette = jaquette;
+	}
+
 	public List<Enchere> getEncheres() {
 		return encheres;
 	}
@@ -199,8 +210,10 @@ public class ArticleVendu {
 		return "ArticleVendu [noArticle=" + noArticle + ", nomArticle=" + nomArticle + ", description=" + description
 				+ ", dateDebutEncheres=" + dateDebutEncheres + ", dateFinEncheres=" + dateFinEncheres + ", miseAPrix="
 				+ miseAPrix + ", prixVente=" + prixVente + ", etatVente=" + etatVente + ", categorieArticle="
-				+ categorieArticle.getLibelle() + ", lieuRetrait=" + lieuRetrait + ", enchereMin=" + enchereMin + ", utilisateur="
-				+ utilisateur + ", encheres=" + encheres + "]";
+				+ categorieArticle + ", lieuRetrait=" + lieuRetrait + ", enchereMin=" + enchereMin + ", utilisateur="
+				+ utilisateur + ", jaquette=" + jaquette + "]";
 	}
+
+
 
 }

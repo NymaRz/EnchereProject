@@ -18,12 +18,12 @@ public class ArticleVenduJdbcImpl implements ArticleVenduDao {
 	// Requetes SQL
 	private static final String SELECT_ALL = "SELECT * FROM ARTICLES_VENDUS";
 	private static final String SELECT_ONE = "SELECT * FROM ARTICLES_VENDUS WHERE no_article = ?";
-	private static final String SAVE = "INSERT INTO ARTICLES_VENDUS (nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente,etat_vente, no_utilisateur, no_categorie,id_retrait,enchere_min) VALUES (?, ?, ?, ?, ?, ?, ?, ?,?,?,?)";
+	private static final String SAVE = "INSERT INTO ARTICLES_VENDUS (nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente,etat_vente, no_utilisateur, no_categorie,id_retrait,enchere_min,img) VALUES (?, ?, ?, ?, ?, ?, ?, ?,?,?,?,?)";
 	private static final String DELETE_ONE = "DELETE FROM ARTICLES_VENDUS WHERE no_article = ?";
-	private static final String UPDATE = "UPDATE ARTICLES_VENDUS SET nom_article=?, description=?, date_debut_encheres=?, date_fin_encheres=?, prix_initial=?, prix_vente=?,etat_vente=?, no_utilisateur=?, no_categorie=?, id_retrait=?,enchere_min=? WHERE id = ?";
+	private static final String UPDATE = "UPDATE ARTICLES_VENDUS SET nom_article=?, description=?, date_debut_encheres=?, date_fin_encheres=?, prix_initial=?, prix_vente=?,etat_vente=?, no_utilisateur=?, no_categorie=?, id_retrait=?,enchere_min=?,img=? WHERE id = ?";
 	private static final String FIND_BY_NAME = "SELECT * FROM ARTICLES_VENDUS WHERE nom_article LIKE ?";
-	private static final String FIND_ARTICLES_BY_CATEGORIES = "SELECT no_article,nom_article,description,date_debut_encheres,date_fin_encheres,prix_initial,prix_vente,etat_vente,no_utilisateur,id_retrait,enchere_min FROM ARTICLES_VENDUS INNER JOIN CATEGORIES ON ARTICLES_VENDUS.no_categorie = CATEGORIES.no_categorie WHERE ARTICLES_VENDUS.no_categorie=?";
-	private static final String FIND_ARTICLES_BY_CATEGORIES_AND_QUERY = "SELECT no_article,nom_article,description,date_debut_encheres,date_fin_encheres,prix_initial,prix_vente,etat_vente,no_utilisateur,id_retrait,enchere_min FROM ARTICLES_VENDUS INNER JOIN CATEGORIES ON ARTICLES_VENDUS.no_categorie = CATEGORIES.no_categorie WHERE ARTICLES_VENDUS.no_categorie=? AND ARTICLES_VENDUS.nom_article LIKE ?";
+	private static final String FIND_ARTICLES_BY_CATEGORIES = "SELECT no_article,nom_article,description,date_debut_encheres,date_fin_encheres,prix_initial,prix_vente,etat_vente,no_utilisateur,id_retrait,enchere_min, img FROM ARTICLES_VENDUS INNER JOIN CATEGORIES ON ARTICLES_VENDUS.no_categorie = CATEGORIES.no_categorie WHERE ARTICLES_VENDUS.no_categorie=?";
+	private static final String FIND_ARTICLES_BY_CATEGORIES_AND_QUERY = "SELECT no_article,nom_article,description,date_debut_encheres,date_fin_encheres,prix_initial,prix_vente,etat_vente,no_utilisateur,id_retrait,enchere_min,img FROM ARTICLES_VENDUS INNER JOIN CATEGORIES ON ARTICLES_VENDUS.no_categorie = CATEGORIES.no_categorie WHERE ARTICLES_VENDUS.no_categorie=? AND ARTICLES_VENDUS.nom_article LIKE ?";
 
 	@Override
 	public void save(ArticleVendu articleVendu) {
@@ -46,6 +46,7 @@ public class ArticleVenduJdbcImpl implements ArticleVenduDao {
 			pstmt.setInt(10, articleVendu.getLieuRetrait().getIdRetrait());// idem encore, j'ai modifié la bo pour
 																			// donner un id au lieu de retrait
 			pstmt.setInt(11, articleVendu.getEnchereMin());
+			pstmt.setString(12, articleVendu.getJaquette());
 
 			// Exécuter la requête
 			pstmt.executeUpdate();
@@ -74,6 +75,7 @@ public class ArticleVenduJdbcImpl implements ArticleVenduDao {
 				articleVendu.setCategorieArticle(DaoFactory.getCategorieDao().findOne(rs.getInt("no_categorie")));
 				articleVendu.setLieuRetrait(DaoFactory.getRetraitDao().findOne(rs.getInt("id_retrait")));
 				articleVendu.setEnchereMin(rs.getInt("enchere_min"));
+				articleVendu.setJaquette(rs.getString("img"));
 				return articleVendu;
 			}
 		} catch (SQLException e) {
@@ -102,6 +104,7 @@ public class ArticleVenduJdbcImpl implements ArticleVenduDao {
 				articleVendu.setCategorieArticle(DaoFactory.getCategorieDao().findOne(rs.getInt("no_categorie")));
 				articleVendu.setLieuRetrait(DaoFactory.getRetraitDao().findOne(rs.getInt("id_retrait")));
 				articleVendu.setEnchereMin(rs.getInt("enchere_min"));
+				articleVendu.setJaquette(rs.getString("img"));
 				articlesVendus.add(articleVendu);
 			}
 			return articlesVendus;
@@ -131,9 +134,10 @@ public class ArticleVenduJdbcImpl implements ArticleVenduDao {
 			pstmt.setInt(10, articleVendu.getLieuRetrait().getIdRetrait());// idem encore, j'ai modifié la bo pour
 																			// donner un id au lieu de retrait
 			pstmt.setInt(11, articleVendu.getEnchereMin());
+			pstmt.setString(12, articleVendu.getJaquette());
 
 			// donner l'id de l'article pour cibler l'article à modifier
-			pstmt.setInt(12, articleVendu.getnoArticle());
+			pstmt.setInt(13, articleVendu.getnoArticle());
 
 			// Exécuter la requête
 			pstmt.executeUpdate();
@@ -174,6 +178,7 @@ public class ArticleVenduJdbcImpl implements ArticleVenduDao {
 				articleVendu.setCategorieArticle(DaoFactory.getCategorieDao().findOne(rs.getInt("no_categorie")));
 				articleVendu.setLieuRetrait(DaoFactory.getRetraitDao().findOne(rs.getInt("id_retrait")));
 				articleVendu.setEnchereMin(rs.getInt("enchere_min"));
+				articleVendu.setJaquette(rs.getString("img"));
 				articleVendus.add(articleVendu);
 			}
 			return articleVendus;
@@ -204,6 +209,7 @@ public class ArticleVenduJdbcImpl implements ArticleVenduDao {
 				articleVendu.setCategorieArticle(DaoFactory.getCategorieDao().findOne(noCategorie));
 				articleVendu.setLieuRetrait(DaoFactory.getRetraitDao().findOne(rs.getInt("id_retrait")));
 				articleVendu.setEnchereMin(rs.getInt("enchere_min"));
+				articleVendu.setJaquette(rs.getString("img"));
 
 				articlesOfCategorie.add(articleVendu);
 			}
@@ -236,6 +242,7 @@ public class ArticleVenduJdbcImpl implements ArticleVenduDao {
 				articleVendu.setCategorieArticle(DaoFactory.getCategorieDao().findOne(noCategorie));
 				articleVendu.setLieuRetrait(DaoFactory.getRetraitDao().findOne(rs.getInt("id_retrait")));
 				articleVendu.setEnchereMin(rs.getInt("enchere_min"));
+				articleVendu.setJaquette(rs.getString("img"));
 
 				articlesOfCategorie.add(articleVendu);
 			}

@@ -1,5 +1,6 @@
 package fr.eni.ecole.encheres.ihm;
 
+import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
 
@@ -15,29 +16,45 @@ import fr.eni.ecole.encheres.bo.Categorie;
 import fr.eni.ecole.encheres.bo.Retrait;
 import fr.eni.ecole.encheres.bo.Utilisateur;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.Part;
 
 @WebServlet("/vendre-article")
-
+@MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 1024 * 1024 * 5, maxRequestSize = 1024 * 1024 * 5 * 5)
 public class VendreArticleServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+
+	/*
+	 * Chemin dans lequel les images seront sauvegardées.
+	 */
+	public static final String IMAGES_FOLDER = "/Images";
+	public String uploadPath;
+
+	/*
+	 * Si le dossier de sauvegarde de l'image n'existe pas, on demande sa création.
+	 */
+	@Override
+	public void init() throws ServletException {
+		uploadPath = getServletContext().getRealPath(IMAGES_FOLDER);
+		File uploadDir = new File(uploadPath);
+		if (!uploadDir.exists())
+			uploadDir.mkdir();
+	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
 
-		//récupérer l'utilisateur
-		Utilisateur utilisateur =  (Utilisateur) session.getAttribute("utilisateur");
+		// récupérer l'utilisateur
+		Utilisateur utilisateur = (Utilisateur) session.getAttribute("utilisateur");
 
-		
-			request.setAttribute("adresse", utilisateur.getAdresse());
-
-		
-
+		request.setAttribute("adresse", utilisateur.getAdresse());
+		request.setAttribute("categories", CategorieManager.getInstance().recupTouteCategories());
 		request.getRequestDispatcher("/WEB-INF/pages/vendre-article.jsp").forward(request, response);
 	}
 
@@ -49,6 +66,15 @@ public class VendreArticleServlet extends HttpServlet {
 			Categorie categorie = CategorieManager.getInstance()
 					.recupUneCategorie(Integer.parseInt(request.getParameter("categorie")));
 			int miseAPrix = Integer.parseInt(request.getParameter("miseAPrix"));
+
+			// permet de récupérer l'image
+			String fileName = null;
+			for (Part part : request.getParts()) {
+				fileName = getFileName(part);
+				String fullPath = uploadPath + File.separator + fileName;
+				part.write(fullPath);
+			}
+
 			LocalDate dateDebutEncheres;
 			if (request.getParameter("dateDebutEncheres") == null) {
 				dateDebutEncheres = LocalDate.now();
@@ -85,7 +111,7 @@ public class VendreArticleServlet extends HttpServlet {
 			// fin code à revoir
 
 			ArticleVendu articleVendu = new ArticleVendu(0, nomArticle, description, dateDebutEncheres, dateFinEncheres,
-					miseAPrix, categorie, retraitBDD, utilisateur);
+					miseAPrix, categorie, retraitBDD, utilisateur, fileName);
 			ArticleVenduManager.getInstance().ajouterUnArticleVendu(articleVendu);
 			response.sendRedirect(request.getContextPath() + "/accueil");
 
@@ -97,4 +123,14 @@ public class VendreArticleServlet extends HttpServlet {
 		}
 	}
 
+	/*
+	 * Récupération du nom du fichier dans la requête.
+	 */
+	private String getFileName(Part part) {
+		for (String content : part.getHeader("content-disposition").split(";")) {
+			if (content.trim().startsWith("filename"))
+				return content.substring(content.indexOf("=") + 2, content.length() - 1);
+		}
+		return "Default.file";
+	}
 }

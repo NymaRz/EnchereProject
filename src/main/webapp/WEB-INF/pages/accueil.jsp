@@ -13,7 +13,7 @@
 <div id ="container-secondaire">
 
 <c:forEach var="articleVendu" items="${ articlesVendus }">
-<div id="article-vendu" style="background-image:url'${articleVendu.prixVente }'0px 0px no-repeat;background-size:cover">
+<div id="article-vendu" style="background-image:url'${articleVendu.jaquette }'0px 0px no-repeat;background-size:cover">
 <div id="miniature-article">
 			<span style="widht:100px" class="bouton-miniature prix-article">${articleVendu.prixVente } €</span>
 			<a href="" style="widht:100px" class="bouton-miniature actionbouton">${articleVendu.dateFinEncheres }</a>
