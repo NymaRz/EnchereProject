@@ -21,6 +21,8 @@
 				src="${ pageContext.request.contextPath }/assets/logo.png"
 				id="logo-image" /></a>
 		</div>
+		
+		
 
 		<!-- !! ne pas utiliser en tant qu'header car pas fermé; utiliser headerMinClose si on veut le header le plus simpliste -->
 
