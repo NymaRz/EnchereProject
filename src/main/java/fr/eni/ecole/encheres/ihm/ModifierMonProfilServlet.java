@@ -84,5 +84,16 @@ public class ModifierMonProfilServlet extends HttpServlet {
 			e.printStackTrace();
 			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 		}
+
+		try {
+			// récupérer le paramètre "id" depuis l'URL
+			int id = Integer.parseInt(request.getParameter("id"));
+			// supprimer un utilisateur
+			UtilisateurManager.getInstance().supprimerUnUtilisateur(id);
+			// redirection vers la page d'accueil
+			response.sendRedirect(request.getContextPath() + "/accueil");
+		} catch (Exception e) {
+			response.sendError(HttpServletResponse.SC_NOT_FOUND);
+		}
 	}
 }
