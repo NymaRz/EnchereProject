@@ -15,7 +15,9 @@ List<Categorie> categories = (List<Categorie>) request.getAttribute("categories"
 
 	<h1>Mettre une oeuvre en vente :</h1>
 	<form method="POST"
-		action="">
+		action=""
+		enctype="multipart/form-data"
+		>
 		<label for="nomArticle" class="form-label">Article :</label> <input
 			name="nomArticle" id="nomArticle" /> <label for="description"
 			class="form-label">Description :</label> <input name="description"
@@ -37,9 +39,9 @@ List<Categorie> categories = (List<Categorie>) request.getAttribute("categories"
 		<label for="miseAPrix" class="form-label">Mise à prix :</label> <input
 			name="miseAPrix" id="miseAPrix" /> <label for="dateDebutEnchere"
 			class="form-label">Début enchères :</label> <input
-			name="dateDebutEncheres" id="dateDebutEncheres" /> <label
+			name="dateDebutEncheres" id="dateDebutEncheres" type="date" /> <label
 			for="Retrait" class="form-label">Fin enchères :</label> <input
-			name="dateFinEncheres" id="dateFinEncheres" />
+			name="dateFinEncheres" id="dateFinEncheres" type="date" />
 
 		<fieldset>
 			<legend>Retrait</legend>
