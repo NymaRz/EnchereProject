@@ -30,17 +30,9 @@
 
 					<span style="widht: 100px" class="bouton-miniature prix-article">${articleVendu.prixVente }
 
-<<<<<<< HEAD
 						₿</span> <a href="${pageContext.request.contextPath }/encherir?id=${articleVendu.noArticle}"
 						style="widht: 100px" class="bouton-miniature actionbouton">${articleVendu.dateFinEncheres }</a>
-=======
-<<<<<<< HEAD
-						₿</span> <a href="" style="widht: 100px"
-=======
-						€</span> <a href="${pageContext.request.contextPath }/encherir?id=${articleVendu.noArticle}" style="widht: 100px"
->>>>>>> 4b780560080b70bfb8ec325808bc839af51ab855
-						class="bouton-miniature actionbouton">${articleVendu.dateFinEncheres }</a>
->>>>>>> max
+
 
 				</div>
 
