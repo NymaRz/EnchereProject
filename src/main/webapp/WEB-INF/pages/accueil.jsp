@@ -14,7 +14,7 @@
 		<c:forEach var="articleVendu" items="${ articlesVendus }">
 			<div id="article-vendu">
 				<div id="miniature-article"
-					style="background: linear-gradient(to left bottom, rgba(0, 0, 0, 0), #3A444A), url('${articleVendu.jaquette}') center/cover no-repeat;">
+					style="background: linear-gradient(to left bottom, rgba(0, 0, 0, 0), #3A444A), url('${pageContext.request.contextPath }/Images/${articleVendu.jaquette}') center/cover no-repeat;">
 					<span style="widht: 100px" class="bouton-miniature prix-article">${articleVendu.prixVente }
 						€</span> <a href="" style="widht: 100px"
 						class="bouton-miniature actionbouton">${articleVendu.dateFinEncheres }</a>
