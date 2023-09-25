@@ -19,7 +19,7 @@
 			<a href="" style="widht:100px" class="bouton-miniature actionbouton">${articleVendu.dateFinEncheres }</a>
 </div>
 			<h4 class="titre-miniature">${articleVendu.nomArticle }</h4>
-			<p>Vendu par <a id="link-vendeur" href="">${articleVendu.utilisateur.getPseudo() }</a></p>
+<p>Vendu par <a id="link-vendeur" href="${articleVendu.profilVendeurURL }">${articleVendu.utilisateur.getPseudo() }</a></p>
 </div>
 		</c:forEach> </div>
 		

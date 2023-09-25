@@ -46,12 +46,17 @@ public class ArticleVendu {
 
 	}
 
+	public String getProfilVendeurURL() {
+		// Logic pour générer l'URL du profil du vendeur
+		return "/Profil?id=" + this.utilisateur.getNoUtilisateur();
+	}
+
 	// début de la mise en enchère au jour même, avec incrémentation d'enchère
 	// personnalisée
 	public ArticleVendu(int noArticle, String nomArticle, String description, LocalDate dateFinEncheres, int miseAPrix,
 			Categorie categorieArticle, Retrait lieuRetrait, Utilisateur utilisateur, int enchereMin, String jaquette) {
-		this(noArticle, nomArticle, description, dateFinEncheres, miseAPrix, categorieArticle, lieuRetrait,
-				utilisateur, jaquette);
+		this(noArticle, nomArticle, description, dateFinEncheres, miseAPrix, categorieArticle, lieuRetrait, utilisateur,
+				jaquette);
 		this.getCategorieArticle().addArticleToCategorie(this);
 		this.setEnchereMin(enchereMin);
 
@@ -213,7 +218,5 @@ public class ArticleVendu {
 				+ categorieArticle + ", lieuRetrait=" + lieuRetrait + ", enchereMin=" + enchereMin + ", utilisateur="
 				+ utilisateur + ", jaquette=" + jaquette + "]";
 	}
-
-
 
 }
