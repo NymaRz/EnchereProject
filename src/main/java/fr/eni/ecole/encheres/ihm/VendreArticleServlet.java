@@ -71,6 +71,7 @@ public class VendreArticleServlet extends HttpServlet {
 				fileName = getFileName(part);
 				String fullPath = uploadPath + File.separator + fileName;
 				part.write(fullPath);
+				if(!fileName.equals("Default.file"))break;
 			}
 
 			LocalDate dateDebutEncheres;
@@ -107,24 +108,24 @@ public class VendreArticleServlet extends HttpServlet {
 			Retrait retraitBDD = RetraitManager.getInstance().recupRetraitParAdresse(adresseBDD);
 
 			// fin code à revoir
-
+			System.out.println(fileName);
 			ArticleVendu articleVendu = new ArticleVendu(0, nomArticle, description, dateDebutEncheres, dateFinEncheres,
 					miseAPrix, categorie, retraitBDD, utilisateur, fileName);
-			if(dateDebutEncheres.isAfter(LocalDate.now())) {
+			if (dateDebutEncheres.isAfter(LocalDate.now())) {
 				articleVendu.setEtatVente("EP");
-			}else {
+			} else {
 				articleVendu.setEtatVente("AOE");
 			}
 			articleVendu.setPrixVente(miseAPrix);
-			
-		System.out.println("tentative d'enregistrement de l'article dans la BDD");
+
+			System.out.println("tentative d'enregistrement de l'article dans la BDD");
 			ArticleVenduManager.getInstance().ajouterUnArticleVendu(articleVendu);
 			System.out.println("article enregistré dans la BDD");
 			response.sendRedirect(request.getContextPath() + "/accueil");
 
 		} catch (ServletException e) {
 			e.printStackTrace();
-		}catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
@@ -134,8 +135,8 @@ public class VendreArticleServlet extends HttpServlet {
 	 */
 	private String getFileName(Part part) {
 		for (String content : part.getHeader("content-disposition").split(";")) {
-			if (content.trim().startsWith("filename"))
-				return content.substring(content.indexOf("=") + 2, content.length() - 1);
+			if (content.trim().startsWith("filename")) {
+				return content.substring(content.indexOf("=") + 2, content.length() - 1);}
 		}
 		return "Default.file";
 	}
