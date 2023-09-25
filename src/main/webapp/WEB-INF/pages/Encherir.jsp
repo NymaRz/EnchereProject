@@ -1,16 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/fragments/header.jspf"%>
-
+<%@ taglib uri="jakarta.tags.core" prefix="c"%>
 <main>
 
 	<h2>Détails Vente</h2>
 	<h1>${ articleVendu.nomArticle }</h1>
 	<!-- inverser h1 et h2? -->
 	<p>Description : ${articleVendu.description}</p>
-
-	<p>Meilleure offre : ${enchere.montant_enchere} points par
-		${enchere.acquereur.pseudo}</p>
+	<c:if test="${ enchere != null }">		
+		<p>Meilleure offre : ${enchere.montant_enchere} points par
+			${enchere.acquereur.pseudo}</p>
+	</c:if>
 	<%--OU  <P>Meilleure offre : ${articleVendu.prixVente}</P> --%>
 	<p>Mise à prix : ${articleVendu.miseAPrix} points</p>
 	<p>Fin de l'enchère : ${articleVendu.dateFinEncheres}</p>
@@ -18,8 +19,9 @@
 	<p>Vendeur : ${articleVendu.utilisateur.pseudo}</p>
 
 	<form action="" method="POST">
-		<label for="montantEnchere">Ma proposition (+ ${articleVendu.enchereMin}) :</label> <input
-			name="montantEnchere" id="montantEnchere" type="number"
+		<label for="montantEnchere">Ma proposition (+
+			${articleVendu.enchereMin}) :</label> <input name="montantEnchere"
+			id="montantEnchere" type="number"
 			value="${enchere.montant_enchere + articleVendu.enchereMin }"
 			min="${enchere.montant_enchere+articleVendu.enchereMin }"
 			step="${articleVendu.enchereMin }">
