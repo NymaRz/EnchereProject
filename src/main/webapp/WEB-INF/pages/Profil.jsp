@@ -6,7 +6,7 @@
 <main class="row">
 	<div class="col">
 		<div class="row text-center mt-4">
-			<h1>Mon Profil Vendeur</h1>
+			<h1>Mon Profil</h1>
 		</div>
 		<div class="row mt-5">
 			<div class="col-4 offset-4">
@@ -51,7 +51,18 @@
 						type="text" readonly="readonly" class="form-control"
 						value="${ utilisateur.adresse.ville }" name="ville" id="ville">
 				</div>
-	
+				<!-- //pas besoin du crédit dans dans l'affichage du profil -->
+				<div class="mb-3">
+					<label for="credit" class="form-label">Crédit Actuel:</label> <input
+						readonly="readonly" type="text" class="form-control"
+						value="${utilisateur.credit}" id="credit" name="credit">
+				</div>
+				<!-- //pas besoin d'afficher le mot de passe dans l'affichage du profil -->
+				<%-- <div class="mb-3">
+					<label for="mdp" class="form-label">Mot de Passe:</label> <input
+						readonly="readonly" type="password" class="form-control" 
+						value="${utilisateur.mdp}" id="mdp">
+				</div> --%>
 				<form method="POST"
 					action="${pageContext.request.contextPath}/modifierprofil">
 					<div class="mb-3 text-center mt-5">
