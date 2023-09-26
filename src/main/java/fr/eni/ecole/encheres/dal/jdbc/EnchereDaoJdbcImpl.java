@@ -141,7 +141,7 @@ public class EnchereDaoJdbcImpl implements EnchereDao {
 				Utilisateur u = new Utilisateur(rs.getString("pseudo"), rs.getString("nom"), rs.getString("prenom"),
 						rs.getString("email"), rs.getString("telephone"),
 						DaoFactory.getAdresseDao().findOne(rs.getInt("id_adresse")), rs.getString("mot_de_passe"),
-						rs.getInt("credit"));
+						rs.getInt("credit"), rs.getString("photo"));
 				u.setAdmin(rs.getBoolean("administrateur"));
 				u.setVip(rs.getBoolean("vip"));
 				ArticleVendu article = new ArticleVendu();

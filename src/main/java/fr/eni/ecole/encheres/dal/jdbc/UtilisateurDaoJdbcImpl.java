@@ -18,10 +18,12 @@ import fr.eni.ecole.encheres.ihm.exception.PseudoExisteDejaException;
 
 public class UtilisateurDaoJdbcImpl implements UtilisateurDao {
 
-	private static final String SAVE_USER = "INSERT INTO UTILISATEURS (pseudo,nom,prenom,email,telephone,id_adresse,mot_de_passe,credit,administrateur,vip) VALUES (?,?,?,?,?,?,?,?,?,?)";
+	private static final String SAVE_USER = "INSERT INTO UTILISATEURS (pseudo,nom,prenom,email,telephone,id_adresse,mot_de_passe,credit,administrateur,vip,photo) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
 	private static final String FIND_UTILISATEUR_BY_ID = "SELECT * FROM UTILISATEURS as u INNER JOIN ADRESSES as a ON u.id_adresse=a.id_adresse WHERE no_utilisateur=?";
 	private static final String SELECT_ALL_UTILISATEURS = "SELECT * FROM UTILISATEURS";
-	private static final String UPDATE_UTILISATEUR = "UPDATE UTILISATEURS set pseudo=?,nom=?,prenom=?,email=?,telephone=?,id_adresse=?,mot_de_passe=?,credit=?,administrateur=?,vip=? WHERE no_utilisateur=?";
+	private static final String UPDATE_UTILISATEUR_WITH_PICTURE = "UPDATE UTILISATEURS set pseudo=?,nom=?,prenom=?,email=?,telephone=?,id_adresse=?,mot_de_passe=?,credit=?,administrateur=?,vip=?,photo=? WHERE no_utilisateur=?";
+	private static final String UPDATE_UTILISATEUR_WITHOUT_PICTURE = "UPDATE UTILISATEURS set pseudo=?,nom=?,prenom=?,email=?,telephone=?,id_adresse=?,mot_de_passe=?,credit=?,administrateur=?,vip=? WHERE no_utilisateur=?";
+	
 	private static final String DELETE_UTILISATEUR = "DELETE FROM UTILISATEURS WHERE no_utilisateur=?";
 	private static final String FIND_BY_PSEUDO_UTILISATEUR = "SELECT * FROM UTILISATEURS WHERE pseudo LIKE ?";
 	private static final String SELECT_BY_EMAIL = "SELECT * FROM UTILISATEURS WHERE email = ?";
@@ -43,6 +45,8 @@ public class UtilisateurDaoJdbcImpl implements UtilisateurDao {
 			pstmt.setInt(8, utilisateur.getCredit());
 			pstmt.setBoolean(9, utilisateur.isAdmin());
 			pstmt.setBoolean(10, utilisateur.isVip());
+			pstmt.setString(11, utilisateur.getPhoto());
+
 			pstmt.executeUpdate();
 
 			System.out.println("Compte enregistré dans la BDD");
@@ -73,7 +77,7 @@ public class UtilisateurDaoJdbcImpl implements UtilisateurDao {
 				adresse.setVille(rs.getString("ville"));
 				Utilisateur utilisateur = new Utilisateur(rs.getString("pseudo"), rs.getString("nom"),
 						rs.getString("prenom"), rs.getString("email"), rs.getString("telephone"), adresse,
-						rs.getString("mot_de_passe"), rs.getInt("credit"));
+						rs.getString("mot_de_passe"), rs.getInt("credit"), rs.getString("photo"));
 				utilisateur.setNoUtilisateur(noUtilisateur);
 				utilisateur.setAdmin(rs.getBoolean("administrateur"));
 				utilisateur.setVip(rs.getBoolean("vip"));
@@ -96,7 +100,7 @@ public class UtilisateurDaoJdbcImpl implements UtilisateurDao {
 				Utilisateur utilisateur = new Utilisateur(rs.getString("pseudo"), rs.getString("nom"),
 						rs.getString("prenom"), rs.getString("email"), rs.getString("telephone"),
 						DaoFactory.getAdresseDao().findOne(rs.getInt("id_adresse")), rs.getString("mot_de_passe"),
-						rs.getInt("credit"));
+						rs.getInt("credit"), rs.getString("photo"));
 				utilisateur.setAdmin(rs.getBoolean("administrateur"));
 				utilisateur.setVip(rs.getBoolean("vip"));
 				utilisateurs.add(utilisateur);
@@ -111,7 +115,7 @@ public class UtilisateurDaoJdbcImpl implements UtilisateurDao {
 	@Override
 	public void modify(Utilisateur utilisateur) {
 		try (Connection connection = ConnectionProvider.getConnection();
-				PreparedStatement pstmt = connection.prepareStatement(UPDATE_UTILISATEUR)) {
+				PreparedStatement pstmt = connection.prepareStatement(UPDATE_UTILISATEUR_WITH_PICTURE)) {
 			pstmt.setString(1, utilisateur.getPseudo());
 			pstmt.setString(2, utilisateur.getNom());
 			pstmt.setString(3, utilisateur.getPrenom());
@@ -122,12 +126,36 @@ public class UtilisateurDaoJdbcImpl implements UtilisateurDao {
 			pstmt.setInt(8, utilisateur.getCredit());
 			pstmt.setBoolean(9, utilisateur.isAdmin());
 			pstmt.setBoolean(10, utilisateur.isVip());
-			pstmt.setInt(11, utilisateur.getNoUtilisateur());
+			pstmt.setString(11, utilisateur.getPhoto());
+
+			pstmt.setInt(12, utilisateur.getNoUtilisateur());
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 
+	}
+	@Override
+	public void modifynopic(Utilisateur utilisateur) {
+		try (Connection connection = ConnectionProvider.getConnection();
+				PreparedStatement pstmt = connection.prepareStatement(UPDATE_UTILISATEUR_WITHOUT_PICTURE)) {
+			pstmt.setString(1, utilisateur.getPseudo());
+			pstmt.setString(2, utilisateur.getNom());
+			pstmt.setString(3, utilisateur.getPrenom());
+			pstmt.setString(4, utilisateur.getEmail());
+			pstmt.setString(5, utilisateur.getTelephone());
+			pstmt.setInt(6, utilisateur.getAdresse().getIdAdresse());
+			pstmt.setString(7, utilisateur.getMdp());
+			pstmt.setInt(8, utilisateur.getCredit());
+			pstmt.setBoolean(9, utilisateur.isAdmin());
+			pstmt.setBoolean(10, utilisateur.isVip());
+		
+			pstmt.setInt(11, utilisateur.getNoUtilisateur());
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
 	}
 
 	@Override
@@ -152,7 +180,7 @@ public class UtilisateurDaoJdbcImpl implements UtilisateurDao {
 				Utilisateur utilisateur = new Utilisateur(rs.getString("pseudo"), rs.getString("nom"),
 						rs.getString("prenom"), rs.getString("email"), rs.getString("telephone"),
 						DaoFactory.getAdresseDao().findOne(rs.getInt("id_adresse")), rs.getString("mot_de_passe"),
-						rs.getInt("credit"));
+						rs.getInt("credit"), rs.getString("photo"));
 				utilisateur.setAdmin(rs.getBoolean("administrateur"));
 				utilisateur.setVip(rs.getBoolean("vip"));
 				return utilisateur;

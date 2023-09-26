@@ -9,6 +9,19 @@
 		</div>
 		<div class="row mt-5">
 			<div class="col-4 offset-4">
+				<c:if test="${not empty success}">
+					<div class="alert alert-success">${success}</div>
+					<c:remove var="session.success" />
+				</c:if>
+				<c:if test="${not empty error}">
+					<div class="alert alert-danger">${error}</div>
+					<c:remove var="sessionScope.error" />
+				</c:if>
+				<div class="mb-3">
+				<img id="photo" name="photo" class="img-fluid"
+			src="${ pageContext.request.contextPath }/Images/${ utilisateur.photo }"
+			alt="${ utilisateur.photo }">
+				</div>
 				<div class="mb-3">
 					<label for="pseudo" class="form-label">Votre Pseudo:</label> <input
 						type="text" readonly="readonly" class="form-control"
@@ -95,5 +108,18 @@
 		</div>
 	</div>
 </main>
+<script>
+	setTimeout(function() {
+		var successMessage = document.getElementById("successMessage");
+		var errorMessage = document.getElementById("errorMessage");
 
+		if (successMessage) {
+			successMessage.style.display = "none";
+		}
+
+		if (errorMessage) {
+			errorMessage.style.display = "none";
+		}
+	}, 5000); // Masquer après 5 secondes
+</script>
 <%@ include file="/WEB-INF/fragments/footer.jspf"%>

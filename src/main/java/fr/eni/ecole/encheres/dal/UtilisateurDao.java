@@ -15,6 +15,8 @@ public interface UtilisateurDao {
 
 	void modify(Utilisateur utilisateur);
 
+	void modifynopic(Utilisateur utilisateur);
+
 	void remove(int idUtilisateur);
 
 	Utilisateur findByPseudo(String query);

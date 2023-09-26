@@ -6,13 +6,15 @@
 		<div class="row text-center mt-4">
 			<h1>Connexion</h1>
 		</div>
-		<c:if test="${not empty success || not empty error}">
+		<c:if test="${not empty success}">
 			<div class="alert alert-success" id="successMessage"
-				name="succesMessage">${not empty success ? success : ''}</div>
-			<div class="alert alert-danger">${error}</div>
+				name="succesMessage">${success}</div>
 			<c:remove var="sessionScope.success" />
 		</c:if>
-		>
+
+		<c:if test="${not empty error}">
+			<div class="alert alert-danger">${error}</div>
+		</c:if>
 		<div class="row mt-5">
 			<div class="col-8 offset-2">
 				<form method="post">

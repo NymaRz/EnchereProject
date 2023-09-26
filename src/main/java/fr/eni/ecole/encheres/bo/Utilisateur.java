@@ -25,7 +25,7 @@ public class Utilisateur {
 
 	public Utilisateur(int noUtilisateur, String pseudo, String nom, String prenom, String email, String telephone,
 			Adresse adresse, String mdp, int credit, boolean admin, boolean vip, List<ArticleVendu> articlesAVendre,
-			List<Enchere> encheres, String rue, String codePostal, String ville) {
+			List<Enchere> encheres, String rue, String codePostal, String ville,String photo) {
 		super();
 		this.noUtilisateur = noUtilisateur;
 		this.pseudo = pseudo;
@@ -43,6 +43,7 @@ public class Utilisateur {
 		this.rue = rue;
 		this.codePostal = codePostal;
 		this.ville = ville;
+		this.photo = photo;
 	}
 
 	public String getRue() {
@@ -74,7 +75,7 @@ public class Utilisateur {
 	}
 
 	public Utilisateur(int noUtilisateur, String pseudo, String nom, String prenom, String email, String telephone,
-			Adresse adresse, String mdp) {
+			Adresse adresse, String mdp,String photo) {
 		super();
 		this.noUtilisateur = noUtilisateur;
 		this.pseudo = pseudo;
@@ -84,11 +85,13 @@ public class Utilisateur {
 		this.telephone = telephone;
 		this.adresse = adresse;
 		this.mdp = mdp;
-		this.credit = 0;
+		this.credit = 500;
+		this.photo = photo;
+
 	}
 
 	public Utilisateur(String pseudo, String nom, String prenom, String email, String telephone, Adresse adresse,
-			String mdp) {
+			String mdp,String photo) {
 		super();
 		this.pseudo = pseudo;
 		this.nom = nom;
@@ -97,10 +100,12 @@ public class Utilisateur {
 		this.telephone = telephone;
 		this.adresse = adresse;
 		this.mdp = mdp;
+		this.photo = photo;
+
 	}
 
 	public Utilisateur(String pseudo, String nom, String prenom, String email, String telephone, Adresse adresse,
-			String mdp, int credit) {
+			String mdp, int credit,String photo) {
 		super();
 		this.pseudo = pseudo;
 		this.nom = nom;
@@ -110,10 +115,12 @@ public class Utilisateur {
 		this.adresse = adresse;
 		this.mdp = mdp;
 		this.credit = credit;
+		this.photo = photo;
+
 	}
 
 	public Utilisateur(int noUtilisateur, String pseudo, String nom, String prenom, String email, String telephone,
-			Adresse adresse, String mdp, int credit) {
+			Adresse adresse, String mdp, int credit,String photo) {
 		super();
 		this.noUtilisateur = noUtilisateur;
 		this.pseudo = pseudo;
@@ -124,6 +131,8 @@ public class Utilisateur {
 		this.adresse = adresse;
 		this.mdp = mdp;
 		this.credit = credit;
+		this.photo = photo;
+
 	}
 
 	public int getNoUtilisateur() {
@@ -134,6 +143,7 @@ public class Utilisateur {
 		super();
 		this.mdp = mdp;
 		this.email = email;
+		
 	}
 
 	public void setNoUtilisateur(int noUtilisateur) {

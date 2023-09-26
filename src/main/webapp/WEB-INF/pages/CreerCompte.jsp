@@ -25,7 +25,8 @@
 			</div>
 
 			<form method="POST"
-				action="${pageContext.request.contextPath}/inscription">
+				action="${pageContext.request.contextPath}/inscription"
+				enctype="multipart/form-data">
 				<div class="col-3 offset-4">
 					<div class="mb-3">
 						<label for="pseudo" class="form-label">Votre Pseudo:</label> <input
@@ -66,6 +67,12 @@
 					<div class="mb-3">
 						<label for="ville" class="form-label">Votre Ville:</label> <input
 							type="text" class="form-control" name="ville" id="ville" required>
+					</div>
+					<div class="mb-3">
+						<label style="border: solid 1px red"" for="photo" class="custom-file-upload">Ajoutez
+							une photo à votre profil</label> <span id="fileNameDisplay"></span> <input
+							class="form-control" type="file" id="photo" name="photo"
+							style="display: none;">
 					</div>
 					<div class="mb-3 text-center mt-5">
 						<button type="submit" name="id" class="btn btn-danger">Créer

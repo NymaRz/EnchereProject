@@ -42,6 +42,10 @@ public class UtilisateurManager {
 		// Ajoutez ici la logique de validation des données si nécessaire.
 		utilisateurDao.modify(utilisateur);
 	}
+	public void modifierUnUtilisateurSansPhoto(Utilisateur utilisateur) {
+		// Ajoutez ici la logique de validation des données si nécessaire.
+		utilisateurDao.modifynopic(utilisateur);
+	}
 
 	public void ajouterUnUtilisateur(Utilisateur utilisateur)
 			throws EmailExisteDejaException, PseudoExisteDejaException {

@@ -10,15 +10,22 @@
 		</div>
 		<div class="row mt-5">
 			<div class="col-4 offset-4">
-				<c:if test="${not empty success}">
-					<div class="alert alert-success">${success}</div>
-					<c:remove var="session.success" />
-				</c:if>
-				<c:if test="${not empty error}">
-					<div class="alert alert-danger">${error}</div>
-					<c:remove var="sessionScope.error" />
-				</c:if>
-				<form action="" method="POST">
+
+				<form action="" method="POST" enctype="multipart/form-data">
+
+					<div class="mb-3">
+						<label> Votre photo actuelle</label> <img id="photoProfil"
+							name="photoProfil" class="img-fluid"
+							src="${ pageContext.request.contextPath }/Images/${ utilisateur.photo }"
+							alt="${ utilisateur.photo }">
+					</div>
+					<div class="mb-3">
+						<label style="border: solid 1px red" " for="photo"
+							class="custom-file-upload">modifier la photo de votre
+							profil</label> <span id="fileNameDisplay"></span> <input
+							class="form-control" type="file" id="photo" name="photo"
+							style="display: none;">
+					</div>
 
 					<div class="mb-3">
 						<label for="pseudo" class="form-label">Votre Pseudo:</label> <input
