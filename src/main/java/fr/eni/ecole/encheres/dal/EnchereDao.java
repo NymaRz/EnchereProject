@@ -2,6 +2,7 @@ package fr.eni.ecole.encheres.dal;
 
 import java.util.List;
 
+import fr.eni.ecole.encheres.bo.ArticleVendu;
 import fr.eni.ecole.encheres.bo.Enchere;
 
 public interface EnchereDao {
@@ -18,6 +19,6 @@ public interface EnchereDao {
 
 	List<Enchere> FindByEnchere(String query);
 	
-	Enchere finHigherEnchere();
+	Enchere finHigherEnchere(ArticleVendu articleVendu);
 
 }
