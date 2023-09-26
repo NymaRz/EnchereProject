@@ -20,37 +20,35 @@ List<Categorie> categories = (List<Categorie>) request.getAttribute("categories"
   <legend>Mes Achats :</legend>
 
   <div>
-    <input type="radio" id="encheresOuvertes" name="encheresOuvertes" value="encheresOuvertes" checked />
+    <input type="radio" id="encheresOuvertes" name="listeEncheres" value="encheresOuvertes" checked />
     <label for="encheresOuvertes">Enchères ouvertes</label>
   </div>
 
   <div>
-    <input type="radio" id="encheresEnCours" name="encheresEnCours" value="encheresEnCours" />
+    <input type="radio" id="encheresEnCours" name="listeEncheres" value="encheresEnCours" />
     <label for="encheresEnCours">Enchères en cours</label>
   </div>
 
   <div>
-    <input type="radio" id="encheresRemportees" name="encheresRemportees" value="encheresRemportees" />
+    <input type="radio" id="encheresRemportees" name="listeEncheres" value="encheresRemportees" />
     <label for="encheresRemportees">Enchères remportées</label>
   </div>
-</fieldset>
 
-<fieldset>
   <legend>Mes Ventes :</legend>
 
   <div>
-    <input type="radio" id="encheresOuvertes" name="encheresOuvertes" value="encheresOuvertes" checked />
-    <label for="encheresOuvertes">Enchères ouvertes</label>
+    <input type="radio" id="ventesEnCours" name="listeEncheres" value="ventesEnCours" checked />
+    <label for="ventesEnCours">Mes ventes en cours</label>
   </div>
 
   <div>
-    <input type="radio" id="encheresEnCours" name="encheresEnCours" value="encheresEnCours" />
-    <label for="encheresEnCours">Enchères en cours</label>
+    <input type="radio" id="ventesNonDebutees" name="listeEncheres" value="ventesNonDebutees" />
+    <label for="ventesNonDebutees">Ventes non débutées</label>
   </div>
 
   <div>
-    <input type="radio" id="encheresRemportees" name="encheresRemportees" value="encheresRemportees" />
-    <label for="encheresRemportees">Enchères remportées</label>
+    <input type="radio" id="ventesTerminees" name="listeEncheres" value="ventesTerminees" />
+    <label for="ventesTerminees">Ventes terminées</label>
   </div>
 </fieldset>
 

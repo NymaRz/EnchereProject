@@ -3,6 +3,7 @@ package fr.eni.ecole.encheres.dal;
 import java.util.List;
 
 import fr.eni.ecole.encheres.bo.ArticleVendu;
+import fr.eni.ecole.encheres.bo.Utilisateur;
 
 public interface ArticleVenduDao{
 	// CRUD
@@ -20,4 +21,6 @@ public interface ArticleVenduDao{
 	
 	List<ArticleVendu> recupTousLEsArticlesDeCategorie(int noCategorie);
 	List<ArticleVendu> rechercheArticlesDeCategorieByName(int noCategorie,String query);
+	List<ArticleVendu> recupArticlesEncheresParUtilisateur(Utilisateur utilisateur);
+	List<ArticleVendu> recupArticlesRemporteesParUtilisateur(Utilisateur utilisateur);
 }
