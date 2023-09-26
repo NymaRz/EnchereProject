@@ -12,6 +12,8 @@ List<Categorie> categories = (List<Categorie>) request.getAttribute("categories"
 %>
 <main>
 
+<script src="/assets/js/joindre.js"></script>
+
 
 	<br/><br/><h1>Vendre un article :</h1>
 	<form method="POST"
@@ -31,7 +33,7 @@ List<Categorie> categories = (List<Categorie>) request.getAttribute("categories"
 			</c:forEach>
 
 		</select> 
-		</div>
+		</div><div id="bloc-article">
 <!-- 			<label for="description" class="form-label">Description :</label> 
  -->			<textarea name="description" rows="5" id="description" style="width:100%" placeholder="Ajoutez une description à votre article (taille, poids, techniques etc.)"/></textarea> 
 <!-- 			<label for="pet-select">Catégorie :</label> 
@@ -41,37 +43,70 @@ List<Categorie> categories = (List<Categorie>) request.getAttribute("categories"
 		
 	
 		
-		<input class="form-control" type="file" id="jaquette" name="jaquette" style="display:none;">
+<!-- 		<input class="form-control" type="file" id="jaquette" name="jaquette" style="display:none;">
 
 	<label for="jaquette" class="custom-file-upload">Ajoutez une photo à votre article</label>
-	<span id="fileNameDisplay"></span><br/><br/>
+	<span id="jaquette"></span> -->
+
+<div class="custom-file-upload">
+  <label for="jaquette">Ajouter une photo<br></label>
+  <input type="file" id="jaquette" style="display: none;" onchange="displayFileName()" />
+  <span id="selectedFileName"></span>
+</div>
 
 
-			<label for="dateDebutEnchere" class="form-label">Début enchères :</label> 
-			<input name="dateDebutEncheres" id="dateDebutEncheres" type="date" /> <label
-			for="Retrait" class="form-label">Fin enchères :</label> 
-			<input name="dateFinEncheres" id="dateFinEncheres" type="date" />
-			
-			<br/><label for="miseAPrix" class="form-label">Saisissez un montant</label> 
-		<input name="miseAPrix" id="miseAPrix" /> 
+<script>
+function displayFileName() {
+	  const jaquette = document.getElementById('jaquette');
+	  const selectedFileName = document.getElementById('selectedFileName');
+
+	  if (jaquette.files.length > 0) {
+	    selectedFileName.innerHTML = ''  + jaquette.files[0].name;
+	  } else {
+	    selectedFileName.innerHTML = '';
+	  }
+	}
+
+</script>
+
+
+			<div id="date-enchere"><label for="dateDebutEnchere" class="form-label">DEBUT</label><br> 
+			<input name="dateDebutEncheres" id="dateDebutEncheres" type="date" /></div>
+			<div id="date-enchere"> <label for="Retrait" class="form-label">FIN</label> <br>
+			<input name="dateFinEncheres" id="dateFinEncheres" type="date" /></div>
+			</div>
+
+
+<div id="middle">
+					<div id="mise-a-prix">
+					<label for="miseAPrix" class="form-label">Prix de départ :</label> 
+		<input type="number" step="100" name="miseAPrix" id="miseAPrix" /> </div>	
+		<button id="mettre-en-vente" type="submit" name="Appliquer" value="Appliquer">Mettre en vente</button>
+		</div>
 
 		<fieldset id="Modalites">
-			<legend>Modalités de retrait</legend>
-			<div class="min-adresse"><label for="Retrait" class="form-label">Rue :</label><br/> 
-			<input value="${adresse.rue }" name="rue" id="rue" placeholder="Rue"/> 
-			</div><div class="min-adresse"><label for="Retrait" class="form-label">Code postal :</label><br/> 
-			<input value="${adresse.codePostal }" name="codePostal" id="codePostal" placeholder="Code postal"/> 
-			</div><div class="min-adresse"><label for="Retrait" class="form-label">Ville :</label> <br/>
-			<input value="${adresse.ville }" name="ville" id="ville" placeholder="Ville"/>
-			</div>
+			<legend>Editer le lieu de retrait ?</legend>
+<!-- 			<div class="min-adresse"><label for="Retrait" class="adresse-form form-label" >Rue :</label><br/> 
+ -->			<input value="${adresse.rue }" name="rue" style="width:40%;background-color:#e2e9ff;" id="rue" placeholder="Rue"/> 
+<!-- 			</div>
+ --><!-- 			<div class="min-adresse"><label style="width:25%" for="Retrait" class="adresse-form form-label" >Code postal :</label><br/> 
+ -->			
+ 			<input value="${adresse.codePostal }" style="width:20%;background-color:#e2e9ff;" name="codePostal" id="codePostal" placeholder="Code postal"/> 
+			<!-- </div> -->
+			<!-- <div class="min-adresse"><label for="Retrait" style="width:35%" class="adresse-form form-label" >Ville :</label> <br/> -->
+			<input value="${adresse.ville }" name="ville" style="width:34%;background-color:#e2e9ff;" id="ville" placeholder="Ville"/>
+			<!-- </div> -->
 		</fieldset>
-		<a href="#" onclick="window.history.back();">Retour</a>
+		
+		
+		<div id ="bouton-bas"><a href="#" onclick="window.history.back();">Annuler</a>
+		<button type="reset" name="reset" value="reset">Effacer</button></div>
 		<%-- 			<a href="${ pageContext.request.contextPath }/articles?id=${ articleVendu.nomArticleVendu }">Appliquer les Modifications</a>--%>
 
 		<!-- Faire que l'article ne soit pas modifiable si la vente est commencée.
  -->
-		<button type="submit" name="Appliquer" value="Appliquer">Enregistrer</button>
-		<button type="reset" name="reset" value="reset">Effacer</button>
+		
+		
 		<%-- <bouton action="${ pageContext.request.contextPath }/articles?id=${ articleVendu.nomArticleVendu }">Annuler la vente</a> --%>
 	</div>
 	</form>
