@@ -1,7 +1,6 @@
 package fr.eni.ecole.encheres.ihm;
 
 import java.io.IOException;
-import java.time.LocalDate;
 
 import fr.eni.ecole.encheres.bll.ArticleVenduManager;
 import fr.eni.ecole.encheres.bll.EnchereManager;
@@ -56,38 +55,38 @@ public class EncherirServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		try {
-			System.out.println("entrée méthode post");
-			// récupérer le param dans url
-			int noArticle = Integer.parseInt(request.getParameter("id"));
-			System.out.println(noArticle);
-			// supprimer un jeu
-			System.out.println("µµµµµµµµµµµµµµµµµµµµµµµµµµµµµµµµµµµ");
-			ArticleVendu article = ArticleVenduManager.getInstance().recupUnArticleVendu(noArticle);
 			HttpSession session = request.getSession();
-			System.out.println("*************************");
 			Utilisateur utilisateur = (Utilisateur) session.getAttribute("utilisateur");
-			System.out.println("##########################");
-			int montantEnchere = Integer.parseInt(request.getParameter("montantEnchere"));
-			// comparer avec l'enchère précédente OU bloquer la possibilité d'enchérir moins
-			// dans le form directement
-			System.out.println("111111111111111111111");
-			Enchere newEnchere = new Enchere();
-			System.out.println("22222222222222222");
-			newEnchere.setArticleEncheri(article);
-			System.out.println("3333333333333333");
-			newEnchere.setMontant_enchere(montantEnchere);
-			System.out.println("44444444444444444444");
-			newEnchere.setAcquereur(utilisateur);
-			System.out.println("5555555555555555");
 
-			// définir ce nouveau montant comme le nouveau prix de vente de l'article. Ou ça
-			// va le faire tout seul car c'est devenu l'enchère max ?
-			EnchereManager.getInstance().ajouterUneEnchere(newEnchere);
-			System.out.println(newEnchere);
-			Enchere enchereMax = EnchereManager.getInstance().recupEnchereLaPlusHaute(article);
-			System.out.println(enchereMax);
-			// redirect
-			response.sendRedirect(request.getContextPath() + "/accueil");
+			if (utilisateur == null) {
+				response.sendRedirect(request.getContextPath() + "/connexion");
+			} else {
+				// récupérer le param dans url
+				int noArticle = Integer.parseInt(request.getParameter("id"));
+
+				ArticleVendu article = ArticleVenduManager.getInstance().recupUnArticleVendu(noArticle);
+
+				int montantEnchere = Integer.parseInt(request.getParameter("montantEnchere"));
+				// comparer avec l'enchère précédente OU bloquer la possibilité d'enchérir moins
+				// dans le form directement
+
+				Enchere newEnchere = new Enchere();
+
+				newEnchere.setArticleEncheri(article);
+
+				newEnchere.setMontant_enchere(montantEnchere);
+
+				newEnchere.setAcquereur(utilisateur);
+
+				// définir ce nouveau montant comme le nouveau prix de vente de l'article. Ou ça
+				// va le faire tout seul car c'est devenu l'enchère max ?
+				EnchereManager.getInstance().ajouterUneEnchere(newEnchere);
+				System.out.println("mon enchere :" + newEnchere);
+				Enchere enchereMax = EnchereManager.getInstance().recupEnchereLaPlusHaute(article);
+				System.out.println("enchere max : " + enchereMax);
+				// redirect
+				response.sendRedirect(request.getContextPath() + "/accueil");
+			}
 		} catch (Exception e) {
 			response.sendError(404);
 		}

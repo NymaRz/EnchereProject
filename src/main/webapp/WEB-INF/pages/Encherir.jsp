@@ -6,6 +6,8 @@
 
 	<h2>Détails Vente</h2>
 	<h1>${ articleVendu.nomArticle }</h1>
+	<figure>
+	<img alt="" src=""></figure>
 	<!-- inverser h1 et h2? -->
 	<p>Description : ${articleVendu.description}</p>
 	<c:if test="${ enchere != null }">		
