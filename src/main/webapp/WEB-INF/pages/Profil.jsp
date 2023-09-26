@@ -13,18 +13,7 @@
 					action="${pageContext.request.contextPath}/modifierprofil"
 					enctype="multipart/form-data">
 
-<div class="mb-3">
-    <label for="photo" class="form-label">Télécharger une photo de profil :</label>
-    <input type="file" class="form-control" id="photo" name="photo">
-</div>
-
-					<!-- Affichez la photo téléchargée -->
-					<div class="mb-3">
-						<label for="currentPhoto" class="form-label">Photo de
-							profil :</label> <img
-							src="<%=request.getSession().getAttribute("uploadedPhotoPath")%>"
-							alt="Photo de profil" id="currentPhoto" class="img-fluid">
-					</div>
+					
 
 
 

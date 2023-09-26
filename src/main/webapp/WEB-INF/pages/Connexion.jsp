@@ -8,10 +8,11 @@
 		</div>
 		<c:if test="${not empty success || not empty error}">
 			<div class="alert alert-success" id="successMessage"
-				name="succesMessage">${success}</div>
+				name="succesMessage">${not empty success ? success : ''}</div>
 			<div class="alert alert-danger">${error}</div>
 			<c:remove var="sessionScope.success" />
 		</c:if>
+		>
 		<div class="row mt-5">
 			<div class="col-8 offset-2">
 				<form method="post">
