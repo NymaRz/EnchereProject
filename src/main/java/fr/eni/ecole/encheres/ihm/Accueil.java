@@ -7,9 +7,9 @@ import java.util.List;
 import fr.eni.ecole.encheres.bll.ArticleVenduManager;
 import fr.eni.ecole.encheres.bll.CategorieManager;
 import fr.eni.ecole.encheres.bo.ArticleVendu;
-
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -32,9 +32,9 @@ public class Accueil extends HttpServlet {
 			if (request.getParameter("q") != null) {
 				articlesVendus = ArticleVenduManager.getInstance().recupUnArticleVenduByCategorieEO(noCategorie, q);
 			}
-				// si que catégorie selectionné
-			
-				articlesVendus = ArticleVenduManager.getInstance().recupArticlesCategorieEO(noCategorie);
+			// si que catégorie selectionné
+
+			articlesVendus = ArticleVenduManager.getInstance().recupArticlesCategorieEO(noCategorie);
 		}
 		// traitement si aucune catégorie selectionnée
 		else {
@@ -56,7 +56,25 @@ public class Accueil extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		doGet(request, response);
+		// Vérifier si le cookie "rememberMe" est présent
+		Cookie[] cookies = request.getCookies();
+		boolean loggedIn = false;
+
+		if (cookies != null) {
+			for (Cookie cookie : cookies) {
+				if (cookie.getName().equals("rememberMe") && cookie.getValue().equals("true")) {
+					// Connecter automatiquement l'utilisateur
+					loggedIn = true;
+					break;
+				}
+			}
+		}
+		if (loggedIn) {
+			// L'utilisateur est connecté automatiquement
+			// Afficher la page d'accueil
+		} else {
+			response.sendRedirect(request.getContextPath() + "/connexion");
+		}
 	}
 
 }
