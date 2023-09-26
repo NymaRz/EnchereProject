@@ -134,5 +134,10 @@ public class ArticleVenduManager {
 		return articleVenduDao.recupArticlesEncheresParUtilisateur(utilisateur);
 	}
 
+	public List<ArticleVendu> recupArticlesVendusParUtilisateur(int idUser) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	// Fin de la logique métier
 }

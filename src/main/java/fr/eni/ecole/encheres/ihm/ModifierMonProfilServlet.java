@@ -1,10 +1,6 @@
 package fr.eni.ecole.encheres.ihm;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 
 import fr.eni.ecole.encheres.bll.AdresseManager;
 import fr.eni.ecole.encheres.bll.UtilisateurManager;
@@ -16,7 +12,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import jakarta.servlet.http.Part;
 
 @WebServlet("/profil/modifierprofil")
 public class ModifierMonProfilServlet extends HttpServlet {
@@ -93,35 +88,6 @@ public class ModifierMonProfilServlet extends HttpServlet {
 		} catch (Exception e) {
 			e.printStackTrace();
 			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-
 		}
-
-		// Récupérez le fichier téléchargé
-		Part filePart = request.getPart("photo");
-
-		// Obtenez le chemin où vous souhaitez enregistrer le fichier sur le serveur
-		String savePath = getServletContext().getRealPath("/uploads"); // Vous pouvez spécifier le chemin de sauvegarde
-																		// souhaité
-
-		// Obtenez le nom de fichier
-		String fileName = filePart.getSubmittedFileName();
-
-		// Enregistrez le fichier sur le serveur
-		File file = new File(savePath, fileName);
-		try (InputStream input = filePart.getInputStream(); OutputStream output = new FileOutputStream(file)) {
-			byte[] buffer = new byte[1024];
-			int length;
-			while ((length = input.read(buffer)) > 0) {
-				output.write(buffer, 0, length);
-			}
-		}
-
-		// Enregistrez le chemin du fichier dans une variable de session ou dans votre
-		// base de données
-		String filePath = "/uploads/" + fileName;
-		request.getSession().setAttribute("uploadedPhotoPath", filePath);
-
-		// Redirigez l'utilisateur vers la page de profil
-		response.sendRedirect(request.getContextPath() + "/profil");
 	}
 }

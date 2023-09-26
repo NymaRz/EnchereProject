@@ -288,7 +288,7 @@ h4.titre-miniature {
 
 #formulaire-vente {
 	padding: 25px;
-	width: 800px;
+	max-width: 800px;
 	margin: auto;
 }
 
@@ -300,12 +300,13 @@ h4.titre-miniature {
 	padding: 10px;
 	border: none;
 	border-radius: 8px;
+	outline: none;
 }
 
 #Modalites {
-	background-color: rgb(186, 209, 222);
+	background-color: rgb(186 209 222 / 52%);
 	border-radius: 15px;
-	padding: 10px;
+	padding: 70px 10px 10px 10px;
 	margin: 20px 0;
 	text-align: center;
 }
@@ -324,24 +325,141 @@ input#nomArticle:focus {
 
 .min-adresse {
 	display: inline-block;
-	width: 30%;
 	text-align: left;
 }
 
 .min-adresse .form-label {
-	margin: -10px;
-	font-size: 0.9em;
+	margin-bottom: -10px;
 	color: #000;
+	display:none;
 }
 
 #nom-cat {
 	background-color: #fff;
 	border-radius: 8px;
-	margin:5px;
+	padding:8px;
 }
 
 #nom-cat #categorie {
 	background-color: #f0f0f0;
 	appearance: none;
 	float: right;
+	cursor:pointer;
 }
+
+textarea#description{
+    background-color: #fff;
+    padding: 15px 0px 0px 190px;
+    margin: 15px 0px 10px;
+    height:170px;}
+
+
+#middle {
+	margin:-50px auto auto auto;
+	background-color: #fff;
+	border-radius:15px;
+	padding:10px;
+	max-width:560px;
+	position:relative;
+	z-index:1;
+	bottom:-60px;
+}
+
+#middle div {
+
+}
+
+#mise-a-prix {
+	display: inline-block;
+	margin-left: 20px;
+}
+
+form-label#dateDebutEncheres , form-label#dateFinEncheres  {
+	margin-bottom: -10px;
+	margin-left: 10px;
+	font-size: 0.9em;
+}
+
+#mise-a-prix input{padding:15px 25px;}
+
+.custom-file-upload {
+    display: inline-block;
+    padding: 110px 15px 15px 15px;
+    background: url(../addimage.jpg) center 15px no-repeat #f0f0f0;
+    background-size: 70%;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 8px;
+    margin-left: 10px;
+    margin-top: -190px;
+    position: absolute;
+}
+
+.custom-file-upload label {
+	color: #000;
+	cursor: pointer;
+}
+
+#date-enchere{display:inline-block;
+width:49%;min-width:200px;
+text-align:center;
+padding:5px;}
+
+#formulaire-vente input#dateDebutEncheres , #formulaire-vente input#dateFinEncheres{
+	padding:25px;
+	width:100%;
+	background-color: #f0f0f0;
+}
+
+.custom-file-upload:hover {
+	background-color: #f0f0f0;
+}
+
+#Modalites legend{
+	font-size:1.3em;
+	    text-align: left;
+    margin-left: 35px;
+}
+
+#selectedFileName{
+    position: absolute;
+    margin-top: 30px;
+    margin-left: -125px;
+    color: #fff;
+    background-color: #5ea74c;
+    width: 125px;
+    line-height: 30px;
+    text-align: center;
+    border-radius: 7px;
+}
+
+ #mettre-en-vente{
+	 	line-height: 45px;
+	background-color: #E2A125;
+	border-radius: 8px;
+	padding: 10px 25px;
+		 	transition-duration: 200ms;
+float:right;
+	color: #000;
+	border:none;
+ }
+ 
+ #mettre-en-vente:hover{
+	 	color: #000;
+	 	transition-duration: 200ms;
+background-color: #3A444A;
+ }
+
+#bloc-article{
+	background-color: #fff;
+	border-radius:10px;
+	margin:15px 0;
+}
+
+.adresse-form{opacity:0.5;margin-left:5px;font-size:1em;}
+
+#bouton-bas{width:100%;margin:auto; text-align:center;}
+
+#bouton-bas a, #bouton-bas button{border:none;font-size:1.2em;margin:5px; border-radius:10px;}
+#bouton-bas a{color:#000;background-color: #fff;text-decoration: none;padding:12px 20px}
+#bouton-bas button{color:#000; background-color:#E2A125;padding:10px 20px}
