@@ -6,6 +6,10 @@
 		<div class="row text-center mt-4">
 			<h1>Connexion</h1>
 		</div>
+		<c:if test="${not empty success}">
+			<div class="alert alert-success">${success}</div>
+			<c:remove var="sessionScope.success" />
+		</c:if>
 		<div class="row mt-5">
 			<div class="col-8 offset-2">
 				<c:if test="${ !empty success}">
@@ -25,8 +29,8 @@
 						<label for="mdp" class="form-label">Mot de Passe</label> <input
 							type="password" class="form-control" name="mdp" id="mdp">
 					</div>
-						<button class="btn btn-primary" role="button" type="submit"
-							name="connexion">Connexion</button>
+					<button class="btn btn-primary" role="button" type="submit"
+						name="connexion">Connexion</button>
 
 				</form>
 			</div>

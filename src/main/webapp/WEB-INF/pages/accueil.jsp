@@ -30,7 +30,8 @@
 
 					<span style="widht: 100px" class="bouton-miniature prix-article">${articleVendu.prixVente }
 
-						₿</span> <a href="${pageContext.request.contextPath }/encherir?id=${articleVendu.noArticle}"
+						₿</span> <a
+						href="${pageContext.request.contextPath }/encherir?id=${articleVendu.noArticle}"
 						style="widht: 100px" class="bouton-miniature actionbouton">${articleVendu.dateFinEncheres }</a>
 
 
