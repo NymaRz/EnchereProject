@@ -6,19 +6,15 @@
 		<div class="row text-center mt-4">
 			<h1>Connexion</h1>
 		</div>
-		<c:if test="${not empty success}">
-			<div class="alert alert-success">${success}</div>
+		<c:if test="${not empty success || not empty error}">
+			<div class="alert alert-success" id="successMessage"
+				name="succesMessage">${not empty success ? success : ''}</div>
+			<div class="alert alert-danger">${error}</div>
 			<c:remove var="sessionScope.success" />
 		</c:if>
+		>
 		<div class="row mt-5">
 			<div class="col-8 offset-2">
-				<c:if test="${ !empty success}">
-					<div class="alert alert-success">${success}</div>
-				</c:if>
-				<c:if test="${ !empty error}">
-					<div class="alert alert-danger">${error}</div>
-				</c:if>
-
 				<form method="post">
 					<div class="mb-3">
 						<label for="email" class="form-label">Email</label> <input
@@ -31,7 +27,13 @@
 					</div>
 					<button class="btn btn-primary" role="button" type="submit"
 						name="connexion">Connexion</button>
+				</form>
 
+				<form action="ConnexionServlet" method="post">
+					<div class="mb-3">
+						<label for="rememberMe">Se souvenir de moi</label> <input
+							type="checkbox" name="rememberMe" id="rememberMe">
+					</div>
 				</form>
 			</div>
 		</div>
@@ -41,4 +43,15 @@
 		</div>
 	</div>
 </main>
+
+<!-- <script>
+	// Fonction pour masquer le message de succès après 5 secondes (5000 millisecondes)
+	setTimeout(function() {
+		var successMessage = document.getElementById("successMessage");
+		if (successMessage) {
+			successMessage.style.display = "none";
+		}
+	}, 5000); // 5000 ms = 5 secondes
+</script> -->
+
 <%@ include file="/WEB-INF/fragments/footer.jspf"%>

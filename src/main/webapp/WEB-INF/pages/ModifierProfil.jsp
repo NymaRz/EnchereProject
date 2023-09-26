@@ -8,12 +8,16 @@
 		<div class="row text-center mt-4">
 			<h1>Modifier mon Profil</h1>
 		</div>
-		<c:if test="${not empty success}">
-			<div class="alert alert-success">${success}</div>
-			<c:remove var="sessionScope.success" />
-		</c:if>
 		<div class="row mt-5">
 			<div class="col-4 offset-4">
+				<c:if test="${not empty success}">
+					<div class="alert alert-success">${success}</div>
+					<c:remove var="session.success" />
+				</c:if>
+				<c:if test="${not empty error}">
+					<div class="alert alert-danger">${error}</div>
+					<c:remove var="sessionScope.error" />
+				</c:if>
 				<form action="" method="POST">
 
 					<div class="mb-3">
@@ -58,12 +62,18 @@
 							type="text" class="form-control"
 							value="${ utilisateur.adresse.ville }" name="ville" id="ville">
 					</div>
-					<!-- //pas besoin du crédit dans dans l'affichage du profil -->
 					<div class="mb-3">
 						<label for="credit" class="form-label">Crédit Actuel:</label> <input
 							readonly="readonly" type="text" class="form-control"
 							value="${utilisateur.credit}" id="credit" name="credit">
 					</div>
+
+					<div class="mb-3">
+						<label for="mdp" class="form-label">Mot de passe :</label> <input
+							readonly="readonly" type="password" class="form-control" id="mdp"
+							name="mdp" value="${utilisateur.mdp}">
+					</div>
+
 
 					<div class="mb-3 text-center mt-5">
 						<button class="btn btn-primary" type="submit">

@@ -19,9 +19,7 @@ public class ModifierMonProfilServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// ---------------------------------------------------
-		// Informer l'utilisateur de la modification réussie
-		// ------------------------------------------------------
+
 		if (request.getSession().getAttribute("utilisateur") == null) {
 			response.sendRedirect(request.getContextPath() + "/modifierprofil");
 			return;
@@ -49,6 +47,7 @@ public class ModifierMonProfilServlet extends HttpServlet {
 			String telephoneStr = request.getParameter("telephone");
 			String adresseStr = request.getParameter("adresse");
 			String creditStr = request.getParameter("credit");
+			String mdp = request.getParameter("mdp");
 			int telephone = Integer.parseInt(telephoneStr);
 			int credit = Integer.parseInt(creditStr);
 
@@ -63,6 +62,7 @@ public class ModifierMonProfilServlet extends HttpServlet {
 			utilisateur.setEmail(email);
 			utilisateur.setTelephone(telephoneStr);
 			utilisateur.setCredit(credit);
+			utilisateur.setMdp(mdp);
 
 			// Mettre à jour l'adresse de l'utilisateur
 			Adresse adresse = new Adresse();

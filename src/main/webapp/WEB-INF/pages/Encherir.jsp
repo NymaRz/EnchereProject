@@ -6,11 +6,25 @@
 
 	<h2>Détails Vente</h2>
 	<h1>${ articleVendu.nomArticle }</h1>
-	<figure>
-	<img alt="" src=""></figure>
+	
+	
+	<c:if test="${ !empty success}">
+		<div class="alert alert-success">${success}</div>
+	</c:if>
+	<c:if test="${ !empty error}">
+		<div class="alert alert-danger">${error}</div>
+	</c:if>
+	
+	
+	<div class="mb-3">
+		<img class="img-fluid"
+			src="${ pageContext.request.contextPath }/Images/${ articleVendu.jaquette }"
+			alt="${ articleVendu.jaquette }">
+	</div>
 	<!-- inverser h1 et h2? -->
 	<p>Description : ${articleVendu.description}</p>
-	<c:if test="${ enchere != null }">		
+	<p>Catégorie : ${articleVendu.categorieArticle.libelle}</p>
+	<c:if test="${ enchere != null }">
 		<p>Meilleure offre : ${enchere.montant_enchere} points par
 			${enchere.acquereur.pseudo}</p>
 	</c:if>
@@ -20,15 +34,23 @@
 
 	<p>Vendeur : ${articleVendu.utilisateur.pseudo}</p>
 
+
+
+
+
+	
+	
+	
+	
 	<form action="" method="POST">
 		<label for="montantEnchere">Ma proposition (+
 			${articleVendu.enchereMin}) :</label> <input name="montantEnchere"
-			id="montantEnchere" type="number"
-			value="${enchere.montant_enchere + articleVendu.enchereMin }"
-			min="${enchere.montant_enchere+articleVendu.enchereMin }"
-			step="${articleVendu.enchereMin }">
+			id="montantEnchere" type="number" value="${minEnchere}"
+			min="${minEnchere }" step="${articleVendu.enchereMin }">
 		<button type="submit">Envoyer</button>
 	</form>
+
+
 
 
 

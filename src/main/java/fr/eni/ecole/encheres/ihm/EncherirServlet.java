@@ -33,17 +33,30 @@ public class EncherirServlet extends HttpServlet {
 			request.setAttribute("articleVendu", article);
 
 			Enchere enchereMax = EnchereManager.getInstance().recupEnchereLaPlusHaute(article);
-			System.out.println(enchereMax);
+
+			String message = (String) request.getSession().getAttribute("success");
+			request.getSession().removeAttribute("success");
+			request.setAttribute("success", message);
+			String messageError = (String) request.getSession().getAttribute("error");
+			request.getSession().removeAttribute("error");
+			request.setAttribute("error", messageError);
+
+			int minEnchere;
 			if (enchereMax == null) {
-
+				minEnchere = article.getMiseAPrix() + article.getEnchereMin();
 				request.setAttribute("enchere", null);
-			} else {
+				request.setAttribute("minEnchere", minEnchere);
 
+			} else {
+				minEnchere = enchereMax.getMontant_enchere() + article.getEnchereMin();
 				request.setAttribute("enchere", enchereMax);
+				request.setAttribute("minEnchere", minEnchere);
+
 			}
+
 			// forward
 
-			request.getRequestDispatcher("/WEB-INF/pages/encherir.jsp").forward(request, response);
+			request.getRequestDispatcher("/WEB-INF/pages/Encherir.jsp").forward(request, response);
 
 		} catch (Exception e) {
 
@@ -57,14 +70,22 @@ public class EncherirServlet extends HttpServlet {
 		try {
 			HttpSession session = request.getSession();
 			Utilisateur utilisateur = (Utilisateur) session.getAttribute("utilisateur");
+			int noArticle = Integer.parseInt(request.getParameter("id"));
 
+			ArticleVendu article = ArticleVenduManager.getInstance().recupUnArticleVendu(noArticle);
 			if (utilisateur == null) {
+				request.getSession().setAttribute("error", "Vous devez vous connecter pour enchérir sur un article");
 				response.sendRedirect(request.getContextPath() + "/connexion");
-			} else {
-				// récupérer le param dans url
-				int noArticle = Integer.parseInt(request.getParameter("id"));
+			} else if (utilisateur.getNoUtilisateur() == article.getUtilisateur().getNoUtilisateur()) {
+	
+				request.getSession().setAttribute("error", "Vous ne pouvez pas enchérir sur vos propres articles");
 
-				ArticleVendu article = ArticleVenduManager.getInstance().recupUnArticleVendu(noArticle);
+				doGet(request, response);
+			}
+
+			else {
+
+				// récupérer le param dans url
 
 				int montantEnchere = Integer.parseInt(request.getParameter("montantEnchere"));
 				// comparer avec l'enchère précédente OU bloquer la possibilité d'enchérir moins
@@ -81,11 +102,18 @@ public class EncherirServlet extends HttpServlet {
 				// définir ce nouveau montant comme le nouveau prix de vente de l'article. Ou ça
 				// va le faire tout seul car c'est devenu l'enchère max ?
 				EnchereManager.getInstance().ajouterUneEnchere(newEnchere);
-				System.out.println("mon enchere :" + newEnchere);
+
 				Enchere enchereMax = EnchereManager.getInstance().recupEnchereLaPlusHaute(article);
-				System.out.println("enchere max : " + enchereMax);
+
+				request.setAttribute("enchere", enchereMax);
+
 				// redirect
-				response.sendRedirect(request.getContextPath() + "/accueil");
+
+
+				request.getSession().setAttribute("success", "Votre enchère a été prise en compte !");
+
+				doGet(request, response);
+
 			}
 		} catch (Exception e) {
 			response.sendError(404);

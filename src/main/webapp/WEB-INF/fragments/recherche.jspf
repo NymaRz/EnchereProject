@@ -18,7 +18,7 @@ List<Categorie> categories = (List<Categorie>) request.getAttribute("categories"
 <div id="content-header"><h1>Le monde de l'art s'ouvre à vous</h1>
 <div id ="container-recherche">
 
-<form method="GET" action="${ pageContext.request.contextPath }/accueil">
+<form method="POST" action="${ pageContext.request.contextPath }/accueil">
 
 	<input id="champ-recherche" type="search" name="q" placeholder="Que recherchez-vous ?"
 		aria-label="Search"> <!-- <i class="fa-solid fa-magnifying-glass"></i> -->
