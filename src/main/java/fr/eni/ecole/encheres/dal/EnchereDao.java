@@ -21,4 +21,5 @@ public interface EnchereDao {
 	
 	Enchere finHigherEnchere(ArticleVendu articleVendu);
 
+	Enchere findEnchereWinner(ArticleVendu articleVendu);
 }

@@ -2,11 +2,10 @@ package fr.eni.ecole.encheres.bll;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import fr.eni.ecole.encheres.bo.ArticleVendu;
-import fr.eni.ecole.encheres.bo.Categorie;
+import fr.eni.ecole.encheres.bo.Utilisateur;
 import fr.eni.ecole.encheres.dal.ArticleVenduDao;
 import fr.eni.ecole.encheres.dal.DaoFactory;
 
@@ -129,6 +128,10 @@ public class ArticleVenduManager {
 				articlesVendusOuvertsAuxEncheres.add(articleVendu);
 		}
 		return articlesVendusOuvertsAuxEncheres;
+	}
+	
+	public List<ArticleVendu> recupArticlesEncheresParUtilisateur(Utilisateur utilisateur){
+		return articleVenduDao.recupArticlesEncheresParUtilisateur(utilisateur);
 	}
 
 	// Fin de la logique métier

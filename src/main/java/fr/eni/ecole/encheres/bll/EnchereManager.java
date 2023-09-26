@@ -57,5 +57,9 @@ public class EnchereManager {
 	public Enchere recupEnchereLaPlusHaute(ArticleVendu articleVendu) {
 		return enchereDao.finHigherEnchere(articleVendu);
 	}
+	
+	public Enchere recupLeGagnantEnchere(ArticleVendu articleVendu) {
+		return enchereDao.findEnchereWinner(articleVendu);
+	}
 	// Fin de la logique métier
 }
