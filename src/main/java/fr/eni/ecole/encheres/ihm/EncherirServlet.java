@@ -56,7 +56,7 @@ public class EncherirServlet extends HttpServlet {
 
 			// forward
 
-			request.getRequestDispatcher("/WEB-INF/pages/encherir.jsp").forward(request, response);
+			request.getRequestDispatcher("/WEB-INF/pages/Encherir.jsp").forward(request, response);
 
 		} catch (Exception e) {
 
@@ -74,11 +74,12 @@ public class EncherirServlet extends HttpServlet {
 
 			ArticleVendu article = ArticleVenduManager.getInstance().recupUnArticleVendu(noArticle);
 			if (utilisateur == null) {
+				request.getSession().setAttribute("error", "Vous devez vous connecter pour enchérir sur un article");
 				response.sendRedirect(request.getContextPath() + "/connexion");
 			} else if (utilisateur.getNoUtilisateur() == article.getUtilisateur().getNoUtilisateur()) {
-				System.out.println("1111111111111111111111111111111111111");
-				request.setAttribute("error", "Vous ne pouvez pas enchérir sur vos propres articles");
-				System.out.println("2222222222222222222222222");
+	
+				request.getSession().setAttribute("error", "Vous ne pouvez pas enchérir sur vos propres articles");
+
 				doGet(request, response);
 			}
 
@@ -108,9 +109,9 @@ public class EncherirServlet extends HttpServlet {
 
 				// redirect
 
-				System.out.println("3333333333333");
-				request.getSession().setAttribute("success", "Votre enchère a été prise en compte!");
-				System.out.println("444444444444444444");
+
+				request.getSession().setAttribute("success", "Votre enchère a été prise en compte !");
+
 				doGet(request, response);
 
 			}

@@ -23,6 +23,7 @@
 	</div>
 	<!-- inverser h1 et h2? -->
 	<p>Description : ${articleVendu.description}</p>
+	<p>Catégorie : ${articleVendu.categorieArticle.libelle}</p>
 	<c:if test="${ enchere != null }">
 		<p>Meilleure offre : ${enchere.montant_enchere} points par
 			${enchere.acquereur.pseudo}</p>
