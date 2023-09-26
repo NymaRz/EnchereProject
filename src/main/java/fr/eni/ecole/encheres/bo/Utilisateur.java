@@ -21,7 +21,7 @@ public class Utilisateur {
 	private String rue;
 	private String codePostal;
 	private String ville;
-
+	private String photo;
 
 	public Utilisateur(int noUtilisateur, String pseudo, String nom, String prenom, String email, String telephone,
 			Adresse adresse, String mdp, int credit, boolean admin, boolean vip, List<ArticleVendu> articlesAVendre,
@@ -250,6 +250,14 @@ public class Utilisateur {
 				+ prenom + ", email=" + email + ", telephone=" + telephone + ", adresse=" + adresse + ", mdp=" + mdp
 				+ ", credit=" + credit + ", admin=" + admin + ", vip=" + vip + ", articlesAVendre=" + articlesAVendre
 				+ ", encheres=" + encheres + "]";
+	}
+
+	public String getPhoto() {
+		return photo;
+	}
+
+	public void setPhoto(String photo) {
+		this.photo = photo;
 	}
 
 }
