@@ -23,10 +23,11 @@ public class EnchereDaoJdbcImpl implements EnchereDao {
 	private static final String UPDATE_ENCHERES = "UPDATE ENCHERES SET no_utilisateur?, no_article=?,date_enchere=montant_enchere=?,id_enchere=?,WHERE id_enchere=?";
 	private static final String DELETE_ENCHERES = "DELETE FROM ENCHERES WHERE id_enchere=?";
 	private static final String FIND_BY_ENCHERES = "SELECT * FROM ENCHERES WHERE id_enchere =?";
-	private static final String FIND_HIGHEST_BID = "SELECT * \r\n" + "\r\n"
+	private static final String FIND_HIGHEST_BID = "SELECT TOP(1) *  \r\n"
 			+ "FROM ENCHERES as e INNER JOIN UTILISATEURS as u ON e.no_utilisateur = u.no_utilisateur \r\n"
 			+ "INNER JOIN ARTICLES_VENDUS as av ON av.no_article= e.no_article\r\n"
-			+ "WHERE montant_enchere=(SELECT MAX(montant_enchere) FROM ENCHERES) AND e.no_article=?";
+			+ "WHERE   e.no_article= ?\r\n"
+			+ "order by e.montant_enchere DESC";
 
 	@Override
 	public void save(Enchere enchere) {
@@ -34,7 +35,7 @@ public class EnchereDaoJdbcImpl implements EnchereDao {
 				PreparedStatement pstmt = connection.prepareStatement(SAVE_ENCHERES)) {
 			pstmt.setInt(1, enchere.getAcquereur().getNoUtilisateur());
 			pstmt.setInt(2, enchere.getArticleEncheri().getnoArticle());
-			pstmt.setDate(3,Date.valueOf(LocalDate.now()));
+			pstmt.setDate(3, Date.valueOf(LocalDate.now()));
 			pstmt.setInt(4, enchere.getMontant_enchere());
 			pstmt.executeUpdate();
 
@@ -134,7 +135,7 @@ public class EnchereDaoJdbcImpl implements EnchereDao {
 
 		try (Connection connection = ConnectionProvider.getConnection();
 				PreparedStatement pstmt = connection.prepareStatement(FIND_HIGHEST_BID);) {
-			pstmt.setInt(1,articleVendu.getnoArticle() );
+			pstmt.setInt(1, articleVendu.getnoArticle());
 			ResultSet rs = pstmt.executeQuery();
 			if (rs.next()) {
 				Utilisateur u = new Utilisateur(rs.getString("pseudo"), rs.getString("nom"), rs.getString("prenom"),
