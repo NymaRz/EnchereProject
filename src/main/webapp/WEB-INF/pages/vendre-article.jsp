@@ -19,9 +19,9 @@ List<Categorie> categories = (List<Categorie>) request.getAttribute("categories"
 		enctype="multipart/form-data">
 		<div id="formulaire-vente">
 		<!-- <label for="nomArticle" class="form-label">Article :</label>  -->
-		<input
-			name="nomArticle" id="nomArticle champ-recherche" placeholder="Nom de votre article" style="width:59%"/> 
-			 <select name="categorie" id="categorie" style="width:30%">
+		<div id="nom-cat"><input
+			name="nomArticle" id="nomArticle " placeholder="Nom de votre article" style="width:59%" aria-label="Search"/> 
+			 <select name="categorie" id="categorie">
 			<option value="">Catégories disponibles</option>
 
 			<c:forEach var="categorie" items="${ categories }">
@@ -31,6 +31,7 @@ List<Categorie> categories = (List<Categorie>) request.getAttribute("categories"
 			</c:forEach>
 
 		</select> 
+		</div>
 <!-- 			<label for="description" class="form-label">Description :</label> 
  -->			<textarea name="description" rows="5" id="description" style="width:100%" placeholder="Ajoutez une description à votre article (taille, poids, techniques etc.)"/></textarea> 
 <!-- 			<label for="pet-select">Catégorie :</label> 
@@ -42,7 +43,8 @@ List<Categorie> categories = (List<Categorie>) request.getAttribute("categories"
 		
 		<input class="form-control" type="file" id="jaquette" name="jaquette" style="display:none;">
 
-	<label for="jaquette" class="custom-file-upload">Ajoutez une photo à votre article</label><br/><br/>
+	<label for="jaquette" class="custom-file-upload">Ajoutez une photo à votre article</label>
+	<span id="fileNameDisplay"></span><br/><br/>
 
 
 			<label for="dateDebutEnchere" class="form-label">Début enchères :</label> 
