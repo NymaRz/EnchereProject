@@ -50,10 +50,13 @@ public class VendreArticleServlet extends HttpServlet {
 
 		// récupérer l'utilisateur
 		Utilisateur utilisateur = (Utilisateur) session.getAttribute("utilisateur");
-
-		request.setAttribute("adresse", utilisateur.getAdresse());
-		request.setAttribute("categories", CategorieManager.getInstance().recupTouteCategories());
-		request.getRequestDispatcher("/WEB-INF/pages/vendre-article.jsp").forward(request, response);
+		if (utilisateur == null)
+			response.sendRedirect(request.getContextPath() + "/connexion");
+		else {
+			request.setAttribute("adresse", utilisateur.getAdresse());
+			request.setAttribute("categories", CategorieManager.getInstance().recupTouteCategories());
+			request.getRequestDispatcher("/WEB-INF/pages/vendre-article.jsp").forward(request, response);
+		}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -71,7 +74,8 @@ public class VendreArticleServlet extends HttpServlet {
 				fileName = getFileName(part);
 				String fullPath = uploadPath + File.separator + fileName;
 				part.write(fullPath);
-				if(!fileName.equals("Default.file"))break;
+				if (!fileName.equals("Default.file"))
+					break;
 			}
 
 			LocalDate dateDebutEncheres;
@@ -136,7 +140,8 @@ public class VendreArticleServlet extends HttpServlet {
 	private String getFileName(Part part) {
 		for (String content : part.getHeader("content-disposition").split(";")) {
 			if (content.trim().startsWith("filename")) {
-				return content.substring(content.indexOf("=") + 2, content.length() - 1);}
+				return content.substring(content.indexOf("=") + 2, content.length() - 1);
+			}
 		}
 		return "Default.file";
 	}
