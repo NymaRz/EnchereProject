@@ -42,9 +42,9 @@ public class DetailsMaventeFinEnchereServlet extends HttpServlet {
 		else {
 			// si recherche par nom q
 			if (request.getParameter("q") != null) {
-				articlesVendus = ArticleVenduManager.getInstance().recupUnArticleVendyEncheresOuvertes(q);
+				articlesVendus = ArticleVenduManager.getInstance().recupUnArticleVenduEncheresOuvertes(q);
 			} else {
-				articlesVendus = ArticleVenduManager.getInstance().recupArticlesVendusEncheresOuvertes();
+				articlesVendus = ArticleVenduManager.getInstance().recupArticlesVendusSelonEtatVente("v");
 			}
 		}
 

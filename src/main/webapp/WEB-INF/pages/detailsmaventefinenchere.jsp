@@ -16,26 +16,28 @@
 	List<ArticleVendu> articlesVendus = (List<ArticleVendu>) request.getAttribute("articlesVendus");
 	%>
 	<c:if test="${not empty articleVenduTermine}">
-    <h2>${articleVenduTermine.nomArticle}</h2>
-    <p>${articleVenduTermine.description}</p>
-    <img src="${pageContext.request.contextPath}/Images/${articleVenduTermine.jaquette}"
-        alt="${articleVenduTermine.nomArticle}" />
+		<h2>${articleVenduTermine.nomArticle}</h2>
+		<p>${articleVenduTermine.description}</p>
+		<img
+			src="${pageContext.request.contextPath}/Images/${articleVenduTermine.jaquette}"
+			alt="${articleVenduTermine.nomArticle}" />
 
-    <p>Prix Initial : ${prixInitial} ₿</p>
-    <p>Prix de vente : ${articleVenduTermine.prixVente} ₿</p>
+		<p>Prix Initial : ${prixInitial} ₿</p>
+		<p>Prix de vente : ${articleVenduTermine.prixVente} ₿</p>
 
-    <c:if test="${not empty requestScope.pourcentageEnchere}">
-        <p>Valorisation ${requestScope.pourcentageEnchere} %</p>
-    </c:if>
+		<c:if test="${not empty requestScope.pourcentageEnchere}">
+			<p>Valorisation ${requestScope.pourcentageEnchere} %</p>
+		</c:if>
 
-    <p>L'acheteur est : ${requestScope.acheteurEnchere}</p> <!-- Utilisez "acheteurEnchere" ici -->
+		<p>L'acheteur est : ${requestScope.acheteurEnchere}</p>
+		<!-- Utilisez "acheteurEnchere" ici -->
 
-    <p>
-        Acheté par <a id="link-acquereur"
-            href="${pageContext.request.contextPath}/profil?id=${noUtilisateur.acquereur.noUtilisateur}">
-            ${requestScope.acheteurEnchere} </a>
-    </p>
-</c:if>
+		<p>
+			Acheté par <a id="link-acquereur"
+				href="${pageContext.request.contextPath}/profil?id=${noUtilisateur.acquereur.noUtilisateur}">
+				${requestScope.acheteurEnchere} </a>
+		</p>
+	</c:if>
 
 	<form method="POST" action="">
 		<button type="submit" name="action" value="Confirm"

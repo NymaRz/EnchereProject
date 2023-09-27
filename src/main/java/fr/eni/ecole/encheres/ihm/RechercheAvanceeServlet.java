@@ -35,7 +35,7 @@ public class RechercheAvanceeServlet extends HttpServlet {
 		List<ArticleVendu> articlesVendus = new ArrayList<ArticleVendu>();
 		String checkListeEncheres = request.getParameter("listeEncheres");
 		if (checkListeEncheres.equals("encheresOuvertes")) {
-			articlesVendus = ArticleVenduManager.getInstance().recupArticlesVendusEncheresOuvertes();
+			articlesVendus = ArticleVenduManager.getInstance().recupArticlesVendusSelonEtatVente("v");
 		}
 		if (checkListeEncheres.equals("encheresEnCours")) {
 

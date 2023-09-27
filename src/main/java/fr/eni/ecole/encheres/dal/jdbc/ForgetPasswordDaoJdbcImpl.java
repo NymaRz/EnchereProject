@@ -54,4 +54,16 @@ public class ForgetPasswordDaoJdbcImpl implements ForgetPasswordDao {
 			}
 		return null;
 	}
+
+	@Override
+	public void remove(int id) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public ForgetPassword findByEmail(String email) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
