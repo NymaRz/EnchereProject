@@ -10,5 +10,9 @@ public class BLLException extends Exception {
 	public BLLException(String msg) {
 		super(msg);
 	}
+
+	public BLLException(String string, Exception e) {
+		// TODO Auto-generated constructor stub
+	}
 	
 }

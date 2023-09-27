@@ -13,136 +13,165 @@ import fr.eni.ecole.encheres.ihm.exception.EmailExisteDejaException;
 import fr.eni.ecole.encheres.ihm.exception.PseudoExisteDejaException;
 
 public class UtilisateurManager {
-	// singleton
-	private static UtilisateurManager instance;
+    // singleton
+    private static UtilisateurManager instance;
 
-	private UtilisateurManager() {
-	}
+    private UtilisateurManager() {
+    }
 
-	public static UtilisateurManager getInstance() {
-		if (instance == null)
-			instance = new UtilisateurManager();
-		return instance;
-	}
+    public static UtilisateurManager getInstance() {
+        if (instance == null)
+            instance = new UtilisateurManager();
+        return instance;
+    }
 
-	// fin singleton
-	private UtilisateurDao utilisateurDao = DaoFactory.getUtilisateurDao();
+    // fin singleton
+    private UtilisateurDao utilisateurDao = DaoFactory.getUtilisateurDao();
 
-	// début logique métier
+    // début logique métier
 
-	public Utilisateur recupUnUtilisateur(int idUtilisateur) {
-		return utilisateurDao.findOne(idUtilisateur);
-	}
+    public Utilisateur recupUnUtilisateur(int idUtilisateur) {
+        return utilisateurDao.findOne(idUtilisateur);
+    }
 
-	public List<Utilisateur> recupTousLesUtilisateurs() {
-		return utilisateurDao.findAll();
-	}
+    public List<Utilisateur> recupTousLesUtilisateurs() {
+        return utilisateurDao.findAll();
+    }
 
-	public void modifierUnUtilisateur(Utilisateur utilisateur) {
-		// Ajoutez ici la logique de validation des données si nécessaire.
-		utilisateurDao.modify(utilisateur);
-	}
-	public void modifierUnUtilisateurSansPhoto(Utilisateur utilisateur) {
-		// Ajoutez ici la logique de validation des données si nécessaire.
-		utilisateurDao.modifynopic(utilisateur);
-	}
+    public void modifierUnUtilisateur(Utilisateur utilisateur) {
+        // Ajoutez ici la logique de validation des données si nécessaire.
+        utilisateurDao.modify(utilisateur);
+    }
 
-	public void ajouterUnUtilisateur(Utilisateur utilisateur)
-			throws EmailExisteDejaException, PseudoExisteDejaException {
-		// Ajoutez ici la logique de validation des données si nécessaire.
-		utilisateurDao.save(utilisateur);
-	}
+    public void modifierUnUtilisateurSansPhoto(Utilisateur utilisateur) {
+        // Ajoutez ici la logique de validation des données si nécessaire.
+        utilisateurDao.modifynopic(utilisateur);
+    }
 
-	public void supprimerUnUtilisateur(int idUtilisateur) {
-		utilisateurDao.remove(idUtilisateur);
-	}
+    public void ajouterUnUtilisateur(Utilisateur utilisateur)
+            throws EmailExisteDejaException, PseudoExisteDejaException {
+        // Ajoutez ici la logique de validation des données si nécessaire.
+        utilisateurDao.save(utilisateur);
+    }
 
-	public Utilisateur rechercheUnUtilisateur(String query) {
-		return utilisateurDao.findByPseudo(query);
-	}
+    public void supprimerUnUtilisateur(int idUtilisateur) {
+        utilisateurDao.remove(idUtilisateur);
+    }
 
-	private UtilisateurDao userDao = DaoFactory.getUtilisateurDao();
-	private Random rd = new Random();
+    public Utilisateur rechercheUnUtilisateur(String query) {
+        return utilisateurDao.findByPseudo(query);
+    }
 
-	public void inscription(Utilisateur utilisateur)
-			throws JDBCException, BLLException, EmailExisteDejaException, PseudoExisteDejaException {
-		// validation !!!!!!!!
-		checkFields(utilisateur);
-		userDao.save(utilisateur);
-	}
+    private UtilisateurDao userDao = DaoFactory.getUtilisateurDao();
+    private Random rd = new Random();
 
-	private void checkFields(Utilisateur utilisateur) throws BLLException {
-		if (utilisateur == null)
-			throw new BLLException("User est null");
+    public void inscription(Utilisateur utilisateur)
+            throws JDBCException, BLLException, EmailExisteDejaException, PseudoExisteDejaException {
+        // validation !!!!!!!!
+        checkFields(utilisateur);
+        userDao.save(utilisateur);
+    }
 
-		if (utilisateur.getPseudo().isBlank())
-			throw new BLLException("Le champs Pseudo est obligatoire!");
-		if (utilisateur.getEmail().isBlank())
-			throw new BLLException("Le champs Email est obligatoire!");
-		// verifier la syntaxe de l'email
-		if (utilisateur.getMdp().isBlank())
-			throw new BLLException("Le champs Mot de passe est obligatoire!");
-		if (utilisateur.getMdp().length() < 8 || utilisateur.getMdp().length() > 35)
-			throw new BLLException("La taille du mot de passe doit etre entre 8 et 35");
-		// if(!utilisateur.getPassword().equals(utilisateur.getConfirmpassword))
-	}
+    private void checkFields(Utilisateur utilisateur) throws BLLException {
+        if (utilisateur == null)
+            throw new BLLException("User est null");
 
-	public Utilisateur login(String email, String mdp) {
-		Utilisateur utilisateur = (Utilisateur) utilisateurDao.findByEmail(email);
-		if (utilisateur != null && utilisateur.getEmail().equals(email) && utilisateur.getMdp().equals(mdp)) {
-			return utilisateur;
-		}
-		return null;
-	}
+        if (utilisateur.getPseudo().isBlank())
+            throw new BLLException("Le champ Pseudo est obligatoire!");
+        if (utilisateur.getEmail().isBlank())
+            throw new BLLException("Le champ Email est obligatoire!");
+        // vérifier la syntaxe de l'e-mail
+        if (utilisateur.getMdp().isBlank())
+            throw new BLLException("Le champ Mot de passe est obligatoire!");
+        if (utilisateur.getMdp().length() < 8 || utilisateur.getMdp().length() > 35)
+            throw new BLLException("La taille du mot de passe doit être entre 8 et 35");
+        // if(!utilisateur.getPassword().equals(utilisateur.getConfirmpassword))
+    }
 
-	public ForgetPassword checkEmail(String email) throws BLLException {
+    public Utilisateur login(String email, String mdp) {
+        Utilisateur utilisateur = (Utilisateur) utilisateurDao.findByEmail(email);
+        if (utilisateur != null && utilisateur.getEmail().equals(email) && utilisateur.getMdp().equals(mdp)) {
+            return utilisateur;
+        }
+        return null;
+    }
 
-		Utilisateur utilisateur = userDao.findByEmail(email);
-		if (utilisateur == null)
-			throw new BLLException("Erreur: l'email n'existe pas");
-		// Générer le code
-		String code = rd.nextLong(1, 9999999999L) + "";
-		ForgetPassword fp = new ForgetPassword(code, utilisateur);
+    public ForgetPassword checkEmail(String email) throws BLLException {
 
-		// save
-		DaoFactory.getForgetPasswordDao().save(fp);
-		// envoi mail
+        Utilisateur utilisateur = userDao.findByEmail(email);
+        if (utilisateur == null)
+            throw new BLLException("Erreur : l'e-mail n'existe pas");
+        // Générer le code
+        String code = rd.nextLong(1, 9999999999L) + "";
+        ForgetPassword fp = new ForgetPassword(code, utilisateur);
 
-		// par sms API
-		System.out.println(code);
+        // save
+        DaoFactory.getForgetPasswordDao().save(fp);
+        // envoi mail
 
-		return fp;
-	}
+        // par SMS API
+        System.out.println(code);
 
-	public void resetPassword(String email, String code, String newPassword) throws BLLException {
+        return fp;
+    }
 
-		ForgetPassword fp = DaoFactory.getForgetPasswordDao().resetPassword(email);
+    public void resetPassword(String email, String code, String newPassword) throws BLLException {
+        try {
+            ForgetPassword fp = DaoFactory.getForgetPasswordDao().findByEmail(email);
 
-		if (!fp.getCode().equals(code))
-			throw new BLLException("Le code est érroné!");
+            if (fp == null)
+                throw new BLLException("Aucune demande de réinitialisation de mot de passe trouvée pour cet e-mail.");
 
-		Utilisateur utilisateur = fp.getUser();
+            if (!fp.getCode().equals(code))
+                throw new BLLException("Le code de réinitialisation est incorrect!");
 
-		utilisateur.setMdp(newPassword);
+            Utilisateur utilisateur = fp.getUser();
+            utilisateur.setMdp(newPassword);
 
-		userDao.modify(utilisateur);
+            userDao.modify(utilisateur);
+            DaoFactory.getForgetPasswordDao().remove(fp.getId());
+        } catch (Exception e) {
+            throw new BLLException("Erreur lors de la réinitialisation du mot de passe.", e);
+        }
+    }
 
-	}
-//
-//	public Utilisateur findByEmail(String email) {
-//		return userDao.findByEmail(email);
-//	}
+    public Utilisateur findByEmail(String email) throws BLLException {
+        return utilisateurDao.findByEmail(email);
+    }
 
-	public Utilisateur findByEmail(String email) throws BLLException {
-		return utilisateurDao.findByEmail(email);
-	};
+    public boolean pseudoExisteDeja(String pseudo) {
+        // Ajoutez la logique pour vérifier si le pseudo existe déjà en base de données
+        return false;
+    }
 
-	public boolean pseudoExisteDeja(String pseudo) {
-		return false;
-	}
+    public boolean emailExisteDeja(String email) {
+        // Ajoutez la logique pour vérifier si l'email existe déjà en base de données
+        return false;
+    }
 
-	public boolean emailExisteDeja(String email) {
-		return false;
-	}
+    public boolean checkPassword(String email, String password) {
+        try {
+            Utilisateur utilisateur = findByEmail(email);
+            if (utilisateur != null && utilisateur.getMdp().equals(password)) {
+                return true;
+            }
+        } catch (BLLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 
+    public void updatePassword(String email, String newPassword) throws BLLException {
+        try {
+            Utilisateur utilisateur = findByEmail(email);
+            if (utilisateur != null) {
+                utilisateur.setMdp(newPassword);
+                userDao.modify(utilisateur);
+            } else {
+                throw new BLLException("Utilisateur introuvable pour l'e-mail spécifié.");
+            }
+        } catch (Exception e) {
+            throw new BLLException("Erreur lors de la mise à jour du mot de passe.", e);
+        }
+    }
 }
