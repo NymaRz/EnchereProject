@@ -15,8 +15,30 @@
 	<%
 	List<ArticleVendu> articlesVendus = (List<ArticleVendu>) request.getAttribute("articlesVendus");
 	%>
+	<c:if test="${not empty articleVenduTermine}">
+    <h2>${articleVenduTermine.nomArticle}</h2>
+    <p>${articleVenduTermine.description}</p>
+    <img src="${pageContext.request.contextPath}/Images/${articleVenduTermine.jaquette}"
+        alt="${articleVenduTermine.nomArticle}" />
 
-	<div id="container-secondaire">
+    <p>Prix Initial : ${prixInitial} ₿</p>
+    <p>Prix de vente : ${articleVenduTermine.prixVente} ₿</p>
+
+    <c:if test="${not empty requestScope.pourcentageEnchere}">
+        <p>Valorisation ${requestScope.pourcentageEnchere} %</p>
+    </c:if>
+
+    <p>L'acheteur est : ${requestScope.acheteurEnchere}</p> <!-- Utilisez "acheteurEnchere" ici -->
+
+    <p>
+        Acheté par <a id="link-acquereur"
+            href="${pageContext.request.contextPath}/profil?id=${noUtilisateur.acquereur.noUtilisateur}">
+            ${requestScope.acheteurEnchere} </a>
+    </p>
+</c:if>
+
+
+	<%-- 	<div id="container-secondaire">
 		<c:forEach var="articleVendu" items="${articlesVendus}">
 			<c:if
 				test="${articleVendu.utilisateur.noUtilisateur == utilisateurConnecte.noUtilisateur}">
@@ -46,10 +68,10 @@
 				</div>
 			</c:if>
 		</c:forEach>
-	</div>
+	</div> --%>
 
 	<form method="POST" action="">
-		<button type="submit" name="action" value="Retour"
+		<button type="submit" name="action" value="Confirm"
 			class="bouton-miniature actionbouton">Confirmer le retrait</button>
 		<button type="submit" name="action" value="Retour"
 			class="bouton-miniature bouton-classique">Retour</button>
