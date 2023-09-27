@@ -17,6 +17,11 @@ List<Categorie> categories = (List<Categorie>) request.getAttribute("categories"
 
 
 <form method="GET" action="${ pageContext.request.contextPath }/accueil">
+<button id="submit-recherche" type="submit">
+
+		retour
+
+	</button>
 	<fieldset>
 	
 		<legend>Mes Achats :</legend>

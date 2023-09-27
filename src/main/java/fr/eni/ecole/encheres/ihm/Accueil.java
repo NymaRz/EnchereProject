@@ -36,6 +36,7 @@ public class Accueil extends HttpServlet {
 		ArticleVenduManager.getInstance().updateAllArticles();
 
 		if (utilisateur == null) {
+			
 			request.setAttribute("categories", null);
 			if (request.getParameter("categorie") != null && Integer.parseInt(request.getParameter("categorie")) > 0) {
 				int noCategorie = Integer.parseInt(request.getParameter("categorie"));
@@ -53,12 +54,16 @@ public class Accueil extends HttpServlet {
 				if (request.getParameter("q") != null && !request.getParameter("q").isBlank()) {
 					articlesVendus = ArticleVenduManager.getInstance().recupUnArticleVenduEncheresOuvertes(q);
 				} else {
-					articlesVendus = ArticleVenduManager.getInstance().recupArticlesVendusSelonEtatVente("v");
+					articlesVendus = null;
+					List<Categorie> categories = CategorieManager.getInstance().recupTouteCategories();
+					for (Categorie categorie : categories) {
+						categorie.setArticlesOfCategorie(ArticleVenduManager.getInstance().recupArticlesCategorieEO(categorie.getNoCategorie()));
+						System.out.println(categorie.getArticlesOfCategorie());
+					}
+					request.setAttribute("categories", categories);
 				}
 			}
 
-			if (articlesVendus == null)
-				articlesVendus = ArticleVenduManager.getInstance().recupTousLesArticlesVendus();
 
 		}
 
