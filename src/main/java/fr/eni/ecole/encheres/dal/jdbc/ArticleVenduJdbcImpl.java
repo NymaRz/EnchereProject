@@ -9,6 +9,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import fr.eni.ecole.encheres.bll.UtilisateurManager;
 import fr.eni.ecole.encheres.bo.ArticleVendu;
 import fr.eni.ecole.encheres.bo.Utilisateur;
 import fr.eni.ecole.encheres.dal.ArticleVenduDao;
@@ -22,7 +23,27 @@ public class ArticleVenduJdbcImpl implements ArticleVenduDao {
 	private static final String SAVE = "INSERT INTO ARTICLES_VENDUS (nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente,etat_vente, no_utilisateur, no_categorie,id_retrait,enchere_min,img) VALUES (?, ?, ?, ?, ?, ?, ?, ?,?,?,?,?)";
 	private static final String DELETE_ONE = "DELETE FROM ARTICLES_VENDUS WHERE no_article = ?";
 	private static final String UPDATE = "UPDATE ARTICLES_VENDUS SET nom_article=?, description=?, date_debut_encheres=?, date_fin_encheres=?, prix_initial=?, prix_vente=?,etat_vente=?, no_utilisateur=?, no_categorie=?, id_retrait=?,enchere_min=? WHERE no_article = ?";
+	private static final String UPDATE_GAGNANT = "UPDATE ARTICLES_VENDUS SET gagnant=? WHERE no_article = ?";
 	private static final String FIND_BY_NAME = "SELECT * FROM ARTICLES_VENDUS WHERE nom_article LIKE ?";
+	private static final String FIND_BY_HIGHEST_BID = "select top(1) av.no_article,\r\n"
+			+ "[nom_article]\r\n"
+			+ "      ,[description]\r\n"
+			+ "      ,[date_debut_encheres]\r\n"
+			+ "      ,[date_fin_encheres]\r\n"
+			+ "      ,[prix_initial]\r\n"
+			+ "      ,[prix_vente]\r\n"
+			+ "      ,[etat_vente]\r\n"
+			+ "      ,av.no_utilisateur as vendeur\r\n"
+			+ "      ,[no_categorie]\r\n"
+			+ "      ,[id_retrait]\r\n"
+			+ "      ,[enchere_min]\r\n"
+			+ "      ,[img]\r\n"
+			+ "      ,[gagnant],\r\n"
+			+ "	   e.no_utilisateur as acheteur\r\n"
+			+ "      ,[date_enchere]\r\n"
+			+ "      ,[montant_enchere]\r\n"
+			+ "      ,[id_enchere]\r\n"
+			+ "from ENCHERES AS e INNER JOIN ARTICLES_VENDUS AS av ON e.no_article=av.no_article WHERE av.etat_vente='vf' AND av.no_article=? order by montant_enchere DESC";
 	private static final String FIND_ARTICLES_BY_CATEGORIES = "SELECT no_article,nom_article,description,date_debut_encheres,date_fin_encheres,prix_initial,prix_vente,etat_vente,no_utilisateur,id_retrait,enchere_min, img FROM ARTICLES_VENDUS INNER JOIN CATEGORIES ON ARTICLES_VENDUS.no_categorie = CATEGORIES.no_categorie WHERE ARTICLES_VENDUS.no_categorie=?";
 	private static final String FIND_ARTICLES_BY_CATEGORIES_AND_QUERY = "SELECT no_article,nom_article,description,date_debut_encheres,date_fin_encheres,prix_initial,prix_vente,etat_vente,no_utilisateur,id_retrait,enchere_min,img FROM ARTICLES_VENDUS INNER JOIN CATEGORIES ON ARTICLES_VENDUS.no_categorie = CATEGORIES.no_categorie WHERE ARTICLES_VENDUS.no_categorie=? AND ARTICLES_VENDUS.nom_article LIKE ?";
 	private static final String FIND_ARTICLES_WITH_BID_BY_USER = "Select * FROM ENCHERES as e \r\n"
@@ -47,7 +68,7 @@ public class ArticleVenduJdbcImpl implements ArticleVenduDao {
 
 	private static final String FIND_ARTICLES_BY_VENDEUR_AND_ETAT_VENTE = "SELECT * FROM ARTICLES_VENDUS WHERE no_utilisateur=? AND etat_vente=?";
 	private static final String FIND_ARTICLES_BY_AND_ETAT_VENTE = "SELECT * FROM ARTICLES_VENDUS WHERE etat_vente=?";
-	private static final String FIND_ARTICLES_BY_VENDEUR_AND_ETAT_VENTE_AND_CATEGORIE ="SELECT * FROM ARTICLES_VENDUS WHERE no_utilisateur=? AND etat_vente=? AND no_categorie=?";
+	private static final String FIND_ARTICLES_BY_VENDEUR_AND_ETAT_VENTE_AND_CATEGORIE = "SELECT * FROM ARTICLES_VENDUS WHERE no_utilisateur=? AND etat_vente=? AND no_categorie=?";
 	private static final String FIND_ONE_ARTICLE_BY_VENDEUR_AND_ETAT_VENTE_AND_CATEGORIE = "SELECT * FROM ARTICLES_VENDUS WHERE no_utilisateur=? AND etat_vente=? AND no_categorie=? AND nom_article LIKE ?";
 	private static final String FIND_ONE_ARTICLE_BY_VENDEUR_AND_ETAT_VENTE = "SELECT * FROM ARTICLES_VENDUS WHERE no_utilisateur=? AND etat_vente=? AND nom_article LIKE ?";
 
@@ -81,6 +102,7 @@ public class ArticleVenduJdbcImpl implements ArticleVenduDao {
 		}
 	}
 
+	@Override
 	public ArticleVendu findOne(int noArticle) {
 		try (Connection connection = ConnectionProvider.getConnection();
 				PreparedStatement pstmt = connection.prepareStatement(SELECT_ONE);) {
@@ -110,6 +132,7 @@ public class ArticleVenduJdbcImpl implements ArticleVenduDao {
 		return null;
 	}
 
+	@Override
 	public List<ArticleVendu> findAll() {
 		try (Connection connection = ConnectionProvider.getConnection();
 				Statement stmt = connection.createStatement();) {
@@ -140,6 +163,7 @@ public class ArticleVenduJdbcImpl implements ArticleVenduDao {
 		return null;
 	}
 
+	@Override
 	public void modify(ArticleVendu articleVendu) {
 		try (Connection connection = ConnectionProvider.getConnection();
 				PreparedStatement pstmt = connection.prepareStatement(UPDATE)) {
@@ -167,6 +191,21 @@ public class ArticleVenduJdbcImpl implements ArticleVenduDao {
 			// Exécuter la requête
 			pstmt.executeUpdate();
 
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void modifyGagnant(ArticleVendu articleVendu) {
+		try (Connection connection = ConnectionProvider.getConnection();
+				PreparedStatement pstmt = connection.prepareStatement(UPDATE_GAGNANT)) {
+			// Valoriser les paramètres de la requête
+			System.out.println("*entrée DAL modifier gagnant*");
+			pstmt.setInt(1, articleVendu.getGagnant().getNoUtilisateur());
+			pstmt.setInt(2, articleVendu.getnoArticle());
+			pstmt.executeUpdate();
+			System.out.println("*sortie DAL*");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -486,11 +525,12 @@ public class ArticleVenduJdbcImpl implements ArticleVenduDao {
 	public List<ArticleVendu> recupUnArticlesVendusParUtilisateurSelonEtatVenteEtCategorie(Utilisateur utilisateur,
 			int noCategorie, String q, String etatVente) {
 		try (Connection connection = ConnectionProvider.getConnection();
-				PreparedStatement pstmt = connection.prepareStatement(FIND_ONE_ARTICLE_BY_VENDEUR_AND_ETAT_VENTE_AND_CATEGORIE);) {
+				PreparedStatement pstmt = connection
+						.prepareStatement(FIND_ONE_ARTICLE_BY_VENDEUR_AND_ETAT_VENTE_AND_CATEGORIE);) {
 			pstmt.setInt(1, utilisateur.getNoUtilisateur());
 			pstmt.setString(2, etatVente);
 			pstmt.setInt(3, noCategorie);
-			pstmt.setString(4,q);
+			pstmt.setString(4, q);
 			List<ArticleVendu> articles = new ArrayList<ArticleVendu>();
 			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) {
@@ -522,7 +562,8 @@ public class ArticleVenduJdbcImpl implements ArticleVenduDao {
 	public List<ArticleVendu> recupArticlesVendusParUtilisateurSelonEtatVenteEtCategorie(Utilisateur utilisateur,
 			int noCategorie, String etatVente) {
 		try (Connection connection = ConnectionProvider.getConnection();
-				PreparedStatement pstmt = connection.prepareStatement(FIND_ARTICLES_BY_VENDEUR_AND_ETAT_VENTE_AND_CATEGORIE);) {
+				PreparedStatement pstmt = connection
+						.prepareStatement(FIND_ARTICLES_BY_VENDEUR_AND_ETAT_VENTE_AND_CATEGORIE);) {
 			pstmt.setInt(1, utilisateur.getNoUtilisateur());
 			pstmt.setString(2, etatVente);
 			pstmt.setInt(3, noCategorie);
@@ -560,7 +601,7 @@ public class ArticleVenduJdbcImpl implements ArticleVenduDao {
 				PreparedStatement pstmt = connection.prepareStatement(FIND_ONE_ARTICLE_BY_VENDEUR_AND_ETAT_VENTE);) {
 			pstmt.setInt(1, utilisateur.getNoUtilisateur());
 			pstmt.setString(2, etatVente);
-			pstmt.setString(3,q);
+			pstmt.setString(3, q);
 			List<ArticleVendu> articles = new ArrayList<ArticleVendu>();
 			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) {
@@ -587,4 +628,38 @@ public class ArticleVenduJdbcImpl implements ArticleVenduDao {
 		}
 		return null;
 	}
+
+	@Override
+	public ArticleVendu recupParEnchereLaPlusHaute(ArticleVendu articleVendu) {
+		try (Connection connection = ConnectionProvider.getConnection();
+				PreparedStatement pstmt = connection.prepareStatement(FIND_BY_HIGHEST_BID);) {
+			pstmt.setInt(1, articleVendu.getnoArticle());
+			ResultSet rs = pstmt.executeQuery();
+			if (rs.next()) {
+				ArticleVendu article = new ArticleVendu();
+				// Récupérer les données du ResultSet et les assigner à l'objet articleVendu
+				article.setnoArticle(rs.getInt("no_article"));
+				article.setNomArticle(rs.getString("nom_article"));
+				article.setDescription(rs.getString("description"));
+				article.setDateDebutEncheres(rs.getDate("date_debut_encheres").toLocalDate());
+				article.setDateFinEncheres(rs.getDate("date_fin_encheres").toLocalDate());
+				article.setMiseAPrix(rs.getInt("prix_initial"));
+				article.setPrixVente(rs.getInt("prix_vente"));
+				article.setEtatVente(rs.getString("etat_vente"));
+				article.setUtilisateur(DaoFactory.getUtilisateurDao().findOne(rs.getInt("vendeur")));
+				article.setCategorieArticle(DaoFactory.getCategorieDao().findOne(rs.getInt("no_categorie")));
+				article.setLieuRetrait(DaoFactory.getRetraitDao().findOne(rs.getInt("id_retrait")));
+				article.setEnchereMin(rs.getInt("enchere_min"));
+				article.setJaquette(rs.getString("img"));
+				System.out.println("***********************");
+				article.setGagnant(DaoFactory.getUtilisateurDao().findOne(rs.getInt("acheteur")));
+				
+				return article;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
 }

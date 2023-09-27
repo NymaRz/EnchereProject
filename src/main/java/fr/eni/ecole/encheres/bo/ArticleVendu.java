@@ -19,6 +19,7 @@ public class ArticleVendu {
 	private Utilisateur utilisateur;
 	private List<Enchere> encheres = new ArrayList<Enchere>();
 	private String jaquette;
+	private Utilisateur gagnant;
 
 	public ArticleVendu() {
 	}
@@ -198,6 +199,14 @@ public class ArticleVendu {
 		this.jaquette = jaquette;
 	}
 
+	public Utilisateur getGagnant() {
+		return gagnant;
+	}
+
+	public void setGagnant(Utilisateur gagnant) {
+		this.gagnant = gagnant;
+	}
+
 	public List<Enchere> getEncheres() {
 		return encheres;
 	}
@@ -216,7 +225,7 @@ public class ArticleVendu {
 				+ ", dateDebutEncheres=" + dateDebutEncheres + ", dateFinEncheres=" + dateFinEncheres + ", miseAPrix="
 				+ miseAPrix + ", prixVente=" + prixVente + ", etatVente=" + etatVente + ", categorieArticle="
 				+ categorieArticle + ", lieuRetrait=" + lieuRetrait + ", enchereMin=" + enchereMin + ", utilisateur="
-				+ utilisateur + ", jaquette=" + jaquette + "]";
+				+ utilisateur + ", jaquette=" + jaquette + ", gagnant=" + gagnant + "]";
 	}
 
 }

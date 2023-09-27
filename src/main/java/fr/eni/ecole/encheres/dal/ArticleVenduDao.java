@@ -49,4 +49,8 @@ public interface ArticleVenduDao {
 
 	List<ArticleVendu> recupUnArticlesVendusParUtilisateurSelonEtatVente(Utilisateur utilisateur, String q, String etatVente);
 	// fin retrouver les ventes en cours de l'utilisateur
+
+	void modifyGagnant(ArticleVendu articleVendu);
+	
+	ArticleVendu recupParEnchereLaPlusHaute(ArticleVendu articleVendu);
 }

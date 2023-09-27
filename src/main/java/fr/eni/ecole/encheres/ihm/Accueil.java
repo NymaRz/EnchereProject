@@ -34,6 +34,7 @@ public class Accueil extends HttpServlet {
 		String q = request.getParameter("q");
 
 		ArticleVenduManager.getInstance().updateAllArticles();
+		ArticleVenduManager.getInstance().updateAllGagnants();
 
 		if (utilisateur == null) {
 			
