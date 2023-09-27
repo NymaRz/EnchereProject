@@ -71,11 +71,11 @@ public class VendreArticleServlet extends HttpServlet {
 			// permet de récupérer l'image
 			String fileName = null;
 			for (Part part : request.getParts()) {
-				fileName = getFileName(part);
-				String fullPath = uploadPath + File.separator + fileName;
-				part.write(fullPath);
-				if (!fileName.equals("Default.file"))
-					break;
+				if(part.getContentType()!=null && !part.getContentType().equals("application/octet-stream") ) {					
+					fileName = getFileName(part);
+					String fullPath = uploadPath + File.separator + fileName;
+					part.write(fullPath);			
+				}
 			}
 
 			LocalDate dateDebutEncheres;
@@ -92,7 +92,7 @@ public class VendreArticleServlet extends HttpServlet {
 
 			// récupérer l'utilisateur
 			Utilisateur utilisateur = (Utilisateur) session.getAttribute("utilisateur");
-			System.out.println(utilisateur);
+			
 
 			// prévoir de récupérer l'adresse de l'utilisateur par défaut
 
@@ -116,9 +116,9 @@ public class VendreArticleServlet extends HttpServlet {
 			ArticleVendu articleVendu = new ArticleVendu(0, nomArticle, description, dateDebutEncheres, dateFinEncheres,
 					miseAPrix, categorie, retraitBDD, utilisateur, fileName);
 			if (dateDebutEncheres.isAfter(LocalDate.now())) {
-				articleVendu.setEtatVente("EP");
+				articleVendu.setEtatVente("av");
 			} else {
-				articleVendu.setEtatVente("AOE");
+				articleVendu.setEtatVente("v");
 			}
 			articleVendu.setPrixVente(miseAPrix);
 
@@ -138,8 +138,8 @@ public class VendreArticleServlet extends HttpServlet {
 	 * Récupération du nom du fichier dans la requête.
 	 */
 	private String getFileName(Part part) {
-		for (String content : part.getHeader("content-disposition").split(";")) {
-			if (content.trim().startsWith("filename")) {
+		for (String content : part.getHeader("content-disposition").split(";")) {			
+			if (content.trim().startsWith("filename")) {				
 				return content.substring(content.indexOf("=") + 2, content.length() - 1);
 			}
 		}

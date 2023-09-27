@@ -1,31 +1,48 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ include file="/WEB-INF/fragments/headerAccueilNONConnecte.jspf"%>
+<%@ include file="/WEB-INF/fragments/header.jspf"%>
+<%@page import="fr.eni.ecole.encheres.bo.*"%>
+<%@ taglib uri="jakarta.tags.core" prefix="c"%>
 
+<%@page import="java.util.*"%>
+<%@page import="fr.eni.ecole.encheres.bll.*"%>
 <main>
+	<h1>
+		BRAVO !<br> Votre enchère a été un succès !
+	</h1>
+	<h2>${articleVendu.nomArticle}</h2>
 
-	<h2>${ articleVendu.acquereur }</h2>
+	<%
+	List<ArticleVendu> articlesVendus = (List<ArticleVendu>) request.getAttribute("articlesVendus");
+	%>
+	<c:if test="${not empty articleVenduTermine}">
+    <h2>${articleVenduTermine.nomArticle}</h2>
+    <p>${articleVenduTermine.description}</p>
+    <img src="${pageContext.request.contextPath}/Images/${articleVenduTermine.jaquette}"
+        alt="${articleVenduTermine.nomArticle}" />
 
-	<label for="Description" readonly="readonly" class="form-label">Description :</label> <input
-		readonly="readonly" value="${ articleVendu.description }" /> <label
-		for="MeilleurOffre" readonly="readonly"  class="form-label">Meilleure offre :</label> <input
-		readonly="readonly" value="${ articleVendu.prixVente }" /> <label
-		for="Retrait" readonly="readonly"  class="form-label">Mise à prix :</label> <input
-		readonly="readonly" value="${ articleVendu.miseAPrix }" /> <label
-		for="Retrait" readonly="readonly"  class="form-label">Fin de l'enchère :</label> <input
-		readonly="readonly" value="${ articleVendu.lieuRetrait }" /> <label
-		for="Vendeur" readonly="readonly" class="form-label">Retrait :</label> 
-		<input readonly="readonly" value="${ articleVendu.rue }" />
-		<input readonly="readonly" value="${ articleVendu.codePostal } ${ articleVendu.ville }" />
-		<label for="Vendeur" readonly="readonly" class="form-label">Vendeur :</label> <input
-		readonly="readonly" value="${ articleVendu.nomUtilisateur }" />
+    <p>Prix Initial : ${prixInitial} ₿</p>
+    <p>Prix de vente : ${articleVenduTermine.prixVente} ₿</p>
 
-	<form method="POST" action="${pageContext.request.ContextPath }/retrait">
-			<button type="submit" name="retraitEffectue" value="Retrait effectué" >
-			</button>
+    <c:if test="${not empty requestScope.pourcentageEnchere}">
+        <p>Valorisation ${requestScope.pourcentageEnchere} %</p>
+    </c:if>
+
+    <p>L'acheteur est : ${requestScope.acheteurEnchere}</p> <!-- Utilisez "acheteurEnchere" ici -->
+
+    <p>
+        Acheté par <a id="link-acquereur"
+            href="${pageContext.request.contextPath}/profil?id=${noUtilisateur.acquereur.noUtilisateur}">
+            ${requestScope.acheteurEnchere} </a>
+    </p>
+</c:if>
+
+	<form method="POST" action="">
+		<button type="submit" name="action" value="Confirm"
+			class="bouton-miniature actionbouton">Confirmer le retrait</button>
+		<button type="submit" name="action" value="Retour"
+			class="bouton-miniature bouton-classique">Retour</button>
 	</form>
-
 </main>
-
 
 <%@ include file="/WEB-INF/fragments/footer.jspf"%>

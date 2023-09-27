@@ -20,7 +20,8 @@ public class EnchereDaoJdbcImpl implements EnchereDao {
 	private static final String SAVE_ENCHERES = "INSERT INTO ENCHERES (no_utilisateur,no_article,date_enchere,montant_enchere) VALUES	(?,?,?,?)";
 	private static final String FIND_ENCHERES = "SELECT * FROM ENCHERES WHERE id_enchere =?";
 	private static final String SELECT_ALL_ENCHERES = "SELECT * FROM ENCHERES";
-	private static final String UPDATE_ENCHERES = "UPDATE ENCHERES SET no_utilisateur?, no_article=?,date_enchere=montant_enchere=?,id_enchere=?,WHERE id_enchere=?";
+	private static final String UPDATE_ENCHERES = "UPDATE_ENCHERES = \"UPDATE ENCHERES SET no_utilisateur=?, no_article=?, date_enchere=?, montant_enchere=? WHERE id_enchere=?\";\r\n"
+			+ "";
 	private static final String DELETE_ENCHERES = "DELETE FROM ENCHERES WHERE id_enchere=?";
 	private static final String FIND_BY_ENCHERES = "SELECT * FROM ENCHERES WHERE id_enchere =?";
 	private static final String FIND_HIGHEST_BID = "SELECT TOP(1) *  \r\n"
@@ -28,7 +29,7 @@ public class EnchereDaoJdbcImpl implements EnchereDao {
 			+ "INNER JOIN ARTICLES_VENDUS as av ON av.no_article= e.no_article\r\n" + "WHERE   e.no_article= ?\r\n"
 			+ "order by e.montant_enchere DESC";
 	private static final String FIND_WINNER_ENCHERE = "Select TOP(1) * FROM ARTICLES_VENDUS as av INNER JOIN ENCHERES as e ON av.no_article=e.no_article INNER JOIN UTILISATEURS as u ON e.no_utilisateur= u.no_utilisateur\r\n"
-			+ "WHERE av.etat_vente='v' AND av.no_article = 7\r\n" + "order by montant_enchere desc";
+			+ "WHERE av.etat_vente='v' AND av.no_article = ?\r\n" + "order by montant_enchere desc";
 
 	@Override
 	public void save(Enchere enchere) {

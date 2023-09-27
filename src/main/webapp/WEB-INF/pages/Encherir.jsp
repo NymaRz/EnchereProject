@@ -80,6 +80,7 @@ document.addEventListener("DOMContentLoaded", function () {
 	});
 
 
+<<<<<<< HEAD
   // Blur event to reset to the minimum if input is empty or negative
   input.addEventListener("blur", function () {
     var value = parseInt(input.value);
@@ -133,6 +134,9 @@ document.addEventListener("DOMContentLoaded", function () {
 </script>
 
 </div>
+=======
+</main>
+>>>>>>> 213fa0b7a854a67387485a74f48812bd296ae208
 
 
 
