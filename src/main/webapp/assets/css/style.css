@@ -403,6 +403,8 @@ form-label#dateDebutEncheres , form-label#dateFinEncheres  {
     margin-right: 15px;
 }
 
+.custom-file-upload-inscription{background: url(../addimage.jpg) center 15px no-repeat #f0f0f0;border-radius:12px;padding:15px}
+
 .custom-file-upload-profil label {
 	color: #000;
 	cursor: pointer;
@@ -491,6 +493,7 @@ background-color: #3A444A;
 #bouton-bas a{color:#000;background-color: #fff;text-decoration: none;padding:12px 20px}
 #bouton-bas button, bouton-action span{color:#000; background-color:#E2A125;padding:10px 20px; cursor:pointer;}
 
+.bouton-action-co{color:#000; background-color:#E2A125;padding:10px 20px; cursor:pointer;width:100%;border-radius:12px;border:none;height:55px;margin-bottom:10px;}
 
 .bouton-refresh-profil{width:70px;
 height:70px;
@@ -498,6 +501,27 @@ background: url(../refresh.png) center center no-repeat #fff;
 border-radius:100%;
 background-size:50%;}
 
+.bouton-refresh-inscription{width:70px;
+height:70px;
+background: url(../addimage.jpg) center center no-repeat #fff;
+border-radius:12px;
+background-size:cover;}
+
+.bloc-profil-co{
+    border-radius: 15px;
+    background-color: #fff;
+    padding: 15px;
+    max-width: 400px;
+    margin: auto;
+    
+}
+.bloc-profil-co input{padding:15px 25px;
+background-color:#f0f0f0;;
+border-radius:8px;border:none;outline:none;}
+
+
+.mdpoubli a{float:right;margin-bottom:20px;text-decoration: none;color:#E2A125;font-weight: 700;}
+.rememberme{width:165px;margin:auto;}
 
 .bloc-profil{
     border-radius: 15px;
