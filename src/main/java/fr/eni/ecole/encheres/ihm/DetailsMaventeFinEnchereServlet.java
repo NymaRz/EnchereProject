@@ -9,11 +9,13 @@ import fr.eni.ecole.encheres.bll.CategorieManager;
 import fr.eni.ecole.encheres.bll.EnchereManager;
 import fr.eni.ecole.encheres.bo.ArticleVendu;
 import fr.eni.ecole.encheres.bo.Enchere;
+import fr.eni.ecole.encheres.bo.Utilisateur;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 @WebServlet("/detailsmaventefinenchere")
 public class DetailsMaventeFinEnchereServlet extends HttpServlet {
@@ -23,6 +25,10 @@ public class DetailsMaventeFinEnchereServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		List<ArticleVendu> articlesVendus = null;
+		HttpSession session = request.getSession();
+
+		Utilisateur utilisateurConnecte = (Utilisateur) session.getAttribute("utilisateurConnecte");
+
 		request.setAttribute("categories", CategorieManager.getInstance().recupTouteCategories());
 		String q = request.getParameter("q");
 		// ne sélectionner que les articles dont les enchères ont été ouvertes
@@ -51,7 +57,7 @@ public class DetailsMaventeFinEnchereServlet extends HttpServlet {
 		// Ajoutez le code pour rechercher l'article vendu avec l'état "vf"
 		ArticleVendu articleVenduTermine = null;
 		for (ArticleVendu article : articlesVendus) {
-			if ("vf".equals(article.getEtatVente())) {
+			if ("v".equals(article.getEtatVente())) {
 				articleVenduTermine = article;
 				break; // Sortir de la boucle dès qu'on a trouvé un article vendu
 			}
@@ -81,7 +87,7 @@ public class DetailsMaventeFinEnchereServlet extends HttpServlet {
 				String acheteurEnchere = enchereGagnante.getAcquereur().getEmail();
 
 				// Ajoutez l'acheteur de l'enchère à la requête
-				request.setAttribute("acheteurEnchere", acheteurEnchere);
+				request.setAttribute("acheteurEnchere", acheteurEnchere); // Remplacez acheteurEnchere par l'objet réel
 			}
 		}
 // -----------------------------------------------

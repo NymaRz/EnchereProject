@@ -5,11 +5,16 @@
 <main class="row">
 	<div class="col">
 		<div class="row text-center mt-4">
-			<h1>Mon Profil</h1>
 		</div>
 		<div class="row mt-5">
 			<div class="">
-				<c:if test="${not empty success}">
+				
+				
+
+				
+			<div class="bloc-profil-alt">
+			
+			<c:if test="${not empty success}">
 					<div class="alert alert-success">${success}</div>
 					<c:remove var="session.success" />
 				</c:if>
@@ -17,10 +22,6 @@
 					<div class="alert alert-danger">${error}</div>
 					<c:remove var="sessionScope.error" />
 				</c:if>
-				
-
-				
-			<div class="bloc-profil-alt">
 									<div class="mb-3 profil-image" style="background-image:url('${ pageContext.request.contextPath }/Images/${utilisateur.photo}')"/></div>
 				
 <%-- 					<img id="photo" name="photo" class="img-fluid"
@@ -88,6 +89,17 @@
 				</div>
 				</div>
 
+<br><form method="POST"
+					action="${pageContext.request.contextPath}/modifierprofil">
+					<div class=" text-center ">
+						<a class=" bouton-action-co"
+							href="${pageContext.request.contextPath}/modifierprofil?id=${utilisateur.noUtilisateur}">
+							Modifier mon profil </a>
+					</div><br><br><br>
+				</form>
+
+			<div class="bloc-profil-alt">
+
 				<!-- Ajoutez une boucle forEach pour afficher les ventes de l'utilisateur -->
 				<c:forEach var="articleVendu" items="${articlesVendus}">
 					<c:if
@@ -95,7 +107,7 @@
 						<div id="article-vendu">
 							<!-- Affichez les détails de l'article vendu -->
 							<div id="miniature-article"
-								style="background: url('${pageContext.request.contextPath }/Images/imgarticle.png') center/cover no-repeat, linear-gradient(to left bottom, rgba(0, 0, 0, 0), #3A444A), url('${pageContext.request.contextPath }/Images/${articleVendu.jaquette}') center/cover no-repeat;">
+								style="background: linear-gradient(to left bottom, rgba(0, 0, 0, 0), #3A444A), url('${pageContext.request.contextPath }/Images/${articleVendu.jaquette}') center/cover no-repeat, url('${pageContext.request.contextPath }/Images/imgarticle.png') center/cover no-repeat;">
 								<span style="width: 100px" class="bouton-miniature prix-article">${articleVendu.prixVente}
 									₿</span> <a
 									href="${pageContext.request.contextPath}/encherir?id=${articleVendu.noArticle}"
@@ -110,14 +122,8 @@
 					</c:if>
 				</c:forEach>
 
-				<form method="POST"
-					action="${pageContext.request.contextPath}/modifierprofil">
-					<div class="mb-3 text-center mt-5">
-						<a class="btn btn-info"
-							href="${pageContext.request.contextPath}/modifierprofil?id=${utilisateur.noUtilisateur}">
-							Modifier mon profil </a>
-					</div>
-				</form>
+</div>
+				
 			</div>
 		</div>
 	</div>

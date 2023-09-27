@@ -6,7 +6,6 @@
 <main class="row">
 	<div class="col">
 		<div class="row text-center mt-4">
-			<h1>Modifier mon Profil</h1>
 		</div>
 		<div class="row mt-5">
 			<div class="">
