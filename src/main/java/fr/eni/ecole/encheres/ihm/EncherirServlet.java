@@ -56,7 +56,7 @@ public class EncherirServlet extends HttpServlet {
 
 			// forward
 
-			request.getRequestDispatcher("/WEB-INF/pages/Encherir.jsp").forward(request, response);
+			request.getRequestDispatcher("/WEB-INF/pages/encherir.jsp").forward(request, response);
 
 		} catch (Exception e) {
 

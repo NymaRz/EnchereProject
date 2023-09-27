@@ -24,7 +24,7 @@ public class ConnexionServlet extends HttpServlet {
 		String message = (String) request.getSession().getAttribute("success");
 		request.getSession().removeAttribute("success");
 		request.setAttribute("success", message);
-		request.getRequestDispatcher("/WEB-INF/pages/Connexion.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/pages/connexion.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

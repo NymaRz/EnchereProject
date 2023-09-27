@@ -42,7 +42,7 @@ public class CreerCompteServlet extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		request.getRequestDispatcher("/WEB-INF/pages/CreerCompte.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/pages/creercompte.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -96,17 +96,17 @@ public class CreerCompteServlet extends HttpServlet {
 		} catch (JDBCException | BLLException e) {
 			e.printStackTrace();
 			request.setAttribute("error",e.getMessage());
-			request.getRequestDispatcher("/WEB-INF/pages/CreerCompte.jsp").forward(request, response);
+			request.getRequestDispatcher("/WEB-INF/pages/creercompte.jsp").forward(request, response);
 		} catch (EmailExisteDejaException e) {
 			e.printStackTrace();
 			// Gérez spécifiquement l'exception EmailExisteDejaException ici, par exemple :
 			request.setAttribute("emailError", e.getMessage());
-			request.getRequestDispatcher("/WEB-INF/pages/CreerCompte.jsp").forward(request, response);
+			request.getRequestDispatcher("/WEB-INF/pages/creercompte.jsp").forward(request, response);
 		} catch (PseudoExisteDejaException e) {
 			e.printStackTrace();
 			// Gérez spécifiquement l'exception PseudoExisteDejaException ici, par exemple :
 			request.setAttribute("pseudoError", e.getMessage());
-			request.getRequestDispatcher("/WEB-INF/pages/CreerCompte.jsp").forward(request, response);
+			request.getRequestDispatcher("/WEB-INF/pages/creercompte.jsp").forward(request, response);
 		}
 
 	}
