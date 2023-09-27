@@ -7,7 +7,26 @@
 
 <main>
 
-	<%@include file="/WEB-INF/fragments/rechercheavancee.jspf"%>
+
+
+
+	<c:choose>
+		<c:when test="${utilisateur == null}">
+			<%@include file="/WEB-INF/fragments/recherche.jspf"%>
+		</c:when>
+		<c:otherwise>
+			<%@include file="/WEB-INF/fragments/rechercheavancee.jspf"%>
+		</c:otherwise>
+	</c:choose>
+
+
+
+
+
+
+
+
+
 
 
 
@@ -19,6 +38,7 @@
 
 	<div id="container-secondaire">
 
+		<h1>${nomListe }</h1>
 
 
 		<c:forEach var="articleVendu" items="${ articlesVendus }">

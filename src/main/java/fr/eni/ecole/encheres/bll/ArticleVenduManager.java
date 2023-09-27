@@ -65,6 +65,7 @@ public class ArticleVenduManager {
 
 //tri par catégorie
 	public List<ArticleVendu> findArticlesVendusByCategorie(int noCategorie) {
+		System.out.println("findArticlesVendusByCategorie");
 		return articleVenduDao.recupTousLEsArticlesDeCategorie(noCategorie);
 	}
 
@@ -76,28 +77,17 @@ public class ArticleVenduManager {
 	// seulement les articles dont la date d'ouverture aux enchères est ouverte, et
 	// la date de fin d'enchère n'est pas terminée
 
-	public List<ArticleVendu> recupArticlesVendusEncheresOuvertes() {
-		List<ArticleVendu> articlesVendus = ArticleVenduManager.getInstance().recupTousLesArticlesVendus();
-		List<ArticleVendu> articlesVendusOuvertsAuxEncheres = new ArrayList<ArticleVendu>();
-		LocalDate dateNow = LocalDate.now();
-		for (ArticleVendu articleVendu : articlesVendus) {
-			if (articleVendu.getDateDebutEncheres().isBefore(dateNow)
-					|| articleVendu.getDateDebutEncheres().isEqual(dateNow)
-					|| articleVendu.getDateFinEncheres().isAfter(dateNow))
-				articlesVendusOuvertsAuxEncheres.add(articleVendu);
-		}
-		return articlesVendusOuvertsAuxEncheres;
+	public List<ArticleVendu> recupArticlesVendusSelonEtatVente(String etatVente) {
+		return articleVenduDao.recupTousLesArticlesSelonEtatVente(etatVente);
 	}
 
 	// idem mais avec query
-	public List<ArticleVendu> recupUnArticleVendyEncheresOuvertes(String query) {
+	public List<ArticleVendu> recupUnArticleVenduEncheresOuvertes(String query) {
 		List<ArticleVendu> articlesVendus = ArticleVenduManager.getInstance().rechercheUnArticleVendu(query);
 		List<ArticleVendu> articlesVendusOuvertsAuxEncheres = new ArrayList<ArticleVendu>();
-		LocalDate dateNow = LocalDate.now();
+
 		for (ArticleVendu articleVendu : articlesVendus) {
-			if (articleVendu.getDateDebutEncheres().isBefore(dateNow)
-					|| articleVendu.getDateDebutEncheres().isEqual(dateNow)
-					|| articleVendu.getDateFinEncheres().isAfter(dateNow))
+			if (articleVendu.getEtatVente().equals("v"))
 				articlesVendusOuvertsAuxEncheres.add(articleVendu);
 		}
 		return articlesVendusOuvertsAuxEncheres;
@@ -107,12 +97,13 @@ public class ArticleVenduManager {
 	public List<ArticleVendu> recupArticlesCategorieEO(int noCategorie) {
 		List<ArticleVendu> articlesVendus = ArticleVenduManager.getInstance()
 				.findArticlesVendusByCategorie(noCategorie);
+		
+		System.out.println(articlesVendus);
 		List<ArticleVendu> articlesVendusOuvertsAuxEncheres = new ArrayList<ArticleVendu>();
-		LocalDate dateNow = LocalDate.now();
+
 		for (ArticleVendu articleVendu : articlesVendus) {
-			if (articleVendu.getDateDebutEncheres().isBefore(dateNow)
-					|| articleVendu.getDateDebutEncheres().isEqual(dateNow)
-					|| articleVendu.getDateFinEncheres().isAfter(dateNow))
+			
+			if (articleVendu.getEtatVente().equals("v"))
 				articlesVendusOuvertsAuxEncheres.add(articleVendu);
 		}
 		return articlesVendusOuvertsAuxEncheres;
@@ -123,25 +114,12 @@ public class ArticleVenduManager {
 		List<ArticleVendu> articlesVendus = ArticleVenduManager.getInstance()
 				.rechercherUnArticleVenduByCategorie(noCategorie, query);
 		List<ArticleVendu> articlesVendusOuvertsAuxEncheres = new ArrayList<ArticleVendu>();
-		LocalDate dateNow = LocalDate.now();
+
 		for (ArticleVendu articleVendu : articlesVendus) {
-			if (articleVendu.getDateDebutEncheres().isBefore(dateNow)
-					|| articleVendu.getDateDebutEncheres().isEqual(dateNow)
-					|| articleVendu.getDateFinEncheres().isAfter(dateNow))
+			if (articleVendu.getEtatVente().equals("v"))
 				articlesVendusOuvertsAuxEncheres.add(articleVendu);
 		}
 		return articlesVendusOuvertsAuxEncheres;
-	}
-
-	public List<ArticleVendu> recupArticlesEncheresParUtilisateur(Utilisateur utilisateur) {
-
-		return articleVenduDao.recupArticlesEncheresParUtilisateur(utilisateur);
-	}
-
-	public List<ArticleVendu> recupArticlesVendusParUtilisateurSelonEtatVente(Utilisateur utilisateur,
-			String etatVente) {
-
-		return articleVenduDao.recupArticlesVendusParUtilisateurSelonEtatVente(utilisateur, etatVente);
 	}
 
 	public void updateAllArticles() {
@@ -166,6 +144,67 @@ public class ArticleVenduManager {
 			}
 		}
 	}
+
+	public List<ArticleVendu> trierListeParCategorie(List<ArticleVendu> articles, int noCategorie) {
+		List<ArticleVendu> articlesVendusCategorie = ArticleVenduManager.getInstance()
+				.findArticlesVendusByCategorie(noCategorie);
+		List<ArticleVendu> articlesVendusEtatVente = articles;
+		List<ArticleVendu> articlesTries = new ArrayList<ArticleVendu>();
+		for (ArticleVendu articleVendu : articlesVendusEtatVente) {
+			for (ArticleVendu articleVenduCategorie : articlesVendusCategorie) {
+				if (articleVendu.equals(articleVenduCategorie)) {
+					articlesTries.add(articleVendu);
+				}
+			}
+		}
+
+		return articlesTries;
+	}
+
+	// retrouver les articles sur lequel l'utilisateur a enchéri
+	public List<ArticleVendu> recupArticlesEncheresParUtilisateur(Utilisateur utilisateur) {
+
+		return articleVenduDao.recupArticlesEncheresParUtilisateur(utilisateur);
+	}
+
+	public List<ArticleVendu> recupUnArticleEncheriParutilisateurEtCategorie(Utilisateur utilisateur, int noCategorie,
+			String q) {
+		return articleVenduDao.recupUnArticleEncheriParutilisateurEtCategorie(utilisateur, noCategorie, q);
+	}
+
+	public List<ArticleVendu> recupArticlesEncherisParUtilisateurEtCategorie(Utilisateur utilisateur, int noCategorie) {
+		return articleVenduDao.recupArticlesEncherisParUtilisateurEtCategorie(utilisateur, noCategorie);
+	}
+
+	public List<ArticleVendu> recupUnArticleEncheriParUtilisateur(Utilisateur utilisateur, String q) {
+		return articleVenduDao.recupUnArticleEncheriParUtilisateur(utilisateur, q);
+	}
+
+	// fin retrouver les articles sur lequel l'utilisateur a enchéri
+//
+//	
+//	
+	// retrouver les ventes en cours de l'utilisateur
+	public List<ArticleVendu> recupArticlesVendusParUtilisateurSelonEtatVente(Utilisateur utilisateur,
+			String etatVente) {
+
+		return articleVenduDao.recupArticlesVendusParUtilisateurSelonEtatVente(utilisateur, etatVente);
+	}
+
+	public List<ArticleVendu> recupUnArticlesVendusParUtilisateurSelonEtatVenteEtCategorie(Utilisateur utilisateur,
+			int noCategorie, String q, String etatVente) {
+		return articleVenduDao.recupUnArticlesVendusParUtilisateurSelonEtatVenteEtCategorie(utilisateur,noCategorie,q,etatVente);
+	}
+
+	public List<ArticleVendu> recupArticlesVendusParUtilisateurSelonEtatVenteEtCategorie(Utilisateur utilisateur,
+			int noCategorie,String etatVente) {
+		return articleVenduDao.recupArticlesVendusParUtilisateurSelonEtatVenteEtCategorie(utilisateur,noCategorie,etatVente);
+	}
+
+	public List<ArticleVendu> recupUnArticlesVendusParUtilisateurSelonEtatVente(Utilisateur utilisateur, String q,String etatVente) {
+		return articleVenduDao.recupUnArticlesVendusParUtilisateurSelonEtatVente(utilisateur,q,etatVente);
+	}
+	// fin retrouver les ventes en cours de l'utilisateur
 
 	// Fin de la logique métier
 }

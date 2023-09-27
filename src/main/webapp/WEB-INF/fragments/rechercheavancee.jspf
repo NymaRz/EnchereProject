@@ -15,48 +15,87 @@ List<Categorie> categories = (List<Categorie>) request.getAttribute("categories"
 
 
 
+
 <form method="GET" action="${ pageContext.request.contextPath }/accueil">
-<fieldset>
-  <legend>Mes Achats :</legend>
+	<fieldset>
+		<legend>Mes Achats :</legend>
 
-  <div>
-    <input type="radio" id="encheresOuvertes" name="listeEncheres" value="encheresOuvertes" checked />
-    <label for="encheresOuvertes">Enchères ouvertes</label>
-  </div>
+		<div>
+			<input type="radio" id="encheresOuvertes" name="listeEncheres" checked
+				value="encheresOuvertes" /> <label for="encheresOuvertes">Enchères
+				ouvertes</label>
+		</div>
 
-  <div>
-    <input type="radio" id="encheresEnCours" name="listeEncheres" value="encheresEnCours" />
-    <label for="encheresEnCours">Enchères en cours</label>
-  </div>
+		<div>
+			<input type="radio" id="encheresEnCours" name="listeEncheres"
+				value="encheresEnCours" /> <label for="encheresEnCours">Enchères
+				en cours</label>
+		</div>
 
-  <div>
-    <input type="radio" id="encheresRemportees" name="listeEncheres" value="encheresRemportees" />
-    <label for="encheresRemportees">Enchères remportées</label>
-  </div>
+		<div>
+			<input type="radio" id="encheresRemportees" name="listeEncheres"
+				value="encheresRemportees" /> <label for="encheresRemportees">Enchères
+				remportées</label>
+		</div>
 
-  <legend>Mes Ventes :</legend>
+		<legend>Mes Ventes :</legend>
 
-  <div>
-    <input type="radio" id="ventesEnCours" name="listeEncheres" value="ventesEnCours" />
-    <label for="ventesEnCours">Mes ventes en cours</label>
-  </div>
+		<div>
+			<input type="radio" id="ventesEnCours" name="listeEncheres"
+				value="ventesEnCours" /> <label for="ventesEnCours">Mes
+				ventes en cours</label>
+		</div>
 
-  <div>
-    <input type="radio" id="ventesNonDebutees" name="listeEncheres" value="ventesNonDebutees" />
-    <label for="ventesNonDebutees">Ventes non débutées</label>
-  </div>
+		<div>
+			<input type="radio" id="ventesNonDebutees" name="listeEncheres"
+				value="ventesNonDebutees" /> <label for="ventesNonDebutees">Ventes
+				non débutées</label>
+		</div>
 
-  <div>
-    <input type="radio" id="ventesTerminees" name="listeEncheres" value="ventesTerminees" />
-    <label for="ventesTerminees">Ventes terminées</label>
-  </div>
-</fieldset>
-<button type="submit">rechercher</button>
+		<div>
+			<input type="radio" id="ventesTerminees" name="listeEncheres"
+				value="ventesTerminees" /> <label for="ventesTerminees">Ventes
+				terminées</label>
+		</div>
+	</fieldset>
 
+
+
+	<input id="champ-recherche" type="search" name="q" checked
+		placeholder="Que recherchez-vous ?" aria-label="Search">
+	<!-- <i class="fa-solid fa-magnifying-glass"></i> -->
+
+
+	<!-- <label for="categorie">Catégories:</label> -->
+	<select id="categorie" name="categorie">
+
+		<option value="0" selected>Catégories</option>
+
+		<c:forEach var="categorie" items="${ categories }">
+
+			<option value="${ categorie.noCategorie}">${categorie.libelle}</option>
+
+		</c:forEach>
+
+
+	</select>
 	
+	
+	<button id="submit-recherche" type="submit">
+
+		<i class="fa-solid fa-magnifying-glass"></i>
+
+	</button>
 
 
 </form>
+
+
+
+
+
+
+
 
 
 
