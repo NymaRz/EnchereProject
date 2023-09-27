@@ -133,11 +133,9 @@ public class ModifierMonProfilServlet extends HttpServlet {
 
 		for (String content : part.getHeader("content-disposition").split(";")) {
 			if (content.trim().startsWith("filename")) {
-				System.out.println("2222222222222222");
 				return content.substring(content.indexOf("=") + 2, content.length() - 1);
 			}
 		}
-		System.out.println("1111111111111111");
 		return "Default.file";
 	}
 }

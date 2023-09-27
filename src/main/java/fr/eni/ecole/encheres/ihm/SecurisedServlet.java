@@ -22,7 +22,7 @@ public class SecurisedServlet extends HttpServlet {
 			if (startTime != null) {
 				long currentTime = System.currentTimeMillis();
 				long sessionDuration = (currentTime - startTime) / 1000; // Durée en secondes
-				if (sessionDuration > 300) { // 300 secondes (5 minutes)
+				if (sessionDuration > 6000) { // 300 secondes (5 minutes)
 					// La session a expiré, vous pouvez rediriger l'utilisateur vers la page de
 					// déconnexion
 					session.invalidate(); // Invalide la session

@@ -363,6 +363,7 @@ textarea#description{
 	position:relative;
 	z-index:1;
 	bottom:-60px;
+	box-shadow:0 5px 30px #7777773b;
 }
 
 #middle div {
@@ -393,6 +394,18 @@ form-label#dateDebutEncheres , form-label#dateFinEncheres  {
     margin-left: 10px;
     margin-top: -190px;
     position: absolute;
+}
+
+.custom-file-upload-profil {
+    cursor: pointer;
+    float:right;
+    margin-top: 169px;
+    margin-right: 15px;
+}
+
+.custom-file-upload-profil label {
+	color: #000;
+	cursor: pointer;
 }
 
 .custom-file-upload label {
@@ -427,10 +440,24 @@ padding:5px;}
     margin-left: -125px;
     color: #fff;
     background-color: #5ea74c;
-    width: 125px;
+    width: auto;
     line-height: 30px;
     text-align: center;
     border-radius: 7px;
+    padding:0 8px;
+}
+
+#selectedFileNameProfil{
+    position: absolute;
+    margin-top: 55px;
+    margin-left: -125px;
+    color: #fff;
+    background-color: #5ea74c;
+    width: auto;
+    line-height: 30px;
+    text-align: center;
+    border-radius: 7px;
+    padding:0 8px;
 }
 
  #mettre-en-vente{
@@ -462,4 +489,119 @@ background-color: #3A444A;
 
 #bouton-bas a, #bouton-bas button{border:none;font-size:1.2em;margin:5px; border-radius:10px;}
 #bouton-bas a{color:#000;background-color: #fff;text-decoration: none;padding:12px 20px}
-#bouton-bas button{color:#000; background-color:#E2A125;padding:10px 20px}
+#bouton-bas button, bouton-action span{color:#000; background-color:#E2A125;padding:10px 20px; cursor:pointer;}
+
+
+.bouton-refresh-profil{width:70px;
+height:70px;
+background: url(../refresh.png) center center no-repeat #fff;
+border-radius:100%;
+background-size:50%;}
+
+
+.bloc-profil{
+    border-radius: 15px;
+    background-color: #fff;
+    padding: 15px;
+    max-width: 800px;
+    margin: auto;
+}
+
+.bloc-profil-alt{
+	max-width: 800px;
+    margin: auto;
+    text-align: center;
+}
+
+.bloc-profil input{padding:15px 25px;
+background-color:#f0f0f0;;
+border-radius:8px;border:none;outline:none;}
+
+.profil-rue, .profil-cp, .profil-ville, .profil-email, .profil-tel, .profil-pseudo, .profil-prenom, .profil-nom, .profil-mdp, .profil-confirmationmdp{display:inline-block; padding:5px;}
+.profil-rue{width:48%} .profil-cp{width:20%} .profil-ville{width:30%} .profil-email{width:65%} .profil-tel{width:33%} 
+.profil-pseudo{width:32.5%} .profil-nom{width:32.5%} .profil-prenom{width:32.5%} .profil-mdp0{width:98%} .profil-mdp{width:49%} .profil-confirmationmdp{width:49%}
+
+.profil-image{background-size:cover;height:250px;width:250px;border-radius:100%;box-shadow:0 5px 30px #7777773b;border:8px solid #fff;margin:auto;display:inline-block;
+}
+.profil-credit {text-align:left;margin: auto;display:inline-block;position:relative;top:-100px;margin-left:50px;}
+.profil-credit input, .profil-credit input:focus{background-color:transparent; font-size:1.6em;outline:none;border:none;}
+
+#pseudo-profil-header{font-size:1.8em}
+
+#bloc-bouton-encherir{border-radius:15px;box-shadow:0 5px 30px #7777773b;min-width:510px;margin:auto;background-color: #fff;display:inline-block;}
+.bouton-encherir{padding:17px 20px;margin:5px;background-color: #E2A125;float:right;border:none;border-radius:12px;}
+#bloc-bouton-encherir input{border:none;outline:none;height:68px;font-size: 1.2em;font-weight: 600;width:auto;background-color: transparent;padding-left:20px;}
+.bouton-encherir:hover{background-color: #3A444A;}
+
+#page-encherir{max-width: 800px;margin:auto;text-align: center;}
+
+
+
+
+
+
+
+
+
+
+/*** component ***/
+/*.montantEnchere {
+  position: relative;
+  border: 1px solid #666;
+  max-width: 372px;
+  border-radius: 4px;
+  font-family: helvetica, sans-serif;
+  background: #FFF;
+}*/
+.montantEnchere label {
+  position: absolute;
+  left: 20px;
+  font-size: 12px;
+  top: 8px;
+}
+
+.montantEnchere input {
+  border: 0;
+  width: 100%;
+  box-sizing: border-box;
+  height: 100%;
+  font-size: 20px;
+  font-weight: 700;
+  border-radius: 4px;
+}
+
+.montantEnchere-decrement, .montantEnchere-increment {
+  height: 57px;
+  width: 65px;
+  right: 0;
+  border: 0;
+  cursor: pointer;
+  display: inline-block;
+  border-radius: 12px;
+margin: 0px 3px;
+padding: 3px 0px 0 0px;
+}
+
+.montantEnchere button.montantEnchere-decrement {
+  bottom: 0;
+}
+
+.montantEnchere button.montantEnchere-increment {
+  border-top-right-radius: 4px;
+}
+
+.montantEnchere button.montantEnchere-increment svg {
+  transform: rotate(180deg);
+}
+
+/* Chrome, Safari, Edge, Opera */
+.montantEnchere input::-webkit-outer-spin-button,
+.montantEnchere input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+.montantEnchere input[type="number"] {
+  -moz-appearance: textfield;
+}

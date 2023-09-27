@@ -50,7 +50,7 @@ List<Categorie> categories = (List<Categorie>) request.getAttribute("categories"
 
 <div class="custom-file-upload">
   <label for="jaquette">Ajouter une photo<br></label>
-  <input type="file" id="jaquette" style="display: none;" onchange="displayFileName()" />
+  <input name="jaquette" type="file" id="jaquette" style="display: none;" onchange="displayFileName()" />
   <span id="selectedFileName"></span>
 </div>
 
