@@ -54,19 +54,16 @@ List<Categorie> categories = (List<Categorie>) request.getAttribute("categories"
 	<label for="jaquette" class="custom-file-upload">Ajoutez une photo à votre article</label>
 	<span id="jaquette"></span> -->
 
-<<<<<<< HEAD
 <div class="custom-file-upload">
   <label for="jaquette">Ajouter une photo<br></label>
   <input name="jaquette" type="file" id="jaquette" style="display: none;" onchange="displayFileName()" />
   <span id="selectedFileName"></span>
 </div>
-=======
 				<div class="custom-file-upload">
 					<label for="jaquette">Ajouter une photo<br></label> <input
 						type="file" id="jaquette" style="display: none;" name="file"
 						onchange="displayFileName()" /> <span id="selectedFileName"></span>
 				</div>
->>>>>>> 213fa0b7a854a67387485a74f48812bd296ae208
 
 
 				<script>

@@ -29,14 +29,12 @@
 			<p>Valorisation ${requestScope.pourcentageEnchere} %</p>
 		</c:if>
 
-		<p>L'acheteur est : ${requestScope.acheteurEnchere}</p>
-		<!-- Utilisez "acheteurEnchere" ici -->
-
 		<p>
-			Acheté par <a id="link-acquereur"
-				href="${pageContext.request.contextPath}/profil?id=${noUtilisateur.acquereur.noUtilisateur}">
-				${requestScope.acheteurEnchere} </a>
+			L'acheteur est : <a id="link-acheteur"
+				href="${pageContext.request.contextPath}/profil?id=${acheteurEnchere.utilisateur.noUtilisateur}">
+				${acheteurEnchere.utilisateur.pseudo} </a>
 		</p>
+
 	</c:if>
 
 	<form method="POST" action="">

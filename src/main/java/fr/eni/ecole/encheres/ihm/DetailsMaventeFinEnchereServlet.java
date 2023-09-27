@@ -81,7 +81,7 @@ public class DetailsMaventeFinEnchereServlet extends HttpServlet {
 				String acheteurEnchere = enchereGagnante.getAcquereur().getEmail();
 
 				// Ajoutez l'acheteur de l'enchère à la requête
-				request.setAttribute("acheteurEnchere", acheteurEnchere);
+				request.setAttribute("acheteurEnchere", acheteurEnchere); // Remplacez acheteurEnchere par l'objet réel
 			}
 		}
 // -----------------------------------------------
