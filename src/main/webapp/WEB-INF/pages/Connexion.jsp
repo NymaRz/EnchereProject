@@ -4,8 +4,7 @@
 <main class="row">
 	<div class="col">
 		<div class="row text-center mt-4">
-			<h1>Connexion</h1>
-		</div>
+<br>		</div>
 		<c:if test="${not empty success}">
 			<div class="alert alert-success" id="successMessage"
 				name="succesMessage">${success}</div>

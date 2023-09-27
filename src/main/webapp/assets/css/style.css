@@ -493,7 +493,7 @@ background-color: #3A444A;
 #bouton-bas a{color:#000;background-color: #fff;text-decoration: none;padding:12px 20px}
 #bouton-bas button, bouton-action span{color:#000; background-color:#E2A125;padding:10px 20px; cursor:pointer;}
 
-.bouton-action-co{color:#000; background-color:#E2A125;padding:10px 20px; cursor:pointer;width:100%;border-radius:12px;border:none;height:55px;margin-bottom:10px;}
+.bouton-action-co{color:#000; background-color:#E2A125;padding:10px 20px; cursor:pointer;width:100%;border-radius:12px;border:none;height:55px;margin-bottom:10px;text-decoration: none;}
 
 .bouton-refresh-profil{width:70px;
 height:70px;

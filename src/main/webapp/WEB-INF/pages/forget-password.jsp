@@ -4,8 +4,7 @@
 <main class="row">
 	<div class="col">
 		<div class="row text-center mt-4">
-			<h1>Réinitialisation du mot de passe</h1>
-		</div>
+<br>		</div>
 		<div class="bloc-profil-co">
 		
 		<div class=" ">
