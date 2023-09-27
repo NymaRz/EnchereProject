@@ -66,10 +66,8 @@ public class AcquisitionServlet extends HttpServlet {
 
 		// Ajoutez l'article vendu à la requête s'il existe
 		request.setAttribute("articleVenduTermine", articleVenduTermine);
-
 		request.setAttribute("articlesVendus", articlesVendus);
 		request.setAttribute("annee", LocalDate.now().getYear());
-
 		request.getRequestDispatcher("WEB-INF/pages/acquisition.jsp").forward(request, response);
 	}
 }
