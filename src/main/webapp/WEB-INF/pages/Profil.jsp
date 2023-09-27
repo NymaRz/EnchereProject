@@ -18,9 +18,9 @@
 					<c:remove var="sessionScope.error" />
 				</c:if>
 				<div class="mb-3">
-				<img id="photo" name="photo" class="img-fluid"
-			src="${ pageContext.request.contextPath }/Images/${ utilisateur.photo }"
-			alt="${ utilisateur.photo }">
+					<img id="photo" name="photo" class="img-fluid"
+						src="${ pageContext.request.contextPath }/Images/${ utilisateur.photo }"
+						alt="${ utilisateur.photo }">
 				</div>
 				<div class="mb-3">
 					<label for="pseudo" class="form-label">Votre Pseudo:</label> <input
@@ -100,7 +100,7 @@
 					action="${pageContext.request.contextPath}/modifierprofil">
 					<div class="mb-3 text-center mt-5">
 						<a class="btn btn-info"
-							href="${pageContext.request.contextPath}/profil/modifierprofil?id=${utilisateur.noUtilisateur}">
+							href="${pageContext.request.contextPath}/modifierprofil?id=${utilisateur.noUtilisateur}">
 							Modifier mon profil </a>
 					</div>
 				</form>
