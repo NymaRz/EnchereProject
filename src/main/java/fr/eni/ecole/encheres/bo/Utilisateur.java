@@ -258,8 +258,7 @@ public class Utilisateur {
 	public String toString() {
 		return "Utilisateur [noUtilisateur=" + noUtilisateur + ", pseudo=" + pseudo + ", nom=" + nom + ", prenom="
 				+ prenom + ", email=" + email + ", telephone=" + telephone + ", adresse=" + adresse + ", mdp=" + mdp
-				+ ", credit=" + credit + ", admin=" + admin + ", vip=" + vip + ", articlesAVendre=" + articlesAVendre
-				+ ", encheres=" + encheres + "]";
+				+ ", credit=" + credit + ", admin=" + admin + ", vip=" + vip + "]";
 	}
 
 	public String getPhoto() {

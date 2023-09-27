@@ -32,13 +32,13 @@ public class ArticleVenduManager {
 	public ArticleVendu recupUnArticleVendu(int noArticle) {
 		return articleVenduDao.findOne(noArticle);
 	}
-	
+
 	public ArticleVendu recupArticleVenduEnchereNC(int noArticle) {
 		ArticleVendu articleVendu = articleVenduDao.findOne(noArticle);
-		if(articleVendu.getDateDebutEncheres().isAfter(LocalDate.now()))
+		if (articleVendu.getDateDebutEncheres().isAfter(LocalDate.now()))
 			return articleVendu;
 		return null;
-		
+
 	}
 
 	public List<ArticleVendu> recupTousLesArticlesVendus() {
@@ -102,10 +102,11 @@ public class ArticleVenduManager {
 		}
 		return articlesVendusOuvertsAuxEncheres;
 	}
-	
-	//articles d'une catégorie dont les enchères sont ouvertes
-	public List<ArticleVendu> recupArticlesCategorieEO(int noCategorie){
-		List<ArticleVendu> articlesVendus = ArticleVenduManager.getInstance().findArticlesVendusByCategorie(noCategorie);
+
+	// articles d'une catégorie dont les enchères sont ouvertes
+	public List<ArticleVendu> recupArticlesCategorieEO(int noCategorie) {
+		List<ArticleVendu> articlesVendus = ArticleVenduManager.getInstance()
+				.findArticlesVendusByCategorie(noCategorie);
 		List<ArticleVendu> articlesVendusOuvertsAuxEncheres = new ArrayList<ArticleVendu>();
 		LocalDate dateNow = LocalDate.now();
 		for (ArticleVendu articleVendu : articlesVendus) {
@@ -116,9 +117,11 @@ public class ArticleVenduManager {
 		}
 		return articlesVendusOuvertsAuxEncheres;
 	}
-	//idem mais avec query
-	public List<ArticleVendu> recupUnArticleVenduByCategorieEO(int noCategorie,String query) {
-		List<ArticleVendu> articlesVendus = ArticleVenduManager.getInstance().rechercherUnArticleVenduByCategorie(noCategorie, query);
+
+	// idem mais avec query
+	public List<ArticleVendu> recupUnArticleVenduByCategorieEO(int noCategorie, String query) {
+		List<ArticleVendu> articlesVendus = ArticleVenduManager.getInstance()
+				.rechercherUnArticleVenduByCategorie(noCategorie, query);
 		List<ArticleVendu> articlesVendusOuvertsAuxEncheres = new ArrayList<ArticleVendu>();
 		LocalDate dateNow = LocalDate.now();
 		for (ArticleVendu articleVendu : articlesVendus) {
@@ -129,14 +132,39 @@ public class ArticleVenduManager {
 		}
 		return articlesVendusOuvertsAuxEncheres;
 	}
-	
-	public List<ArticleVendu> recupArticlesEncheresParUtilisateur(Utilisateur utilisateur){
+
+	public List<ArticleVendu> recupArticlesEncheresParUtilisateur(Utilisateur utilisateur) {
+
 		return articleVenduDao.recupArticlesEncheresParUtilisateur(utilisateur);
 	}
 
-	public List<ArticleVendu> recupArticlesVendusParUtilisateur(int idUser) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<ArticleVendu> recupArticlesVendusParUtilisateurSelonEtatVente(Utilisateur utilisateur,
+			String etatVente) {
+
+		return articleVenduDao.recupArticlesVendusParUtilisateurSelonEtatVente(utilisateur, etatVente);
+	}
+
+	public void updateAllArticles() {
+		List<ArticleVendu> articles = ArticleVenduManager.getInstance().recupTousLesArticlesVendus();
+		for (ArticleVendu articleVendu : articles) {
+			if (articleVendu.getDateDebutEncheres().isAfter(LocalDate.now())
+					&& !articleVendu.getEtatVente().equalsIgnoreCase("av")) {
+				articleVendu.setEtatVente("av");
+				ArticleVenduManager.getInstance().modifierUnArticleVendu(articleVendu);
+			}
+			if ((articleVendu.getDateDebutEncheres().isBefore(LocalDate.now())
+					|| articleVendu.getDateDebutEncheres().isEqual(LocalDate.now()))
+					&& articleVendu.getDateFinEncheres().isAfter(LocalDate.now())
+					&& !articleVendu.getEtatVente().equalsIgnoreCase("v")) {
+				articleVendu.setEtatVente("v");
+				ArticleVenduManager.getInstance().modifierUnArticleVendu(articleVendu);
+			}
+			if (articleVendu.getDateFinEncheres().isBefore(LocalDate.now())
+					&& !articleVendu.getEtatVente().equalsIgnoreCase("vf")) {
+				articleVendu.setEtatVente("vf");
+				ArticleVenduManager.getInstance().modifierUnArticleVendu(articleVendu);
+			}
+		}
 	}
 
 	// Fin de la logique métier

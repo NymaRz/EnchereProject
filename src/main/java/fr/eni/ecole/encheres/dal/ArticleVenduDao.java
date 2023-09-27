@@ -5,7 +5,7 @@ import java.util.List;
 import fr.eni.ecole.encheres.bo.ArticleVendu;
 import fr.eni.ecole.encheres.bo.Utilisateur;
 
-public interface ArticleVenduDao{
+public interface ArticleVenduDao {
 	// CRUD
 	void save(ArticleVendu articlevendu);
 
@@ -18,9 +18,12 @@ public interface ArticleVenduDao{
 	void remove(int noArticle);
 
 	List<ArticleVendu> findByName(String query);
-	
+
 	List<ArticleVendu> recupTousLEsArticlesDeCategorie(int noCategorie);
-	List<ArticleVendu> rechercheArticlesDeCategorieByName(int noCategorie,String query);
+
+	List<ArticleVendu> rechercheArticlesDeCategorieByName(int noCategorie, String query);
+
 	List<ArticleVendu> recupArticlesEncheresParUtilisateur(Utilisateur utilisateur);
-	List<ArticleVendu> recupArticlesRemporteesParUtilisateur(Utilisateur utilisateur);
+
+	List<ArticleVendu> recupArticlesVendusParUtilisateurSelonEtatVente(Utilisateur utilisateur, String etatVente);
 }

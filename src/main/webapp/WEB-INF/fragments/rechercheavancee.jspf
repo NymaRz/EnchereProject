@@ -15,7 +15,7 @@ List<Categorie> categories = (List<Categorie>) request.getAttribute("categories"
 
 
 
-<form method="GET" action="${ pageContext.request.contextPath }/recherche-avancee">
+<form method="GET" action="${ pageContext.request.contextPath }/accueil">
 <fieldset>
   <legend>Mes Achats :</legend>
 
@@ -37,7 +37,7 @@ List<Categorie> categories = (List<Categorie>) request.getAttribute("categories"
   <legend>Mes Ventes :</legend>
 
   <div>
-    <input type="radio" id="ventesEnCours" name="listeEncheres" value="ventesEnCours" checked />
+    <input type="radio" id="ventesEnCours" name="listeEncheres" value="ventesEnCours" />
     <label for="ventesEnCours">Mes ventes en cours</label>
   </div>
 
@@ -51,11 +51,13 @@ List<Categorie> categories = (List<Categorie>) request.getAttribute("categories"
     <label for="ventesTerminees">Ventes terminées</label>
   </div>
 </fieldset>
+<button type="submit">rechercher</button>
 
 	
 
 
 </form>
+
 
 
 
