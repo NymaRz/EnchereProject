@@ -206,5 +206,23 @@ public class ArticleVenduManager {
 	}
 	// fin retrouver les ventes en cours de l'utilisateur
 
+	public ArticleVendu recupDernierArticleRemporte(int noUtilisateur) {
+	    List<ArticleVendu> articlesVendus = recupTousLesArticlesVendus();
+	    ArticleVendu dernierArticleRemporte = null;
+	    for (ArticleVendu article : articlesVendus) {
+	        // Vérifiez si l'utilisateur a remporté l'enchère
+	        if (article.getUtilisateur().getNoUtilisateur() == noUtilisateur
+	                && article.getEtatVente().equals("vf")) {
+	            // Si c'est la première enchère remportée trouvée ou si elle est plus récente
+	            if (dernierArticleRemporte == null
+	                    || article.getDateFinEncheres().isAfter(dernierArticleRemporte.getDateFinEncheres())) {
+	                dernierArticleRemporte = article;
+	            }
+	        }
+	    }
+	    return dernierArticleRemporte;
+	}
+
+
 	// Fin de la logique métier
 }
