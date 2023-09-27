@@ -18,7 +18,7 @@
 	crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link rel="stylesheet"
 	href="${ pageContext.request.contextPath }/assets/css/style.css" />
-<title>Dummy Title</title>
+<title>Artovision</title>
 </head>
 <body>
 
