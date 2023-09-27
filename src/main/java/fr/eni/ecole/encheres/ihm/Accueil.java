@@ -9,6 +9,7 @@ import fr.eni.ecole.encheres.bll.ArticleVenduManager;
 import fr.eni.ecole.encheres.bll.CategorieManager;
 import fr.eni.ecole.encheres.bll.EnchereManager;
 import fr.eni.ecole.encheres.bo.ArticleVendu;
+import fr.eni.ecole.encheres.bo.Categorie;
 import fr.eni.ecole.encheres.bo.Utilisateur;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -35,6 +36,8 @@ public class Accueil extends HttpServlet {
 		ArticleVenduManager.getInstance().updateAllArticles();
 
 		if (utilisateur == null) {
+			
+			request.setAttribute("categories", null);
 			if (request.getParameter("categorie") != null && Integer.parseInt(request.getParameter("categorie")) > 0) {
 				int noCategorie = Integer.parseInt(request.getParameter("categorie"));
 				// si en plus de la catégorie une recherche par nom existe
@@ -43,30 +46,41 @@ public class Accueil extends HttpServlet {
 				} else
 					// si que catégorie selectionné
 					articlesVendus = ArticleVenduManager.getInstance().recupArticlesCategorieEO(noCategorie);
-					
-			}			
+
+			}
 			// traitement si aucune catégorie selectionnée
 			else {
 				// si recherche par nom q
 				if (request.getParameter("q") != null && !request.getParameter("q").isBlank()) {
 					articlesVendus = ArticleVenduManager.getInstance().recupUnArticleVenduEncheresOuvertes(q);
 				} else {
-					articlesVendus = ArticleVenduManager.getInstance().recupArticlesVendusSelonEtatVente("v");
+					articlesVendus = null;
+					List<Categorie> categories = CategorieManager.getInstance().recupTouteCategories();
+					for (Categorie categorie : categories) {
+						categorie.setArticlesOfCategorie(ArticleVenduManager.getInstance().recupArticlesCategorieEO(categorie.getNoCategorie()));
+						System.out.println(categorie.getArticlesOfCategorie());
+					}
+					request.setAttribute("categories", categories);
 				}
 			}
-			
-			
 
-			if (articlesVendus == null)
-				articlesVendus = ArticleVenduManager.getInstance().recupTousLesArticlesVendus();
 
 		}
 
 		else {
 			String checkListeEncheres = request.getParameter("listeEncheres");
 			if (checkListeEncheres == null) {
-				articlesVendus = ArticleVenduManager.getInstance().recupTousLesArticlesVendus();
+				articlesVendus = null;
+				List<Categorie> categories = CategorieManager.getInstance().recupTouteCategories();
+				for (Categorie categorie : categories) {
+					categorie.setArticlesOfCategorie(ArticleVenduManager.getInstance().recupArticlesCategorieEO(categorie.getNoCategorie()));
+					System.out.println(categorie.getArticlesOfCategorie());
+				}
+				request.setAttribute("categories", categories);
+
+
 			} else {
+				request.setAttribute("categories", null);
 				if (checkListeEncheres.equals("encheresOuvertes")) {
 					request.setAttribute("nomListe", "Toutes les enchères en cours");
 					if (request.getParameter("categorie") != null
@@ -97,7 +111,7 @@ public class Accueil extends HttpServlet {
 				}
 
 				if (checkListeEncheres.equals("encheresEnCours")) {
-					
+
 					request.setAttribute("nomListe", "Mes enchères en cours");
 
 					if (request.getParameter("categorie") != null
