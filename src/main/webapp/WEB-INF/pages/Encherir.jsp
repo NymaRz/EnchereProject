@@ -34,7 +34,7 @@
 
 		<p>Vendeur : ${articleVendu.utilisateur.pseudo}</p>
 
-		<c:if test="${articleVendu.etatVente.equals('vf')">
+		<c:if test="${articleVendu.etatVente.equals('vf')}">
 			<p>Gagnant de l'enchère : ${enchere.acquereur.pseudo}</p>
 		</c:if>
 
