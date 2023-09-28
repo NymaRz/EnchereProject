@@ -1,14 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/fragments/header.jspf"%>
-<%@page import="fr.eni.ecole.encheres.bo.*"%>
+<%@ page import="fr.eni.ecole.encheres.bo.*"%>
 <%@ taglib uri="jakarta.tags.core" prefix="c"%>
 
 <%@page import="java.util.*"%>
 <%@page import="fr.eni.ecole.encheres.bll.*"%>
 <main>
 	<h1>
-		BRAVO !<br> Votre enchère a été un succès !
+		BRAVO !<br> Votre vente a été un succès !
 	</h1>
 	<h2>${articleVendu.nomArticle}</h2>
 
@@ -40,8 +40,13 @@
 	<form method="POST" action="">
 		<button type="submit" name="action" value="Confirm"
 			class="bouton-miniature actionbouton">Confirmer le retrait</button>
-		<button type="submit" name="action" value="Retour"
-			class="bouton-miniature bouton-classique">Retour</button>
+		<button onclick="retourPagePrecedente()">Retour</button>
+
+		<script>
+			function retourPagePrecedente() {
+				window.history.back();
+			}
+		</script>
 	</form>
 </main>
 

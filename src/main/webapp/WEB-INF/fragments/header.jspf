@@ -62,11 +62,12 @@
 							<li class="nav-item"><a class="aNav"
 								href="${request.getContextPath()}/EnchereProject/vendre-article">Vendre
 									un Article</a></li>
-							<li class="nav-item"><a class="aNav"
-								href="${ pageContext.request.contextPath}/profil">Mon Profil</a></li>
 
 							<li class="nav-item"><a class="aNav"
 								href="${ pageContext.request.contextPath}/deconnexion">Déconnexion</a></li>
+							<li class="nav-item"><a class="aNav"
+								href="${ pageContext.request.contextPath}/profil"><img style="width:30px;height:30px;margin-right:8px;border-radius:50%" src="${ pageContext.request.contextPath }/Images/${utilisateur.photo}"/> ${ utilisateur.prenom }</a>
+								</li>
 						</ul>
 					</c:otherwise>
 				</c:choose>
