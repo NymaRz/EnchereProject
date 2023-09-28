@@ -34,10 +34,10 @@ public class Accueil extends HttpServlet {
 		String q = request.getParameter("q");
 
 		ArticleVenduManager.getInstance().updateAllArticles();
-		ArticleVenduManager.getInstance().updateAllGagnants();
+		List<ArticleVendu> articlesAvecGagnant = ArticleVenduManager.getInstance().recupAndUpdateAllGagnants();
 
 		if (utilisateur == null) {
-			
+
 			request.setAttribute("categories", null);
 			if (request.getParameter("categorie") != null && Integer.parseInt(request.getParameter("categorie")) > 0) {
 				int noCategorie = Integer.parseInt(request.getParameter("categorie"));
@@ -58,13 +58,13 @@ public class Accueil extends HttpServlet {
 					articlesVendus = null;
 					List<Categorie> categories = CategorieManager.getInstance().recupTouteCategories();
 					for (Categorie categorie : categories) {
-						categorie.setArticlesOfCategorie(ArticleVenduManager.getInstance().recupArticlesCategorieEO(categorie.getNoCategorie()));
+						categorie.setArticlesOfCategorie(
+								ArticleVenduManager.getInstance().recupArticlesCategorieEO(categorie.getNoCategorie()));
 						System.out.println(categorie.getArticlesOfCategorie());
 					}
 					request.setAttribute("categories", categories);
 				}
 			}
-
 
 		}
 
@@ -74,11 +74,11 @@ public class Accueil extends HttpServlet {
 				articlesVendus = null;
 				List<Categorie> categories = CategorieManager.getInstance().recupTouteCategories();
 				for (Categorie categorie : categories) {
-					categorie.setArticlesOfCategorie(ArticleVenduManager.getInstance().recupArticlesCategorieEO(categorie.getNoCategorie()));
+					categorie.setArticlesOfCategorie(
+							ArticleVenduManager.getInstance().recupArticlesCategorieEO(categorie.getNoCategorie()));
 					System.out.println(categorie.getArticlesOfCategorie());
 				}
 				request.setAttribute("categories", categories);
-
 
 			} else {
 				request.setAttribute("categories", null);
@@ -155,61 +155,26 @@ public class Accueil extends HttpServlet {
 						// si en plus de la catégorie une recherche par nom existe
 
 						if (request.getParameter("q") != null && !request.getParameter("q").isBlank()) {
-							List<ArticleVendu> articlesEncheris = ArticleVenduManager.getInstance()
-									.recupUnArticleEncheriParutilisateurEtCategorie(utilisateur, noCategorie, q);
 
-							for (ArticleVendu articleVendu : articlesEncheris) {
-
-								if (EnchereManager.getInstance().recupLeGagnantEnchere(articleVendu) != null
-										&& EnchereManager.getInstance().recupLeGagnantEnchere(articleVendu)
-												.getAcquereur().equals(utilisateur))
-									articlesVendus.add(articleVendu);
-							}
+							articlesVendus = ArticleVenduManager.getInstance()
+									.recupUneEnchereRemporteeParUtilisateurParCategorie(utilisateur, noCategorie, q);
 
 						} else {
-							// si que catégorie selectionné
-							List<ArticleVendu> articlesEncheris = ArticleVenduManager.getInstance()
-									.recupArticlesEncherisParUtilisateurEtCategorie(utilisateur, noCategorie);
-
-							for (ArticleVendu articleVendu : articlesEncheris) {
-
-								if (EnchereManager.getInstance().recupLeGagnantEnchere(articleVendu) != null
-										&& EnchereManager.getInstance().recupLeGagnantEnchere(articleVendu)
-												.getAcquereur().equals(utilisateur))
-									articlesVendus.add(articleVendu);
-							}
-
+							articlesVendus = ArticleVenduManager.getInstance()
+									.recupEncheresRemporteesParUtilisateurParCategorie(utilisateur, noCategorie);
 						}
+
 					}
-					// traitement si aucune catégorie selectionnée
+					//si aucune catégorie selectionnée
 					else {
 						// si recherche par nom q
 						if (request.getParameter("q") != null && !request.getParameter("q").isBlank()) {
 
-							List<ArticleVendu> articlesEncheris = ArticleVenduManager.getInstance()
-									.recupUnArticleEncheriParUtilisateur(utilisateur, q);
-
-							for (ArticleVendu articleVendu : articlesEncheris) {
-
-								if (EnchereManager.getInstance().recupLeGagnantEnchere(articleVendu) != null
-										&& EnchereManager.getInstance().recupLeGagnantEnchere(articleVendu)
-												.getAcquereur().equals(utilisateur))
-									articlesVendus.add(articleVendu);
-							}
-
-						}
-
-						else {
-							List<ArticleVendu> articlesEncheris = ArticleVenduManager.getInstance()
-									.recupArticlesEncheresParUtilisateur(utilisateur);
-
-							for (ArticleVendu articleVendu : articlesEncheris) {
-
-								if (EnchereManager.getInstance().recupLeGagnantEnchere(articleVendu) != null
-										&& EnchereManager.getInstance().recupLeGagnantEnchere(articleVendu)
-												.getAcquereur().equals(utilisateur))
-									articlesVendus.add(articleVendu);
-							}
+							articlesVendus = ArticleVenduManager.getInstance()
+									.recupUneEnchereRemporteeParUtilisateur(utilisateur, q);
+						} else {
+							articlesVendus = ArticleVenduManager.getInstance()
+									.recupEncheresRemporteesParUtilisateur(utilisateur);
 						}
 					}
 //					
@@ -327,6 +292,7 @@ public class Accueil extends HttpServlet {
 				}
 
 			}
+
 		}
 
 		System.out.println(articlesVendus);

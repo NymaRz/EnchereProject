@@ -71,6 +71,44 @@ public class ArticleVenduJdbcImpl implements ArticleVenduDao {
 	private static final String FIND_ARTICLES_BY_VENDEUR_AND_ETAT_VENTE_AND_CATEGORIE = "SELECT * FROM ARTICLES_VENDUS WHERE no_utilisateur=? AND etat_vente=? AND no_categorie=?";
 	private static final String FIND_ONE_ARTICLE_BY_VENDEUR_AND_ETAT_VENTE_AND_CATEGORIE = "SELECT * FROM ARTICLES_VENDUS WHERE no_utilisateur=? AND etat_vente=? AND no_categorie=? AND nom_article LIKE ?";
 	private static final String FIND_ONE_ARTICLE_BY_VENDEUR_AND_ETAT_VENTE = "SELECT * FROM ARTICLES_VENDUS WHERE no_utilisateur=? AND etat_vente=? AND nom_article LIKE ?";
+	private static final String FIND_ONE_BY_HIGHEST_BID = "select top(1) av.no_article,\r\n"
+			+ "[nom_article]\r\n"
+			+ "      ,[description]\r\n"
+			+ "      ,[date_debut_encheres]\r\n"
+			+ "      ,[date_fin_encheres]\r\n"
+			+ "      ,[prix_initial]\r\n"
+			+ "      ,[prix_vente]\r\n"
+			+ "      ,[etat_vente]\r\n"
+			+ "      ,av.no_utilisateur as vendeur\r\n"
+			+ "      ,[no_categorie]\r\n"
+			+ "      ,[id_retrait]\r\n"
+			+ "      ,[enchere_min]\r\n"
+			+ "      ,[img]\r\n"
+			+ "      ,[gagnant],\r\n"
+			+ "	   e.no_utilisateur as acheteur\r\n"
+			+ "      ,[date_enchere]\r\n"
+			+ "      ,[montant_enchere]\r\n"
+			+ "      ,[id_enchere]\r\n"
+			+ "from ENCHERES AS e INNER JOIN ARTICLES_VENDUS AS av ON e.no_article=av.no_article WHERE av.etat_vente='vf' AND av.no_article=? AND av.nom_article LIKE ? order by montant_enchere DESC";
+	private static final String FIND_ONE_BY_HIGHEST_BID_AND_CATEGORIE = "select top(1) av.no_article,\r\n"
+			+ "[nom_article]\r\n"
+			+ "      ,[description]\r\n"
+			+ "      ,[date_debut_encheres]\r\n"
+			+ "      ,[date_fin_encheres]\r\n"
+			+ "      ,[prix_initial]\r\n"
+			+ "      ,[prix_vente]\r\n"
+			+ "      ,[etat_vente]\r\n"
+			+ "      ,av.no_utilisateur as vendeur\r\n"
+			+ "      ,[no_categorie]\r\n"
+			+ "      ,[id_retrait]\r\n"
+			+ "      ,[enchere_min]\r\n"
+			+ "      ,[img]\r\n"
+			+ "      ,[gagnant],\r\n"
+			+ "	   e.no_utilisateur as acheteur\r\n"
+			+ "      ,[date_enchere]\r\n"
+			+ "      ,[montant_enchere]\r\n"
+			+ "      ,[id_enchere]\r\n"
+			+ "from ENCHERES AS e INNER JOIN ARTICLES_VENDUS AS av ON e.no_article=av.no_article WHERE av.etat_vente='vf' AND av.no_article=? AND av.nom_article LIKE ? AND av.no_categorie=? order by montant_enchere DESC";
 
 	@Override
 	public void save(ArticleVendu articleVendu) {
@@ -653,7 +691,7 @@ public class ArticleVenduJdbcImpl implements ArticleVenduDao {
 				article.setJaquette(rs.getString("img"));
 				System.out.println("***********************");
 				article.setGagnant(DaoFactory.getUtilisateurDao().findOne(rs.getInt("acheteur")));
-				
+				this.modifyGagnant(article);
 				return article;
 			}
 		} catch (SQLException e) {
@@ -661,5 +699,77 @@ public class ArticleVenduJdbcImpl implements ArticleVenduDao {
 		}
 		return null;
 	}
+
+	@Override
+	public ArticleVendu recupUnArticleParEnchereLaPlusHaute(ArticleVendu article, String q) {
+		try (Connection connection = ConnectionProvider.getConnection();
+				PreparedStatement pstmt = connection.prepareStatement(FIND_ONE_BY_HIGHEST_BID);) {
+			pstmt.setInt(1, article.getnoArticle());
+			pstmt.setString(2, q);
+			ResultSet rs = pstmt.executeQuery();
+			if (rs.next()) {
+				ArticleVendu articleVendu = new ArticleVendu();
+				// Récupérer les données du ResultSet et les assigner à l'objet articleVendu
+				articleVendu.setnoArticle(rs.getInt("no_article"));
+				articleVendu.setNomArticle(rs.getString("nom_article"));
+				articleVendu.setDescription(rs.getString("description"));
+				articleVendu.setDateDebutEncheres(rs.getDate("date_debut_encheres").toLocalDate());
+				articleVendu.setDateFinEncheres(rs.getDate("date_fin_encheres").toLocalDate());
+				articleVendu.setMiseAPrix(rs.getInt("prix_initial"));
+				articleVendu.setPrixVente(rs.getInt("prix_vente"));
+				articleVendu.setEtatVente(rs.getString("etat_vente"));
+				articleVendu.setUtilisateur(DaoFactory.getUtilisateurDao().findOne(rs.getInt("vendeur")));
+				articleVendu.setCategorieArticle(DaoFactory.getCategorieDao().findOne(rs.getInt("no_categorie")));
+				articleVendu.setLieuRetrait(DaoFactory.getRetraitDao().findOne(rs.getInt("id_retrait")));
+				articleVendu.setEnchereMin(rs.getInt("enchere_min"));
+				articleVendu.setJaquette(rs.getString("img"));
+				System.out.println("***********************");
+				articleVendu.setGagnant(DaoFactory.getUtilisateurDao().findOne(rs.getInt("acheteur")));
+				this.modifyGagnant(articleVendu);
+				return articleVendu;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@Override
+	public ArticleVendu recupUnArticleParEnchereLaPlusHauteEtCategorie(ArticleVendu article, int noCategorie,
+			String q) {
+		try (Connection connection = ConnectionProvider.getConnection();
+				PreparedStatement pstmt = connection.prepareStatement(FIND_ONE_BY_HIGHEST_BID_AND_CATEGORIE);) {
+			pstmt.setInt(1, article.getnoArticle());
+			pstmt.setString(2, q);
+			pstmt.setInt(3, noCategorie);
+			ResultSet rs = pstmt.executeQuery();
+			if (rs.next()) {
+				ArticleVendu articleVendu = new ArticleVendu();
+				// Récupérer les données du ResultSet et les assigner à l'objet articleVendu
+				articleVendu.setnoArticle(rs.getInt("no_article"));
+				articleVendu.setNomArticle(rs.getString("nom_article"));
+				articleVendu.setDescription(rs.getString("description"));
+				articleVendu.setDateDebutEncheres(rs.getDate("date_debut_encheres").toLocalDate());
+				articleVendu.setDateFinEncheres(rs.getDate("date_fin_encheres").toLocalDate());
+				articleVendu.setMiseAPrix(rs.getInt("prix_initial"));
+				articleVendu.setPrixVente(rs.getInt("prix_vente"));
+				articleVendu.setEtatVente(rs.getString("etat_vente"));
+				articleVendu.setUtilisateur(DaoFactory.getUtilisateurDao().findOne(rs.getInt("vendeur")));
+				articleVendu.setCategorieArticle(DaoFactory.getCategorieDao().findOne(rs.getInt("no_categorie")));
+				articleVendu.setLieuRetrait(DaoFactory.getRetraitDao().findOne(rs.getInt("id_retrait")));
+				articleVendu.setEnchereMin(rs.getInt("enchere_min"));
+				articleVendu.setJaquette(rs.getString("img"));
+				System.out.println("***********************");
+				articleVendu.setGagnant(DaoFactory.getUtilisateurDao().findOne(rs.getInt("acheteur")));
+				this.modifyGagnant(articleVendu);
+				return articleVendu;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+
 
 }

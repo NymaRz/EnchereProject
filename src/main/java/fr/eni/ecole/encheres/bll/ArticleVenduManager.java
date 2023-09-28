@@ -98,7 +98,7 @@ public class ArticleVenduManager {
 		}
 		return articlesVendusOuvertsAuxEncheres;
 	}
-	
+
 	public ArticleVendu recupParEnchereLaPlusHaute(ArticleVendu articleVendu) {
 		return articleVenduDao.recupParEnchereLaPlusHaute(articleVendu);
 	}
@@ -158,23 +158,124 @@ public class ArticleVenduManager {
 		System.out.println("i worked");
 	}
 
-	public void updateAllGagnants() {
+	public List<ArticleVendu> recupAndUpdateAllGagnants() {
 		System.out.println("i also work");
 		List<ArticleVendu> articles = ArticleVenduManager.getInstance().recupTousLesArticlesVendus();
-		for (ArticleVendu articleVendu : articles) {
-			if (articleVendu.getEtatVente().equalsIgnoreCase("vf")) {
-
-				ArticleVendu gagnant = ArticleVenduManager.getInstance().recupParEnchereLaPlusHaute(articleVendu);
-				if (gagnant != null) {
-					System.out.println("1111111111111111");
-					System.out.println(gagnant.getGagnant());
-//					articleVendu.setGagnant(gagnant.getGagnant());
-//					ArticleVenduManager.getInstance().modifierGagnantArticleVendu(articleVendu);
-				}
+		List<ArticleVendu> articlesAvecGagnant = new ArrayList<ArticleVendu>();
+		for (ArticleVendu article : articles) {
+			System.out.println("entrée boucle for");
+			ArticleVendu articleVendu  =articleVenduDao.recupParEnchereLaPlusHaute(article);
+			if (articleVendu!=null && articleVendu.getGagnant()!=null) {
+				System.out.println("111111111111111111");
+			ArticleVenduManager.getInstance().modifierGagnantArticleVendu(articleVendu);
+			System.out.println("gagnant :"+ articleVendu.getGagnant().getPseudo());
+			articlesAvecGagnant.add(articleVendu);
+			System.out.println("22222222222222222222222");
 			}
+			System.out.println("sortie boucle for");
+
 		}
+
 		System.out.println("i actually did");
+		System.out.println(articlesAvecGagnant);
+		return articlesAvecGagnant;
 	}
+	
+//	
+//	
+//	
+//	
+//	
+//	
+//	
+//	
+//	
+//	
+//	
+	public List<ArticleVendu> recupAndUpdateAllGagnantsOfCategorie(int noCategorie) {
+		System.out.println("i also work");
+		List<ArticleVendu> articles = ArticleVenduManager.getInstance().recupTousLesArticlesVendus();
+		List<ArticleVendu> articlesAvecGagnant = new ArrayList<ArticleVendu>();
+		for (ArticleVendu article : articles) {
+			System.out.println("entrée boucle for");
+			ArticleVendu articleVendu  =articleVenduDao.recupParEnchereLaPlusHaute(article);
+			if (articleVendu!=null && articleVendu.getGagnant()!=null && articleVendu.getCategorieArticle().getNoCategorie()==noCategorie) {
+				System.out.println("111111111111111111");
+				ArticleVenduManager.getInstance().modifierGagnantArticleVendu(articleVendu);
+				System.out.println("gagnant :"+ articleVendu.getGagnant().getPseudo());
+				articlesAvecGagnant.add(articleVendu);
+				System.out.println("22222222222222222222222");
+			}
+			System.out.println("sortie boucle for");
+			
+		}
+		
+		System.out.println("i actually did");
+		System.out.println(articlesAvecGagnant);
+		return articlesAvecGagnant;
+		
+		
+	}
+		public List<ArticleVendu> recupAndUpdateONEArticleWithGagnant(String q) {
+			System.out.println("i also work");
+			List<ArticleVendu> articles = ArticleVenduManager.getInstance().recupTousLesArticlesVendus();
+			List<ArticleVendu> articlesAvecGagnant = new ArrayList<ArticleVendu>();
+			for (ArticleVendu article : articles) {
+				System.out.println("entrée boucle for");
+				ArticleVendu articleVendu  =articleVenduDao.recupUnArticleParEnchereLaPlusHaute(article, q);
+				if (articleVendu!=null && articleVendu.getGagnant()!=null) {
+					System.out.println("111111111111111111");
+					ArticleVenduManager.getInstance().modifierGagnantArticleVendu(articleVendu);
+					System.out.println("gagnant :"+ articleVendu.getGagnant().getPseudo());
+					articlesAvecGagnant.add(articleVendu);
+					System.out.println("22222222222222222222222");
+				}
+				System.out.println("sortie boucle for");
+				
+			}
+			
+			System.out.println("i actually did");
+			System.out.println(articlesAvecGagnant);
+			return articlesAvecGagnant;
+	}
+		public List<ArticleVendu> recupAndUpdateONEArticleWithGagnantOFCATEGORIE(int noCategorie, String q) {
+			System.out.println("i also work");
+			List<ArticleVendu> articles = ArticleVenduManager.getInstance().recupTousLesArticlesVendus();
+			List<ArticleVendu> articlesAvecGagnant = new ArrayList<ArticleVendu>();
+			for (ArticleVendu article : articles) {
+				System.out.println("entrée boucle for");
+				ArticleVendu articleVendu  =articleVenduDao.recupUnArticleParEnchereLaPlusHauteEtCategorie(article, noCategorie, q);
+				if (articleVendu!=null && articleVendu.getGagnant()!=null) {
+					System.out.println("111111111111111111");
+					ArticleVenduManager.getInstance().modifierGagnantArticleVendu(articleVendu);
+					System.out.println("gagnant :"+ articleVendu.getGagnant().getPseudo());
+					articlesAvecGagnant.add(articleVendu);
+					System.out.println("22222222222222222222222");
+				}
+				System.out.println("sortie boucle for");
+				
+			}
+			
+			System.out.println("i actually did");
+			System.out.println(articlesAvecGagnant);
+			return articlesAvecGagnant;
+		}
+	
+//	
+//	
+//	
+//	
+//	
+//	
+//	
+//	
+//	
+//	
+//	
+//	
+//	
+//	
+//	
 
 	public List<ArticleVendu> trierListeParCategorie(List<ArticleVendu> articles, int noCategorie) {
 		List<ArticleVendu> articlesVendusCategorie = ArticleVenduManager.getInstance()
@@ -241,22 +342,68 @@ public class ArticleVenduManager {
 	// fin retrouver les ventes en cours de l'utilisateur
 
 	public ArticleVendu recupDernierArticleRemporte(int noUtilisateur) {
-	    List<ArticleVendu> articlesVendus = recupTousLesArticlesVendus();
-	    ArticleVendu dernierArticleRemporte = null;
-	    for (ArticleVendu article : articlesVendus) {
-	        // Vérifiez si l'utilisateur a remporté l'enchère
-	        if (article.getUtilisateur().getNoUtilisateur() == noUtilisateur
-	                && article.getEtatVente().equals("vf")) {
-	            // Si c'est la première enchère remportée trouvée ou si elle est plus récente
-	            if (dernierArticleRemporte == null
-	                    || article.getDateFinEncheres().isAfter(dernierArticleRemporte.getDateFinEncheres())) {
-	                dernierArticleRemporte = article;
-	            }
-	        }
-	    }
-	    return dernierArticleRemporte;
+		List<ArticleVendu> articlesVendus = recupTousLesArticlesVendus();
+		ArticleVendu dernierArticleRemporte = null;
+		for (ArticleVendu article : articlesVendus) {
+			// Vérifiez si l'utilisateur a remporté l'enchère
+			if (article.getUtilisateur().getNoUtilisateur() == noUtilisateur && article.getEtatVente().equals("vf")) {
+				// Si c'est la première enchère remportée trouvée ou si elle est plus récente
+				if (dernierArticleRemporte == null
+						|| article.getDateFinEncheres().isAfter(dernierArticleRemporte.getDateFinEncheres())) {
+					dernierArticleRemporte = article;
+				}
+			}
+		}
+		return dernierArticleRemporte;
 	}
 
-
+	
+	//récupérer les articles remportés par un utilisateur
+	
+	 public List<ArticleVendu> recupEncheresRemporteesParUtilisateur(Utilisateur utilisateur){
+		 List<ArticleVendu> articlesAvecGagnant = ArticleVenduManager.getInstance().recupAndUpdateAllGagnants();
+		 List<ArticleVendu> articles = new ArrayList<ArticleVendu>();
+		 for (ArticleVendu articleVendu : articlesAvecGagnant) {
+			if (articleVendu.getGagnant().getNoUtilisateur()==utilisateur.getNoUtilisateur()) {
+				articles.add(articleVendu);
+			}
+		}
+		 return articles;
+	 }
+	 
+	 public List<ArticleVendu> recupEncheresRemporteesParUtilisateurParCategorie(Utilisateur utilisateur, int noCategorie){
+		 List<ArticleVendu> articlesAvecGagnant = ArticleVenduManager.getInstance().recupAndUpdateAllGagnantsOfCategorie(noCategorie);
+		 List<ArticleVendu> articles = new ArrayList<ArticleVendu>();
+		 for (ArticleVendu articleVendu : articlesAvecGagnant) {
+			if (articleVendu.getGagnant().getNoUtilisateur()==utilisateur.getNoUtilisateur()) {
+				articles.add(articleVendu);
+			}
+		}
+		 return articles;
+	 }
+	 public List<ArticleVendu> recupUneEnchereRemporteeParUtilisateur(Utilisateur utilisateur, String q){
+		 List<ArticleVendu> articlesAvecGagnant = ArticleVenduManager.getInstance().recupAndUpdateONEArticleWithGagnant(q);
+		 List<ArticleVendu> articles = new ArrayList<ArticleVendu>();
+		 for (ArticleVendu articleVendu : articlesAvecGagnant) {
+			 if (articleVendu.getGagnant().getNoUtilisateur()==utilisateur.getNoUtilisateur()) {
+				 articles.add(articleVendu);
+			 }
+		 }
+		 return articles;
+	 }
+	 public List<ArticleVendu> recupUneEnchereRemporteeParUtilisateurParCategorie(Utilisateur utilisateur,int noCategorie, String q){
+		 List<ArticleVendu> articlesAvecGagnant = ArticleVenduManager.getInstance().recupAndUpdateONEArticleWithGagnantOFCATEGORIE(noCategorie, q);
+		 List<ArticleVendu> articles = new ArrayList<ArticleVendu>();
+		 for (ArticleVendu articleVendu : articlesAvecGagnant) {
+			 if (articleVendu.getGagnant().getNoUtilisateur()==utilisateur.getNoUtilisateur()) {
+				 articles.add(articleVendu);
+			 }
+		 }
+		 return articles;
+	 }
+	 
+	 
+	 
+	
 	// Fin de la logique métier
 }

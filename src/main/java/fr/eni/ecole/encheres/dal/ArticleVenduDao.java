@@ -52,5 +52,13 @@ public interface ArticleVenduDao {
 
 	void modifyGagnant(ArticleVendu articleVendu);
 	
+	
+	//récupérer les enchères gagnantes
 	ArticleVendu recupParEnchereLaPlusHaute(ArticleVendu articleVendu);
+
+	ArticleVendu recupUnArticleParEnchereLaPlusHaute(ArticleVendu article, String q);
+
+	ArticleVendu recupUnArticleParEnchereLaPlusHauteEtCategorie(ArticleVendu article, int noCategorie, String q);
+	
+	//fin récupérer les enchères gagnantes
 }
