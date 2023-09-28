@@ -15,7 +15,11 @@ List<Categorie> categories = (List<Categorie>) request.getAttribute("categories"
 
 <div id="header-background">
 
-<div id="content-header"><h1>Le monde de l'art s'ouvre à vous</h1>
+
+<div id="content-header">
+
+<img src="${ pageContext.request.contextPath }/assets/logocondense.png" id="logo-image-big" />
+<h1>Le monde de l'art s'ouvre à vous</h1>
 <div id ="container-recherche">
 
 <form method="GET" action="${ pageContext.request.contextPath }/accueil">
