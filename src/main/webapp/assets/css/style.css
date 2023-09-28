@@ -22,6 +22,18 @@ main {
 
 #page-principale{}
 
+.bouton-pied-orange, .bouton-pied-blanc{padding:8px 12px;border-radius: 8px;}
+
+.bouton-pied-orange{background-color: #E2A125;}
+.bouton-pied-blanc{background-color: #FFF;}
+
+.hover-deco:hover img{opacity:0;}
+
+.credit-nav{padding:8px 12px;margin:-5px -8px;background-color: #E2A125;transition-duration: 200ms;border-radius:8px;line-height: 30px;}
+
+.credit-nav:hover{background-color: #3A444A;transition-duration: 200ms;}
+
+
 #bouton-retour{border:none;outline:none;margin-left:75px;}
 
 .loupe-accueil{float:right}

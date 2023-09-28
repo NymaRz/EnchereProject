@@ -33,7 +33,7 @@
 	</header> --%>
 
 
-	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+	<nav class="navbar navbar-expand-lg navbar-light ">
 		<div class="container navbarNav">
 			<a href="${ pageContext.request.contextPath }/accueil"><img
 				src="${ pageContext.request.contextPath }/assets/logo.png"
@@ -44,7 +44,7 @@
 				<span class="navbar-toggler-icon"></span>
 			</button>
 
-			<div class="collapse navbar-collapse " id="navbarNav">
+			<div class="collapse " id="navbarNav">
 
 				<c:choose>
 					<c:when test="${utilisateur == null}">
@@ -57,17 +57,21 @@
 					</c:when>
 					<c:otherwise>
 						<ul class="navbar-nav ml-auto">
+							<%-- <li class="nav-item"><a class="aNav"
+								href="${request.getContextPath()}/EnchereProject/encheres">Enchères</a></li> --%>
 							<li class="nav-item"><a class="aNav"
-								href="${request.getContextPath()}/EnchereProject/encheres">Enchères</a></li>
-							<li class="nav-item"><a class="aNav"
-								href="${request.getContextPath()}/EnchereProject/vendre-article">Vendre
-									un Article</a></li>
+								href="${request.getContextPath()}/EnchereProject/vendre-article">Vendre un Article</a></li>
 
-							<li class="nav-item"><a class="aNav"
-								href="${ pageContext.request.contextPath}/deconnexion">Déconnexion</a></li>
-							<li class="nav-item"><a class="aNav"
-								href="${ pageContext.request.contextPath}/profil"><img style="width:30px;height:30px;margin-right:8px;border-radius:50%" src="${ pageContext.request.contextPath }/Images/${utilisateur.photo}"/> ${ utilisateur.prenom }</a>
+							
+							<li class="nav-item"><a class="aNav" href="${ pageContext.request.contextPath}/profil">
+							<img style="width:30px;height:30px;margin-right:8px;border-radius:50%;" src="${ pageContext.request.contextPath }/Images/${utilisateur.photo}"/> ${ utilisateur.prenom }</a>
 								</li>
+															<li class="nav-item"><a class="aNav credit-nav" href="${pageContext.request.contextPath}/profil#credit">
+							${utilisateur.credit} crédit(s)</a></li>
+								<li class="nav-item"><div class="hover-deco" style="background:url(${pageContext.request.contextPath}/Images/decohover.png)center center no-repeat;background-size:25px"><a class="aNav" href="${ pageContext.request.contextPath}/deconnexion">
+							<img style="height:25px;" src="${ pageContext.request.contextPath }/Images/deco.png"></a></div></li>
+
+							
 						</ul>
 					</c:otherwise>
 				</c:choose>

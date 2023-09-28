@@ -5,7 +5,7 @@
 		<div class="row-footer">
 
 			<div class="column">
-				<img src="${ pageContext.request.contextPath }/assets/logo.png"
+				<img src="${ pageContext.request.contextPath }/assets/gdlogo.png"
 					id="logo-image" />
 				<p>Artovision chercher à rendre accessible l'art au plus grand
 					nombre.</p>
