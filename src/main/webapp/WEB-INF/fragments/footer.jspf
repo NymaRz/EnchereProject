@@ -12,7 +12,7 @@
 			</div>
 			
 			<div style="display:inline-block;width:35%;vertical-align:top;float:right;" class="column">
-				<h5>Réseaux Sociaux</h5>
+				<h4 style="color:#3A444A">Réseaux Sociaux</h5>
 				<ul class="list-inline">
 					<li class="list-inline-item"><a style="color:#3A444A" target="_blank" href="www.facebook.com"><i
 							class="fab fa-facebook-f"></i></a></li>
