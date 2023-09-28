@@ -5,6 +5,7 @@
 	<div class="col">
 		<div class="row text-center mt-4">
 <br>		</div>
+<div class="bloc-profil-alt">
 		<c:if test="${not empty success}">
 			<div class="alert alert-success" id="successMessage"
 				name="succesMessage">${success}</div>
@@ -14,6 +15,7 @@
 		<c:if test="${not empty error}">
 			<div class="alert alert-danger">${error}</div>
 		</c:if>
+		</div>
 		
 		<div class="bloc-profil-co">
 		<div class=" ">
