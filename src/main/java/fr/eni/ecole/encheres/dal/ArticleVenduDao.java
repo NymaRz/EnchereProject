@@ -48,6 +48,8 @@ public interface ArticleVenduDao {
 			int noCategorie, String etatVente);
 
 	List<ArticleVendu> recupUnArticlesVendusParUtilisateurSelonEtatVente(Utilisateur utilisateur, String q, String etatVente);
+	
+	ArticleVendu recupParEnchereLaPlusHauteParUtilisateur(Utilisateur utilisateur, ArticleVendu articleVendu);
 	// fin retrouver les ventes en cours de l'utilisateur
 
 	void modifyGagnant(ArticleVendu articleVendu);
@@ -59,6 +61,8 @@ public interface ArticleVenduDao {
 	ArticleVendu recupUnArticleParEnchereLaPlusHaute(ArticleVendu article, String q);
 
 	ArticleVendu recupUnArticleParEnchereLaPlusHauteEtCategorie(ArticleVendu article, int noCategorie, String q);
+
+	
 	
 	//fin récupérer les enchères gagnantes
 }

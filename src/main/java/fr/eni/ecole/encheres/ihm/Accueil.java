@@ -29,8 +29,9 @@ public class Accueil extends HttpServlet {
 		HttpSession session = request.getSession();
 		Utilisateur utilisateur = (Utilisateur) session.getAttribute("utilisateur");
 		List<ArticleVendu> articlesVendus = new ArrayList<ArticleVendu>();
-		List<Categorie> categories = new ArrayList<Categorie>();;
-	
+		List<Categorie> categories = new ArrayList<Categorie>();
+		;
+
 		String q = request.getParameter("q");
 
 		ArticleVenduManager.getInstance().updateAllArticles();
@@ -38,7 +39,6 @@ public class Accueil extends HttpServlet {
 
 		if (utilisateur == null) {
 
-		
 			if (request.getParameter("categorie") != null && Integer.parseInt(request.getParameter("categorie")) > 0) {
 				int noCategorie = Integer.parseInt(request.getParameter("categorie"));
 				// si en plus de la catégorie une recherche par nom existe
@@ -110,7 +110,6 @@ public class Accueil extends HttpServlet {
 
 					}
 				}
-
 				if (checkListeEncheres.equals("encheresEnCours")) {
 
 					request.setAttribute("nomListe", "Mes enchères en cours");
@@ -123,24 +122,29 @@ public class Accueil extends HttpServlet {
 						// si en plus de la catégorie une recherche par nom existe
 
 						if (request.getParameter("q") != null && !request.getParameter("q").isBlank()) {
-							articlesVendus = ArticleVenduManager.getInstance()
+							List<ArticleVendu> articlesVendusSansTri = ArticleVenduManager.getInstance()
 									.recupUnArticleEncheriParutilisateurEtCategorie(utilisateur, noCategorie, q);
-
-						} else
+							articlesVendus = ArticleVenduManager.getInstance().removeDuplicates(articlesVendusSansTri);
+						} else {
 							// si que catégorie selectionné
-							articlesVendus = ArticleVenduManager.getInstance()
+							List<ArticleVendu> articlesVendusSansTri = ArticleVenduManager.getInstance()
 									.recupArticlesEncherisParUtilisateurEtCategorie(utilisateur, noCategorie);
+							articlesVendus = ArticleVenduManager.getInstance().removeDuplicates(articlesVendusSansTri);
+						}
+
 					}
 					// traitement si aucune catégorie selectionnée
 					else {
 						// si recherche par nom q
-						if (request.getParameter("q") != null && !request.getParameter("q").isBlank())
-							articlesVendus = ArticleVenduManager.getInstance()
+						if (request.getParameter("q") != null && !request.getParameter("q").isBlank()) {
+							List<ArticleVendu> articlesVendusSansTri = ArticleVenduManager.getInstance()
 									.recupUnArticleEncheriParUtilisateur(utilisateur, q);
-
-						else
-							articlesVendus = ArticleVenduManager.getInstance()
+							articlesVendus = ArticleVenduManager.getInstance().removeDuplicates(articlesVendusSansTri);
+						} else {
+							List<ArticleVendu> articlesVendusSansTri = ArticleVenduManager.getInstance()
 									.recupArticlesEncheresParUtilisateur(utilisateur);
+							articlesVendus = ArticleVenduManager.getInstance().removeDuplicates(articlesVendusSansTri);
+						}
 					}
 
 				}
@@ -165,7 +169,7 @@ public class Accueil extends HttpServlet {
 						}
 
 					}
-					//si aucune catégorie selectionnée
+					// si aucune catégorie selectionnée
 					else {
 						// si recherche par nom q
 						if (request.getParameter("q") != null && !request.getParameter("q").isBlank()) {
@@ -177,9 +181,6 @@ public class Accueil extends HttpServlet {
 									.recupEncheresRemporteesParUtilisateur(utilisateur);
 						}
 					}
-//					
-//					
-//					
 
 				}
 				if (checkListeEncheres.equals("ventesEnCours")) {
@@ -294,7 +295,7 @@ public class Accueil extends HttpServlet {
 			}
 
 		}
-		if(categories==null) {
+		if (categories == null) {
 			categories = CategorieManager.getInstance().recupTouteCategories();
 		}
 		request.setAttribute("categories", categories);
