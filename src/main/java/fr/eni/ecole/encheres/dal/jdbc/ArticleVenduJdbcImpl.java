@@ -132,6 +132,7 @@ public class ArticleVenduJdbcImpl implements ArticleVenduDao {
 																			// donner un id au lieu de retrait
 			pstmt.setInt(11, articleVendu.getEnchereMin());
 			pstmt.setString(12, articleVendu.getJaquette());
+			pstmt.setInt(13, articleVendu.getGagnant().getNoUtilisateur());
 
 			// Exécuter la requête
 			pstmt.executeUpdate();

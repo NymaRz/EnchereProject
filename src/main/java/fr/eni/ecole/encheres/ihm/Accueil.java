@@ -29,8 +29,8 @@ public class Accueil extends HttpServlet {
 		HttpSession session = request.getSession();
 		Utilisateur utilisateur = (Utilisateur) session.getAttribute("utilisateur");
 		List<ArticleVendu> articlesVendus = new ArrayList<ArticleVendu>();
-
-		request.setAttribute("categories", CategorieManager.getInstance().recupTouteCategories());
+		List<Categorie> categories = new ArrayList<Categorie>();;
+	
 		String q = request.getParameter("q");
 
 		ArticleVenduManager.getInstance().updateAllArticles();
@@ -38,7 +38,7 @@ public class Accueil extends HttpServlet {
 
 		if (utilisateur == null) {
 
-			request.setAttribute("categories", null);
+		
 			if (request.getParameter("categorie") != null && Integer.parseInt(request.getParameter("categorie")) > 0) {
 				int noCategorie = Integer.parseInt(request.getParameter("categorie"));
 				// si en plus de la catégorie une recherche par nom existe
@@ -56,7 +56,7 @@ public class Accueil extends HttpServlet {
 					articlesVendus = ArticleVenduManager.getInstance().recupUnArticleVenduEncheresOuvertes(q);
 				} else {
 					articlesVendus = null;
-					List<Categorie> categories = CategorieManager.getInstance().recupTouteCategories();
+					categories = CategorieManager.getInstance().recupTouteCategories();
 					for (Categorie categorie : categories) {
 						categorie.setArticlesOfCategorie(
 								ArticleVenduManager.getInstance().recupArticlesCategorieEO(categorie.getNoCategorie()));
@@ -72,7 +72,7 @@ public class Accueil extends HttpServlet {
 			String checkListeEncheres = request.getParameter("listeEncheres");
 			if (checkListeEncheres == null) {
 				articlesVendus = null;
-				List<Categorie> categories = CategorieManager.getInstance().recupTouteCategories();
+				categories = CategorieManager.getInstance().recupTouteCategories();
 				for (Categorie categorie : categories) {
 					categorie.setArticlesOfCategorie(
 							ArticleVenduManager.getInstance().recupArticlesCategorieEO(categorie.getNoCategorie()));
@@ -294,9 +294,15 @@ public class Accueil extends HttpServlet {
 			}
 
 		}
+		if(categories==null) {
+			categories = CategorieManager.getInstance().recupTouteCategories();
+		}
+		request.setAttribute("categories", categories);
 
 		System.out.println(articlesVendus);
 		request.setAttribute("articlesVendus", articlesVendus);
+		List<Categorie> categoriesMenu = CategorieManager.getInstance().recupTouteCategories();
+		request.setAttribute("categoriesMenu", categoriesMenu);
 		request.setAttribute("annee", LocalDate.now().getYear());
 
 		request.getRequestDispatcher("WEB-INF/pages/accueil.jsp").forward(request, response);

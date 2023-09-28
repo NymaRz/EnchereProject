@@ -8,6 +8,9 @@
 <%
 List<Categorie> categories = (List<Categorie>) request.getAttribute("categories");
 %>
+	<%
+	List<Categorie> categoriesMenu = (List<Categorie>) request.getAttribute("categoriesMenu");
+	%>
 
 <%@page import="fr.eni.ecole.encheres.bo.*"%>
 
@@ -66,7 +69,7 @@ List<Categorie> categories = (List<Categorie>) request.getAttribute("categories"
 
 		<option value="0" selected>Catégories</option>
 
-		<c:forEach var="categorie" items="${ categories }">
+		<c:forEach var="categorie" items="${ categoriesMenu }">
 
 			<option value="${ categorie.noCategorie}">${categorie.libelle}</option>
 

@@ -108,7 +108,7 @@ public class ArticleVenduManager {
 		List<ArticleVendu> articlesVendus = ArticleVenduManager.getInstance()
 				.findArticlesVendusByCategorie(noCategorie);
 
-		System.out.println(articlesVendus);
+		
 		List<ArticleVendu> articlesVendusOuvertsAuxEncheres = new ArrayList<ArticleVendu>();
 
 		for (ArticleVendu articleVendu : articlesVendus) {
@@ -133,7 +133,7 @@ public class ArticleVenduManager {
 	}
 
 	public void updateAllArticles() {
-		System.out.println("i am working");
+		
 		List<ArticleVendu> articles = ArticleVenduManager.getInstance().recupTousLesArticlesVendus();
 		for (ArticleVendu articleVendu : articles) {
 			if (articleVendu.getDateDebutEncheres().isAfter(LocalDate.now())
@@ -155,29 +155,28 @@ public class ArticleVenduManager {
 			}
 
 		}
-		System.out.println("i worked");
+		
 	}
 
 	public List<ArticleVendu> recupAndUpdateAllGagnants() {
-		System.out.println("i also work");
+		
 		List<ArticleVendu> articles = ArticleVenduManager.getInstance().recupTousLesArticlesVendus();
 		List<ArticleVendu> articlesAvecGagnant = new ArrayList<ArticleVendu>();
 		for (ArticleVendu article : articles) {
 			System.out.println("entrée boucle for");
 			ArticleVendu articleVendu  =articleVenduDao.recupParEnchereLaPlusHaute(article);
 			if (articleVendu!=null && articleVendu.getGagnant()!=null) {
-				System.out.println("111111111111111111");
+				
 			ArticleVenduManager.getInstance().modifierGagnantArticleVendu(articleVendu);
 			System.out.println("gagnant :"+ articleVendu.getGagnant().getPseudo());
 			articlesAvecGagnant.add(articleVendu);
-			System.out.println("22222222222222222222222");
+			
 			}
-			System.out.println("sortie boucle for");
+			
 
 		}
 
-		System.out.println("i actually did");
-		System.out.println(articlesAvecGagnant);
+		
 		return articlesAvecGagnant;
 	}
 	
@@ -197,66 +196,66 @@ public class ArticleVenduManager {
 		List<ArticleVendu> articles = ArticleVenduManager.getInstance().recupTousLesArticlesVendus();
 		List<ArticleVendu> articlesAvecGagnant = new ArrayList<ArticleVendu>();
 		for (ArticleVendu article : articles) {
-			System.out.println("entrée boucle for");
+			
 			ArticleVendu articleVendu  =articleVenduDao.recupParEnchereLaPlusHaute(article);
 			if (articleVendu!=null && articleVendu.getGagnant()!=null && articleVendu.getCategorieArticle().getNoCategorie()==noCategorie) {
-				System.out.println("111111111111111111");
+				
 				ArticleVenduManager.getInstance().modifierGagnantArticleVendu(articleVendu);
 				System.out.println("gagnant :"+ articleVendu.getGagnant().getPseudo());
 				articlesAvecGagnant.add(articleVendu);
-				System.out.println("22222222222222222222222");
+				
 			}
-			System.out.println("sortie boucle for");
+			
 			
 		}
 		
-		System.out.println("i actually did");
+		
 		System.out.println(articlesAvecGagnant);
 		return articlesAvecGagnant;
 		
 		
 	}
 		public List<ArticleVendu> recupAndUpdateONEArticleWithGagnant(String q) {
-			System.out.println("i also work");
+			
 			List<ArticleVendu> articles = ArticleVenduManager.getInstance().recupTousLesArticlesVendus();
 			List<ArticleVendu> articlesAvecGagnant = new ArrayList<ArticleVendu>();
 			for (ArticleVendu article : articles) {
-				System.out.println("entrée boucle for");
+				
 				ArticleVendu articleVendu  =articleVenduDao.recupUnArticleParEnchereLaPlusHaute(article, q);
 				if (articleVendu!=null && articleVendu.getGagnant()!=null) {
-					System.out.println("111111111111111111");
+					
 					ArticleVenduManager.getInstance().modifierGagnantArticleVendu(articleVendu);
 					System.out.println("gagnant :"+ articleVendu.getGagnant().getPseudo());
 					articlesAvecGagnant.add(articleVendu);
-					System.out.println("22222222222222222222222");
+					
 				}
-				System.out.println("sortie boucle for");
+				
 				
 			}
 			
-			System.out.println("i actually did");
+			
 			System.out.println(articlesAvecGagnant);
 			return articlesAvecGagnant;
 	}
 		public List<ArticleVendu> recupAndUpdateONEArticleWithGagnantOFCATEGORIE(int noCategorie, String q) {
-			System.out.println("i also work");
+	
 			List<ArticleVendu> articles = ArticleVenduManager.getInstance().recupTousLesArticlesVendus();
 			List<ArticleVendu> articlesAvecGagnant = new ArrayList<ArticleVendu>();
 			for (ArticleVendu article : articles) {
 				System.out.println("entrée boucle for");
 				ArticleVendu articleVendu  =articleVenduDao.recupUnArticleParEnchereLaPlusHauteEtCategorie(article, noCategorie, q);
 				if (articleVendu!=null && articleVendu.getGagnant()!=null) {
-					System.out.println("111111111111111111");
+				
 					ArticleVenduManager.getInstance().modifierGagnantArticleVendu(articleVendu);
 					System.out.println("gagnant :"+ articleVendu.getGagnant().getPseudo());
 					articlesAvecGagnant.add(articleVendu);
-					System.out.println("22222222222222222222222");
+					
 				}
-				System.out.println("sortie boucle for");
+			
 				
 			}
 			
-			System.out.println("i actually did");
+	
 			System.out.println(articlesAvecGagnant);
 			return articlesAvecGagnant;
 		}
