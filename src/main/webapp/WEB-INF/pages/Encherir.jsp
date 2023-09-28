@@ -46,8 +46,8 @@
 					<input name="montantEnchere" id="montantEnchere" type="number"
 						value="${minEnchere}" min="${minEnchere }"
 						step="${articleVendu.enchereMin }" />
-					<button class="montantEnchere-increment">+ 100</button>
-					<button class="montantEnchere-decrement">- 100</button>
+					<button type="button" class="montantEnchere-increment">+ 100</button>
+					<button type="button" class="montantEnchere-decrement">- 100</button>
 					<button class="bouton-encherir" type="submit">ENCHERIR</button>
 				</div>
 			</div>
@@ -110,10 +110,7 @@ document.addEventListener("DOMContentLoaded", function () {
 						.querySelector("button.montantEnchere-decrement");
 
 				// Minimum number
-				let min = $
-				{
-					minEnchere
-				}
+				let min = ${minEnchere}
 				;
 
 				// Set the initial value
