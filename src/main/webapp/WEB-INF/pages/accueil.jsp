@@ -14,19 +14,13 @@
 		<c:when test="${utilisateur == null}">
 			<%@include file="/WEB-INF/fragments/recherche.jspf"%>
 		</c:when>
+		
 		<c:otherwise>
+			<div id="affichage-menu-recherche">
 			<%@include file="/WEB-INF/fragments/rechercheavancee.jspf"%>
+			</div>
 		</c:otherwise>
 	</c:choose>
-
-
-
-
-
-
-
-
-
 
 
 
@@ -41,7 +35,7 @@
 
 
 
-
+<div id="page-principale">
 	<div id="container-secondaire">
 
 
@@ -123,7 +117,9 @@
 
 
 
-	<div id="container-proof">
+	
+		</div>
+		<div id="container-proof">
 
 		<div id="container-secondaire">
 
@@ -155,6 +151,8 @@
 
 			</div>
 
+		</div>
+		
 		</div>
 </main>
 

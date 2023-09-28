@@ -15,10 +15,44 @@ main {
 	background-color: #E7E8E9;
 }
 
+#affichage-menu-recherche{display:inline-block; width:260px;vertical-align: top;position:fixed;margin-top:50px;margin: 5%;
+    background-color: #f0f0f0;
+    padding: 20px;
+    border-radius: 20px;}
+
+#page-principale{}
+
+#bouton-retour{border:none;outline:none;margin-left:75px;}
+
+.loupe-accueil{float:right}
+
+/* Styles de base pour le bouton radio */
+input[type="radio"] {
+  appearance: none; /* Masquer l'apparence par défaut du bouton radio */
+  -webkit-appearance: none; /* Pour les navigateurs basés sur WebKit (comme Chrome) */
+  -moz-appearance: none; /* Pour Firefox */
+  width: 20px; /* Largeur souhaitée */
+  height: 20px; /* Hauteur souhaitée */
+  border-radius: 50%; /* Pour créer un bouton radio rond */
+  outline: none; /* Supprimer la mise en évidence lors de la sélection */
+  cursor: pointer; /* Curseur au survol */
+  background-color: #fff; /* Fond transparent */
+  margin-right: 5px; /* Espace entre les boutons radio */
+  margin-bottom:-5px;
+}
+
+/* Styles pour le bouton radio sélectionné */
+input[type="radio"]:checked {
+  background-color: #E2A125; /* Couleur de fond lorsque sélectionné */
+}
+
+.txt-filtre{font-size:1em;line-height: 2.8em;color:#000}
 
 #logo-image {
 	width: 215px;
 }
+
+.categorie-accueil{background-color:#c5c5c57d;width:220px;;border-radius:8px;padding:8px;border:none;outline:none;margin:10px 0}
 
 .bouton-classique {
 	background-color: #fff;
@@ -90,7 +124,10 @@ label {
 	flex-direction: column;
 	justify-content: flex-end;
 	height: 200px;
+	transition-duration:100ms;
 }
+
+#miniature-article:hover{margin:-10px;padding:25px;transition-duration:200ms;height:220px;}
 
 .bouton-miniature {
 	display: flex;
@@ -173,6 +210,27 @@ h4.titre-miniature {
 	width: 40%;
 	margin: auto;
 	text-align: right;
+}
+
+#container-recherche {
+	padding: 15px;
+	background-color: #fff;
+	border-radius: 8px;
+	margin: auto;
+	text-align: right;
+}
+
+#container-recherche-accueil{
+	padding: 8px;
+	background-color: #fff;
+	border-radius: 8px;
+	width:220px;
+	text-align: left;
+	line-height: 44px;
+}
+
+#container-recherche-accueil #champ-recherche{
+	width:150px;
 }
 
 .container-footer {
@@ -283,7 +341,7 @@ h4.titre-miniature {
 #navbarNav {
 	display: flex;
 	justify-content: space-between;
-	align-items: center;
+	align-items: right;
 }
 
 #formulaire-vente {

@@ -5,7 +5,6 @@
 <main class="row">
 	<div class="col">
 		<div class="row text-center mt-4">
-			<h1>Mon Profil</h1>
 		</div>
 		<div class=" ">
 			<div class="bloc-profil-alt">
