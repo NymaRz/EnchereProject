@@ -33,13 +33,20 @@ public class EncherirServlet extends HttpServlet {
 			request.setAttribute("articleVendu", article);
 
 			Enchere enchereMax = EnchereManager.getInstance().recupEnchereLaPlusHaute(article);
-
+			// Transférer l'attribut "success" de la session à la requête
 			String message = (String) request.getSession().getAttribute("success");
-			request.getSession().removeAttribute("success");
-			request.setAttribute("success", message);
+			if (message != null) {
+			    request.setAttribute("success", message);
+			    request.getSession().removeAttribute("success");
+			}
+
+			// Transférer l'attribut "error" de la session à la requête
 			String messageError = (String) request.getSession().getAttribute("error");
-			request.getSession().removeAttribute("error");
-			request.setAttribute("error", messageError);
+			if (messageError != null) {
+			    request.setAttribute("error", messageError);
+			    request.getSession().removeAttribute("error");
+			}
+
 
 			int minEnchere;
 			if (enchereMax == null) {
@@ -81,7 +88,7 @@ public class EncherirServlet extends HttpServlet {
 				request.getSession().setAttribute("error", "Vous devez vous connecter pour enchérir sur un article");
 				response.sendRedirect(request.getContextPath() + "/connexion");
 			} else if (utilisateur.getNoUtilisateur() == article.getUtilisateur().getNoUtilisateur()) {
-	
+
 				request.getSession().setAttribute("error", "Vous ne pouvez pas enchérir sur vos propres articles");
 
 				doGet(request, response);
@@ -112,7 +119,6 @@ public class EncherirServlet extends HttpServlet {
 				request.setAttribute("enchere", enchereMax);
 
 				// redirect
-
 
 				request.getSession().setAttribute("success", "Votre enchère a été prise en compte !");
 

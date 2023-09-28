@@ -120,7 +120,7 @@
 
 	
 		</div>
-		<div id="container-proof">
+		<!-- <div id="container-proof">
 
 		<div id="container-secondaire">
 
@@ -154,7 +154,7 @@
 
 		</div>
 		
-		</div>
+		</div> -->
 </main>
 
 
