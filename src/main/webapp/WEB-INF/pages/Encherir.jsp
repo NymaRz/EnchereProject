@@ -38,7 +38,7 @@
 			<p>Gagnant de l'enchère : ${enchere.acquereur.pseudo}</p>
 		</c:if>
 
-
+<c:if test="${articleVendu.etatVente.equals('v')}">
 		<form action="" method="POST">
 			<div id="bloc-bouton-encherir">
 				<div class="montantEnchere">
@@ -55,7 +55,7 @@
 		<br>
 		<br>
 		<br>
-
+	</c:if>
 		<!-- <script>
 
 document.addEventListener("DOMContentLoaded", function () {
