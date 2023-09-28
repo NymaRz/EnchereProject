@@ -116,14 +116,14 @@ function displayFileName() {
 				<div id ="boutons">
 					<div class="mb-3 text-center mt-5">
 					
-						<button class="btn bouton-classique" type="reset">
+						<button class="btn bouton-pied-blanc" type="reset">
 <!-- 							<i class="fa-solid fa-rotate-right fa-rotate-180"></i> -->
 							<span>Annuler</span>
 						</button>
 						
-						<button class="btn bouton-action" type="submit">
+						<button class="btn bouton-pied-orange" type="submit">
 <!-- 							<i class="fa-regular fa-floppy-disk"></i>
- -->							<span>Appliquer</span>
+ -->							Appliquer
 						</button>
 					</div>
 				</div>
