@@ -19,19 +19,6 @@ public class EnchereNoCommenceeServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		// vérif session ? pas forcément besoin, à voir
-//		HttpSession session = request.getSession();
-//
-//		String email = (String) session.getAttribute("email");
-//		Utilisateur utilisateur;
-//		try {
-//			utilisateur = UtilisateurManager.getInstance().findByEmail(email);
-//			request.setAttribute("adresse", utilisateur.getAdresse());
-//		} catch (BLLException e) {
-//			e.printStackTrace();
-//		}
-
-		// quand un utilisateur clique sur un de ses articles ça renvoie l'id
 		try {
 			int noArticleVendu = Integer.parseInt(request.getParameter("noArticleVendu"));
 			ArticleVendu articleVendu = ArticleVenduManager.getInstance().recupArticleVenduEnchereNC(noArticleVendu);

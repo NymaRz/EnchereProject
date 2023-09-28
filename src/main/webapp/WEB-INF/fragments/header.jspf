@@ -64,7 +64,7 @@
 
 							
 							<li class="nav-item"><a class="aNav" href="${ pageContext.request.contextPath}/profil">
-							<img style="width:30px;height:30px;margin-right:8px;border-radius:50%;" src="${ pageContext.request.contextPath }/Images/${utilisateur.photo}"/> ${ utilisateur.prenom }</a>
+							<%-- <img style="width:30px;height:30px;margin-right:8px;border-radius:50%;" src="${ pageContext.request.contextPath }/Images/${utilisateur.photo}"/> --%> ${ utilisateur.prenom }</a>
 								</li>
 															<li class="nav-item"><a class="aNav credit-nav" href="${pageContext.request.contextPath}/profil#credit">
 							${utilisateur.credit} crédit(s)</a></li>

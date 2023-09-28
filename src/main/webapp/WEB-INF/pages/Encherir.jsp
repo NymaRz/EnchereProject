@@ -38,24 +38,81 @@
 			<p>Gagnant de l'enchère : ${enchere.acquereur.pseudo}</p>
 		</c:if>
 
-<c:if test="${articleVendu.etatVente.equals('v')}">
-		<form action="" method="POST">
-			<div id="bloc-bouton-encherir">
-				<div class="montantEnchere">
-					<%-- <label class="enchere-min" for="montantEnchere">${articleVendu.enchereMin}</label>  --%>
-					<input name="montantEnchere" id="montantEnchere" type="number"
-						value="${minEnchere}" min="${minEnchere }"
-						step="${articleVendu.enchereMin }" />
-					<button class="montantEnchere-increment">+ 100</button>
-					<button class="montantEnchere-decrement">- 100</button>
-					<button class="bouton-encherir" type="submit">ENCHERIR</button>
+		<c:if test="${articleVendu.etatVente.equals('v')}">
+			<form action="" method="POST">
+				<div id="bloc-bouton-encherir">
+					<div class="montantEnchere">
+						<%-- <label class="enchere-min" for="montantEnchere">${articleVendu.enchereMin}</label>  --%>
+						<input name="montantEnchere" id="montantEnchere" type="number"
+							value="${minEnchere}" min="${minEnchere }"
+							step="${articleVendu.enchereMin }" />
+						<button type="button" class="montantEnchere-increment">+
+							100</button>
+						<button type="button" class="montantEnchere-decrement">-
+							100</button>
+
+						<button class="bouton-encherir" type="submit">ENCHERIR</button>
+					</div>
 				</div>
-			</div>
-		</form>
-		<br>
-		<br>
-		<br>
-	</c:if>
+			</form>
+
+
+			<script>
+				document.addEventListener("DOMContentLoaded", function() {
+					let el = document.querySelector(".montantEnchere");
+					let input = el.querySelector("input");
+					let incrementBtn = el
+							.querySelector("button.montantEnchere-increment");
+					let decrementBtn = el
+							.querySelector("button.montantEnchere-decrement");
+
+					// Minimum number
+					let min = ${minEnchere}
+					;
+
+					// Set the initial value
+					input.value = min;
+
+					// Increment
+					incrementBtn.addEventListener("click", function(event) {
+						event.preventDefault(); // Empêche l'envoi du formulaire
+						var value = parseInt(input.value);
+						if (value >= min) {
+							value += 100;
+						}
+						input.value = value;
+					});
+
+					// Decrement
+					decrementBtn.addEventListener("click", function(event) {
+						event.preventDefault(); // Empêche l'envoi du formulaire
+						var value = parseInt(input.value);
+						if (value >= min) {
+							value -= 100;
+						}
+						input.value = value;
+					});
+
+					// Blur event to reset to the minimum if input is empty or negative
+					input.addEventListener("blur", function() {
+						var value = parseInt(input.value);
+						if (isNaN(value) || value < min) {
+							input.value = min;
+						}
+					});
+				});
+			</script>
+
+
+
+
+
+
+
+			<br>
+			<br>
+			<br>
+		</c:if>
 		<!-- <script>
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -100,54 +157,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 </script> -->
 
-		<script>
-			document.addEventListener("DOMContentLoaded", function() {
-				let el = document.querySelector(".montantEnchere");
-				let input = el.querySelector("input");
-				let incrementBtn = el
-						.querySelector("button.montantEnchere-increment");
-				let decrementBtn = el
-						.querySelector("button.montantEnchere-decrement");
 
-				// Minimum number
-				let min = $
-				{
-					minEnchere
-				}
-				;
-
-				// Set the initial value
-				input.value = min;
-
-				// Increment
-				incrementBtn.addEventListener("click", function(event) {
-					event.preventDefault(); // Empêche l'envoi du formulaire
-					var value = parseInt(input.value);
-					if (value >= min) {
-						value += 100;
-					}
-					input.value = value;
-				});
-
-				// Decrement
-				decrementBtn.addEventListener("click", function(event) {
-					event.preventDefault(); // Empêche l'envoi du formulaire
-					var value = parseInt(input.value);
-					if (value >= min) {
-						value -= 100;
-					}
-					input.value = value;
-				});
-
-				// Blur event to reset to the minimum if input is empty or negative
-				input.addEventListener("blur", function() {
-					var value = parseInt(input.value);
-					if (isNaN(value) || value < min) {
-						input.value = min;
-					}
-				});
-			});
-		</script>
 
 	</div>
 
