@@ -109,7 +109,7 @@ function displayFileName() {
 					<div class="mb-3 profil-confirmationmdp">
 						<label for="confirmermdp" class="form-label">Confirmer le mot de passe:</label> <input
 							readonly="readonly" type="password" class="form-control" id="confirmermdp"
-							name="confirmermdp" value="">
+							name="confirmermdp" value="${utilisateur.mdp}">
 					</div>
 				</div>
 
@@ -118,12 +118,12 @@ function displayFileName() {
 					
 						<button class="btn bouton-pied-blanc" type="reset">
 <!-- 							<i class="fa-solid fa-rotate-right fa-rotate-180"></i> -->
-							<span>Annuler</span>
+							<span style="border:none;outline:none;background-color: #fff;padding:15px 20px; border-radius:8px;margin:-5px">Annuler</span>
 						</button>
 						
 						<button class="btn bouton-pied-orange" type="submit">
 <!-- 							<i class="fa-regular fa-floppy-disk"></i>
- -->							Appliquer
+ -->							<span  style="border:none;outline:none;background-color: #E2A125;padding:15px 20px; border-radius:8px;margin:-5px">Appliquer</span>
 						</button>
 					</div>
 				</div>
@@ -137,11 +137,11 @@ function displayFileName() {
 							action="${ pageContext.request.contextPath }/supprimerprofil"
 							onsubmit="return confirm('Voulez-vous vraiment supprimer votre profil ?')">
 
-							<button type="submit" name="id" value="${utilisateur.noUtilisateur}" class="bouton-action">
+							<button type="submit" name="id" value="${utilisateur.noUtilisateur}" class="bouton-action" style="width: 100%;outline: none;border: none; background: transparent">
 <!-- 								<i class="fa-solid fa-trash"></i> -->						
-								<span>Clôturer mon compte</span>
+								<span style="border:none;outline:none;background-color:#fff;padding:8px 12px; border-radius:8px;margin:-5px">Clôturer mon compte</span>
 								
-							</button>
+							</button><br><br><br>
 						</form>
 					</div>
 				</div>

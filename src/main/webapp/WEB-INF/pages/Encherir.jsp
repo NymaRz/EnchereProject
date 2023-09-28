@@ -46,60 +46,14 @@
 					<input name="montantEnchere" id="montantEnchere" type="number"
 						value="${minEnchere}" min="${minEnchere }"
 						step="${articleVendu.enchereMin }" />
-					<button class="montantEnchere-increment">+ 100</button>
-					<button class="montantEnchere-decrement">- 100</button>
+					<button type="button" class="montantEnchere-increment">+ 20</button>
+					<button type="button" class="montantEnchere-decrement">- 20</button>
 					<button class="bouton-encherir" type="submit">ENCHERIR</button>
 				</div>
 			</div>
 		</form>
-		<br>
-		<br>
-		<br>
-	</c:if>
-		<!-- <script>
-
-document.addEventListener("DOMContentLoaded", function () {
-  let el = document.querySelector(".montantEnchere");
-  let input = el.querySelector("input");
-  let incrementBtn = el.querySelector("button.montantEnchere-increment");
-  let decrementBtn = el.querySelector("button.montantEnchere-decrement");
-
-  // Minimum number
-  let min = ${minEnchere};
-
-  // Set the initial value
-  input.value = min;
-
-  // Increment
-  incrementBtn.addEventListener("click", function () {
-    var value = parseInt(input.value);
-    if (value >= min) {
-      value += 100;
-    }
-    input.value = value;
-
-  });
-  
-  decrementBtn.addEventListener("click", function () {
-	  var value = parseInt(input.value);
-	  if (value >= min) { // Vérifiez que la valeur est supérieure ou égale à min
-	    value--;
-	  }
-	  input.value = value;
-	});
-
-
-<<<<<<< HEAD
-  // Blur event to reset to the minimum if input is empty or negative
-  input.addEventListener("blur", function () {
-    var value = parseInt(input.value);
-    if (isNaN(value) || value < min) {
-      input.value = min;
-    }
-  });
-});
-</script> -->
-
+		
+		
 		<script>
 			document.addEventListener("DOMContentLoaded", function() {
 				let el = document.querySelector(".montantEnchere");
@@ -148,6 +102,62 @@ document.addEventListener("DOMContentLoaded", function () {
 				});
 			});
 		</script>
+		
+		
+		
+		
+		
+		
+		
+		<br>
+		<br>
+		<br>
+	</c:if>
+		<!-- <script>
+
+document.addEventListener("DOMContentLoaded", function () {
+  let el = document.querySelector(".montantEnchere");
+  let input = el.querySelector("input");
+  let incrementBtn = el.querySelector("button.montantEnchere-increment");
+  let decrementBtn = el.querySelector("button.montantEnchere-decrement");
+
+  // Minimum number
+  let min = ${minEnchere};
+
+  // Set the initial value
+  input.value = min;
+
+  // Increment
+  incrementBtn.addEventListener("click", function () {
+    var value = parseInt(input.value);
+    if (value >= min) {
+      value += 100;
+    }
+    input.value = value;
+
+  });
+  
+  decrementBtn.addEventListener("click", function () {
+	  var value = parseInt(input.value);
+	  if (value >= min) { // Vérifiez que la valeur est supérieure ou égale à min
+	    value--;
+	  }
+	  input.value = value;
+	});
+
+
+<<<<<<< HEAD
+  // Blur event to reset to the minimum if input is empty or negative
+  input.addEventListener("blur", function () {
+    var value = parseInt(input.value);
+    if (isNaN(value) || value < min) {
+      input.value = min;
+    }
+  });
+});
+</script> -->
+
+		
 
 	</div>
 
