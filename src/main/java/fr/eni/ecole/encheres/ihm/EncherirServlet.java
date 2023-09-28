@@ -28,7 +28,6 @@ public class EncherirServlet extends HttpServlet {
 			int noArticle = Integer.parseInt(request.getParameter("id"));
 			// récupérer l'objet game
 			ArticleVendu article = ArticleVenduManager.getInstance().recupUnArticleVendu(noArticle);
-			System.out.println(article);
 			// transmettre l'objet vers la jsp
 			request.setAttribute("articleVendu", article);
 
@@ -53,9 +52,6 @@ public class EncherirServlet extends HttpServlet {
 				request.setAttribute("minEnchere", minEnchere);
 
 			}
-			System.out.println("111111111111111111111111111111111111111111111111111");
-			System.out.println(article);
-			System.out.println("222222222222222222222222222222222222222222222222222");
 			
 
 			// forward

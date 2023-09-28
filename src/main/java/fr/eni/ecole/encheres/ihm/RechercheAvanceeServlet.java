@@ -21,13 +21,7 @@ public class RechercheAvanceeServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
-	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
@@ -52,17 +46,14 @@ public class RechercheAvanceeServlet extends HttpServlet {
 			}
 		}
 		if (checkListeEncheres.equals("ventesEnCours")) {
-			System.out.println("11111111111111111111111111111");
 			articlesVendus = ArticleVenduManager.getInstance()
 					.recupArticlesVendusParUtilisateurSelonEtatVente(utilisateur, "v");
 		}
 		if (checkListeEncheres.equals("ventesNonDebutees")) {
-			System.out.println("2222222222222222222222");
 			articlesVendus = ArticleVenduManager.getInstance()
 					.recupArticlesVendusParUtilisateurSelonEtatVente(utilisateur, "av");
 		}
 		if (checkListeEncheres.equals("ventesTerminees")) {
-			System.out.println("3333333333333333333333333");
 			articlesVendus = ArticleVenduManager.getInstance()
 					.recupArticlesVendusParUtilisateurSelonEtatVente(utilisateur, "vf");
 		}

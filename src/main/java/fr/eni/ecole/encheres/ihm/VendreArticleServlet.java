@@ -112,7 +112,6 @@ public class VendreArticleServlet extends HttpServlet {
 			Retrait retraitBDD = RetraitManager.getInstance().recupRetraitParAdresse(adresseBDD);
 
 			// fin code à revoir
-			System.out.println(fileName);
 			ArticleVendu articleVendu = new ArticleVendu(0, nomArticle, description, dateDebutEncheres, dateFinEncheres,
 					miseAPrix, categorie, retraitBDD, utilisateur, fileName);
 			if (dateDebutEncheres.isAfter(LocalDate.now())) {
@@ -122,9 +121,7 @@ public class VendreArticleServlet extends HttpServlet {
 			}
 			articleVendu.setPrixVente(miseAPrix);
 
-			System.out.println("tentative d'enregistrement de l'article dans la BDD");
 			ArticleVenduManager.getInstance().ajouterUnArticleVendu(articleVendu);
-			System.out.println("article enregistré dans la BDD");
 			response.sendRedirect(request.getContextPath() + "/accueil");
 
 		} catch (ServletException e) {
@@ -134,9 +131,6 @@ public class VendreArticleServlet extends HttpServlet {
 		}
 	}
 
-	/*
-	 * Récupération du nom du fichier dans la requête.
-	 */
 	private String getFileName(Part part) {
 		for (String content : part.getHeader("content-disposition").split(";")) {			
 			if (content.trim().startsWith("filename")) {				

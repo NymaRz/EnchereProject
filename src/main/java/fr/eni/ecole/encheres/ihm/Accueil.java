@@ -76,7 +76,6 @@ public class Accueil extends HttpServlet {
 				for (Categorie categorie : categories) {
 					categorie.setArticlesOfCategorie(
 							ArticleVenduManager.getInstance().recupArticlesCategorieEO(categorie.getNoCategorie()));
-					System.out.println(categorie.getArticlesOfCategorie());
 				}
 				request.setAttribute("categories", categories);
 
@@ -299,7 +298,6 @@ public class Accueil extends HttpServlet {
 		}
 		request.setAttribute("categories", categories);
 
-		System.out.println(articlesVendus);
 		request.setAttribute("articlesVendus", articlesVendus);
 		List<Categorie> categoriesMenu = CategorieManager.getInstance().recupTouteCategories();
 		request.setAttribute("categoriesMenu", categoriesMenu);
